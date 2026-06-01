@@ -108,6 +108,16 @@ export const guideChapters: GuideChapter[] = [
         ],
         tip: 'Tap-to-focus is the fastest way to grab a precise spot, like a face through a crowd or the front of a dish.',
       },
+      {
+        heading: 'The four touch actions',
+        body: [
+          'Touch Focus: a tap sets where the camera focuses.',
+          'Touch Tracking: a tap locks onto a moving subject and follows it. Great for a child weaving through a market.',
+          'Touch Shutter: a tap focuses and fires the photo in one go.',
+          'Touch AE: a tap sets the brightness from that spot, handy when a face is much darker than the background.',
+        ],
+        tip: 'You choose which of these a tap does under MENU → Setup → Touch Operation. Touch Focus or Touch Tracking are the most useful day to day.',
+      },
     ],
   },
 
@@ -266,6 +276,14 @@ export const guideChapters: GuideChapter[] = [
         ],
         tip: 'If you shoot RAW you can change white balance later on a computer with no quality loss. One more reason to keep RAW + JPEG on.',
       },
+      {
+        heading: 'Setting it by hand (custom white balance)',
+        body: [
+          'If a room has stubborn, odd-coloured light, you can teach the camera what white looks like there. This is "custom white balance".',
+          'Fill the frame with something white or grey (a napkin, a wall), choose Custom Setup in the white balance menu, and press to capture. The camera now matches that light exactly.',
+          'You only need this in extreme mixed lighting. For everyday Vietnam shooting, Auto is genuinely excellent.',
+        ],
+      },
     ],
   },
   {
@@ -285,6 +303,32 @@ export const guideChapters: GuideChapter[] = [
           'M (Manual): you set everything. For tripod night shots and total control.',
         ],
         tip: 'The 1, 2, 3 slots on the dial recall a whole saved setup. Save your street settings to slot 1 (see the Memory recall chapter) and you are ready instantly.',
+      },
+    ],
+  },
+  {
+    id: 'judging-exposure',
+    title: 'Reading the light precisely',
+    icon: 'gauge',
+    group: 'Exposure & light',
+    summary: 'Two on-screen tools that tell you if the brightness is truly right.',
+    sections: [
+      {
+        heading: 'The histogram',
+        body: [
+          'The histogram is a little graph of how bright your photo is. The left side is the darks, the right side is the brights, and the height shows how much of the photo sits at each level.',
+          'If the graph is squashed against the right wall, the brightest parts are "blown out" (pure white with no detail). Squashed against the left wall means the shadows are crushed to black.',
+          'Aim for the bulk of the graph sitting between the two walls. Press the DISP button to bring the histogram up on screen.',
+        ],
+        tip: 'In tricky light like a bright Ha Long Bay sky, trust the histogram over the screen brightness, which can fool your eye.',
+      },
+      {
+        heading: 'Zebra stripes',
+        body: [
+          'Turn on Zebra Display and the camera paints moving diagonal stripes over any area that is too bright and about to lose detail.',
+          'It is a live warning: if a white shirt or a bright sky fills with zebras, dial in some minus exposure compensation until the stripes calm down.',
+          'It is especially handy for keeping detail in bright clouds, water and pale walls.',
+        ],
       },
     ],
   },
@@ -366,6 +410,14 @@ export const guideChapters: GuideChapter[] = [
           'You normally leave this on Auto/Human and forget about it. It quietly makes your keeper rate much higher.',
         ],
       },
+      {
+        heading: 'Remembering a face',
+        body: [
+          'You can register a few faces (Face Memory) so the camera gives them priority when several people are in the frame.',
+          'Register your travel companions once, and in a busy market the camera will lock onto them rather than a passing stranger.',
+          'It is optional and a little fiddly to set up, but lovely for keeping the people you care about pin-sharp.',
+        ],
+      },
     ],
   },
   {
@@ -383,6 +435,21 @@ export const guideChapters: GuideChapter[] = [
           'Magnify: press the assigned button to zoom the preview in, so you can nail focus on fine detail, then shoot.',
         ],
         tip: 'For tripod night shots, manual focus on a distant bright light, then leave the ring alone for the rest of the session.',
+      },
+      {
+        heading: 'Autofocus, then tweak by hand (DMF)',
+        body: [
+          'Direct Manual Focus (DMF) lets the camera autofocus first, then you nudge the focus ring by hand to perfect it, all in one motion.',
+          'It is the best of both worlds: the speed of autofocus with a final manual touch for things like a flower or a face through railings.',
+          'Set Focus Mode to DMF, half-press to focus, then turn the ring while still half-pressed.',
+        ],
+      },
+      {
+        heading: 'Composing in near-darkness',
+        body: [
+          'In very dark scenes the screen can be too dim to frame a shot. Turn on Bright Monitoring and the camera brightens the live preview so you can see to compose.',
+          'The preview gets a little rough while it does this, but your actual photo is unaffected. Turn it off again afterwards.',
+        ],
       },
     ],
   },
@@ -449,6 +516,58 @@ export const guideChapters: GuideChapter[] = [
       },
     ],
   },
+  {
+    id: 'flicker',
+    title: 'Banding under indoor lights',
+    icon: 'zap',
+    group: 'Capture',
+    summary: 'Why some indoor photos get stripes, and the two switches that fix it.',
+    sections: [
+      {
+        heading: 'What the stripes are',
+        body: [
+          'Many indoor and market lights (fluorescent tubes and cheap LEDs) flicker far too fast for your eye to see. The camera, though, can catch that flicker as dark horizontal bands across the photo, or as colours that shift shot to shot.',
+          'You will meet this a lot in Vietnam: markets, shops, restaurants and metro stations often have flickering lights.',
+        ],
+        tip: 'If your indoor photos have faint stripes or uneven colour, flicker is the cause, not your settings.',
+      },
+      {
+        heading: 'The two fixes',
+        body: [
+          'Anti-flicker Shooting: turn it On and the camera detects the flicker and quietly times each shot to the bright moment. Half-press and wait for the little flicker icon, then shoot. This handles the common 100/120-cycle lights.',
+          'Variable Shutter: for stubborn LED banding, this lets you fine-tune the shutter speed while watching the screen until the stripes vanish.',
+          'Both live under MENU → Shooting → Shutter/Silent → Anti-flicker Set. For most cases, Anti-flicker Shooting On is enough.',
+        ],
+        tip: 'These only work with the normal (mechanical) shutter, so if you are using Silent Mode and see banding, switch Silent off.',
+      },
+    ],
+  },
+  {
+    id: 'timelapse',
+    title: 'Time-lapse & slow motion',
+    icon: 'clock',
+    group: 'Capture',
+    summary: 'Speed time up, or slow it right down, for memorable travel clips.',
+    sections: [
+      {
+        heading: 'Time-lapse (speeding time up)',
+        body: [
+          'A time-lapse turns a long, slow event (clouds drifting over Ha Long Bay, a market filling up, sunset colours) into a short, sped-up clip.',
+          'Two ways on the A7C II: the built-in time-lapse mode can build the finished clip for you, or Interval Shooting takes a series of photos at a set gap that you assemble into a movie later on a computer (Sony’s free Imaging Edge app).',
+          'Rest the camera on something rock-steady, set how often it shoots and for how long, then leave it. Plug in a power bank, as it runs for a while and can warm up.',
+        ],
+        tip: 'A great first try: one photo every 2 seconds for 5 minutes of a busy street corner makes a lovely few-second clip.',
+      },
+      {
+        heading: 'Slow motion (slowing time down)',
+        body: [
+          'The S&Q (slow & quick) mode records video that plays back in graceful slow motion, lovely for splashing water, street performers or fluttering lanterns.',
+          'Turn the small top-left dial to S&Q, and the camera films faster than normal so the playback looks slowed down.',
+          'It needs good light to look clean, so save it for daytime.',
+        ],
+      },
+    ],
+  },
 
   // ════════════════════════ IMAGE QUALITY & LOOK ════════════════════════
   {
@@ -473,6 +592,14 @@ export const guideChapters: GuideChapter[] = [
           'RAW comes in Lossless Compressed (smaller, no quality loss, recommended) or Uncompressed (huge, no benefit for most people).',
           'JPEG has quality levels (Extra Fine, Fine, Standard) and sizes (L, M, S). Extra Fine Large is the one to use.',
           'A 128GB card holds thousands of RAW + JPEG pairs, plenty for a long trip with a spare card as backup.',
+        ],
+      },
+      {
+        heading: 'A newer photo format: HEIF',
+        body: [
+          'The A7C II can also save photos as HEIF instead of JPEG. HEIF holds smoother colour gradations (think subtle sunset skies) in a smaller file.',
+          'The catch is that some older phones, computers and apps still cannot open HEIF, so it is less universally shareable than JPEG.',
+          'For a trip, plain JPEG (alongside RAW) is the safe, share-anywhere choice. Try HEIF later once you know your devices handle it.',
         ],
       },
     ],
@@ -545,6 +672,57 @@ export const guideChapters: GuideChapter[] = [
       },
     ],
   },
+  {
+    id: 'reach',
+    title: 'Reaching further',
+    icon: 'crosshair',
+    group: 'Image quality',
+    summary: 'How to get more zoom out of the short kit lens when you cannot get closer.',
+    sections: [
+      {
+        heading: 'Clear Image Zoom',
+        body: [
+          'Your 28-60 kit lens is short, so a detail across a market can feel out of reach. Clear Image Zoom pushes in further (about double) using clever processing, with very little loss of quality.',
+          'Turn it on with MENU → Shooting → Zoom → Zoom Range → Clear Image Zoom, then zoom past the end of the lens.',
+          'Digital Zoom goes even further but gets noticeably soft, so use it only when you truly must.',
+        ],
+        tip: 'Clear Image Zoom works on JPEG/HEIF, not RAW. If you shoot RAW + JPEG, the JPEG gets the extra reach.',
+      },
+      {
+        heading: 'Or crop in afterwards',
+        body: [
+          'The A7C II’s photos are big (33 megapixels), so you can simply crop into a shot later and still have plenty of detail.',
+          'That is often the easiest "zoom": frame a little wide, then crop to taste on your phone or computer.',
+          'The APS-C crop setting (in the Shadows, highlights & crop chapter) does the same thing in-camera for instant extra reach.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'clean-files',
+    title: 'Cleaner files at night',
+    icon: 'sparkle',
+    group: 'Image quality',
+    summary: 'Quiet helpers that reduce grain and fix lens quirks automatically.',
+    sections: [
+      {
+        heading: 'Noise reduction',
+        body: [
+          'High ISO NR gently smooths the grain that appears in dark, high-ISO shots. Normal is a good balance; turn it Low if you prefer to keep fine detail.',
+          'Long Exposure NR helps tripod night shots: after a multi-second exposure the camera takes a second, quick "dark" frame to cancel out hot speckles. It doubles the wait, but cleans up star and skyline shots.',
+          'These only affect JPEGs. RAW files stay untouched, so you control noise later in editing.',
+        ],
+        tip: 'For handheld night markets, leave High ISO NR on Normal and do not worry about it.',
+      },
+      {
+        heading: 'Automatic lens fixes',
+        body: [
+          'Lens Compensation quietly corrects three small lens quirks: darker corners, faint colour fringing on hard edges, and slight bending of straight lines.',
+          'Leave all three on Auto and forget about them. Your photos just look cleaner, especially architecture with straight edges.',
+        ],
+      },
+    ],
+  },
 
   // ════════════════════════ CUSTOM CONTROLS ════════════════════════
   {
@@ -596,6 +774,14 @@ export const guideChapters: GuideChapter[] = [
         ],
         tip: 'This is the single biggest time-saver. One twist of the dial and the camera is configured for the moment.',
       },
+      {
+        heading: 'Back up your whole setup',
+        body: [
+          'Once you have set up custom buttons, the Fn menu and My Menu, save the lot to your memory card with Save/Load Settings.',
+          'If you ever reset the camera by accident, or buy a second body, you can load it all back in one go rather than redoing every step.',
+          'Do this after finishing the "Before You Fly" checklist, then keep that card safe.',
+        ],
+      },
     ],
   },
 
@@ -623,6 +809,15 @@ export const guideChapters: GuideChapter[] = [
           'Flip the screen to face you for selfie-style clips. Eye autofocus keeps you sharp as you move.',
         ],
       },
+      {
+        heading: 'Filming yourself, hands-free',
+        body: [
+          'Auto Framing can follow you around the frame and crop to keep you nicely placed, even with the camera sitting still on a table. It is like having an invisible camera operator.',
+          'Framing Stabilizer smooths out the wobble so a walk-and-talk clip looks steady.',
+          'Both are video-only and live in the movie menus. Flip the screen to face you, turn them on, and just talk.',
+        ],
+        tip: 'You can ignore the Picture Profile and Log settings entirely. They are for advanced colour grading and only make footage look flat and grey otherwise.',
+      },
     ],
   },
   {
@@ -640,6 +835,14 @@ export const guideChapters: GuideChapter[] = [
           'Delete with the trash button. Be a little ruthless each evening so your card and your editing stay manageable.',
         ],
         tip: 'Give your best shots a star rating in playback. Later, your computer can filter to just the rated keepers, saving hours.',
+      },
+      {
+        heading: 'Protect, crop & grab a frame',
+        body: [
+          'Protect a favourite so a careless "delete all" can never wipe it.',
+          'Crop straightens or tightens a shot right on the camera if you want to share it immediately.',
+          'Photo Capture pulls a single still out of a video clip, a neat way to rescue a moment you only caught on film.',
+        ],
       },
     ],
   },
@@ -669,6 +872,15 @@ export const guideChapters: GuideChapter[] = [
           'Back up to your phone or a small drive each evening, so a lost camera never means lost memories.',
         ],
       },
+      {
+        heading: 'Heat in the tropics',
+        body: [
+          'In Vietnam’s heat, long video clips or time-lapses can make the camera warm and eventually pause to cool down.',
+          'If you film a lot, set Auto Power OFF Temp. to High, which lets the camera keep running while it gets a little warmer to the touch.',
+          'Keep it out of direct sun between shots, and flip the screen away from your body so heat can escape.',
+        ],
+        tip: 'For stills-only street shooting you will almost never see a heat warning. It mainly matters for long 4K clips.',
+      },
     ],
   },
   {
@@ -692,6 +904,7 @@ export const guideChapters: GuideChapter[] = [
         body: [
           'When you are not transferring, turn on Airplane Mode to switch off the radios and save battery.',
           'It is also required on flights, and it is one tap from your My Menu.',
+          'Back home, a single USB-C cable turns the camera into a high-quality webcam (USB Streaming) for video calls, no extra software needed.',
         ],
       },
     ],

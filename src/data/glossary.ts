@@ -49,6 +49,23 @@ export const glossaryTerms: GlossaryTerm[] = [
   { id: 'hot-shoe', term: 'Hot shoe', plain: 'The slot on top for adding a flash or microphone. Sony’s also carries digital audio for clean sound.' },
   { id: 'firmware', term: 'Firmware', plain: 'The camera’s internal software. Free updates from Sony add features and fix bugs.' },
   { id: 'megapixel', term: 'Megapixel', plain: 'A measure of how many dots make up the photo. The A7C II’s 33 means big, detailed prints and room to crop.' },
+  { id: 'heif', term: 'HEIF', plain: 'A newer photo format that stores smoother colour in a smaller file than JPEG. The catch: some older phones and apps cannot open it yet.', also: 'JPEG, RAW' },
+  { id: 'zebra', term: 'Zebra display', plain: 'Diagonal stripes the camera draws over parts of the scene that are too bright and about to lose detail. A live "too bright" warning.', also: 'histogram, exposure' },
+  { id: 'anti-flicker', term: 'Anti-flicker / Variable Shutter', plain: 'Tools that remove the stripes and colour shifts caused by fast-flickering indoor and LED lights. Common in markets and shops.', also: 'shutter type' },
+  { id: 'electronic-shutter', term: 'Electronic vs mechanical shutter', plain: 'The mechanical shutter makes a quiet click; the electronic one is silent. Silent is discreet but can band under flickering lights.', also: 'silent shutter, anti-flicker' },
+  { id: 'timelapse', term: 'Time-lapse', plain: 'Many photos taken over a long time, played back fast, so clouds race and a market fills in seconds.', also: 'interval' },
+  { id: 'interval', term: 'Interval shooting', plain: 'The camera takes a photo every few seconds by itself. You join them into a time-lapse afterwards.', also: 'time-lapse' },
+  { id: 'slow-motion', term: 'Slow motion (S&Q)', plain: 'A video mode that films extra fast so the playback looks gracefully slowed down. Needs good light.' },
+  { id: 'clear-image-zoom', term: 'Clear Image Zoom', plain: 'Extra zoom (about double) using clever processing with very little quality loss, handy when your lens is too short.', also: 'digital zoom, crop' },
+  { id: 'digital-zoom', term: 'Digital zoom', plain: 'Zoom beyond Clear Image Zoom that simply enlarges the pixels, so the image gets soft. Use only as a last resort.', also: 'Clear Image Zoom' },
+  { id: 'lens-compensation', term: 'Lens compensation', plain: 'Automatic fixes for small lens quirks: darker corners, colour fringing on edges, and slight bending of straight lines. Leave on Auto.' },
+  { id: 'noise-reduction', term: 'Noise reduction', plain: 'Smoothing that reduces the speckly grain in dark, high-ISO shots. "Long Exposure NR" does the same for multi-second tripod shots.', also: 'noise, ISO' },
+  { id: 'dmf', term: 'DMF (direct manual focus)', plain: 'Let the camera autofocus, then turn the lens ring to fine-tune by hand, all in one move.', also: 'manual focus, autofocus' },
+  { id: 'custom-wb', term: 'Custom white balance', plain: 'Teaching the camera what white looks like in odd lighting by photographing something white or grey.', also: 'white balance' },
+  { id: 'picture-profile', term: 'Picture Profile / Log', plain: 'Advanced video colour settings for editing pros. Leave them off; they make normal footage look flat and grey.' },
+  { id: 'bright-monitoring', term: 'Bright Monitoring', plain: 'Brightens the live preview in near-darkness so you can frame a shot. Only the preview changes, not the photo.' },
+  { id: 'auto-framing', term: 'Auto Framing', plain: 'For video: the camera follows you and crops to keep you well placed, like an automatic camera operator.', also: 'framing stabilizer' },
+  { id: 'creators-app', term: 'Creators’ App', plain: 'Sony’s free phone app. Copy photos to your phone, control the camera remotely, and add your location, all over the camera’s own Wi-Fi.' },
 ]
 
 export const glossaryById = (id: string): GlossaryTerm | undefined =>
