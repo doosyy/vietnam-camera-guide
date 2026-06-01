@@ -1,6 +1,10 @@
 # Vietnam Camera Companion 📷
 
-Your Sony A7C II field guide for street photography in Vietnam. A dark, offline, mobile-first web app (PWA) with a scene wizard, cheat sheet, interactive camera map, plain-English guide, pre-trip setup checklist, Vietnam lighting guide, and a lens buying guide. Built to be added to your phone's home screen and used with no signal.
+Your Sony A7C II field guide for street photography in Vietnam. A dark, offline, mobile-first web app (PWA) with a scene wizard, cheat sheet, interactive camera map, a full de-jargoned manual, pre-trip setup checklist, Vietnam lighting guide, and a lens buying guide. Built to be added to your phone's home screen and used with no signal.
+
+**▶ Live: https://doosyy.github.io/vietnam-camera-guide/**
+
+Open that on your phone in Safari (iPhone) or Chrome (Android), then **Share → Add to Home Screen**. After the first load it works fully offline.
 
 ## Run it on your computer
 
