@@ -83,7 +83,11 @@ body {
 
 /* ---------- THE APP (full screen) ---------- */
 .app {
-  position: fixed; inset: 0;
+  position: fixed; top: 0; left: 0; right: 0;
+  /* Dynamic viewport height tracks iOS Safari's collapsing toolbar so the
+     bottom nav always sits flush at the visible bottom edge. */
+  height: 100vh;
+  height: 100dvh;
   background: var(--bg);
   color: var(--text);
   display: flex; flex-direction: column;
@@ -164,7 +168,9 @@ a { color: inherit; text-decoration: none; }
 html[data-theme="dark"] .seg button.on { background: var(--surface-3); }
 
 /* ---------- LAYOUT ---------- */
-.screen { padding: 18px 18px 132px; }
+/* Bottom padding clears the floating nav (~55px tall) plus the iPhone home
+   indicator, leaving a small, consistent gap above the toolbar. */
+.screen { padding: 18px 18px calc(80px + env(safe-area-inset-bottom)); }
 .stack > * + * { margin-top: var(--g, 14px); }
 .row { display: flex; align-items: center; }
 .between { display: flex; align-items: center; justify-content: space-between; }

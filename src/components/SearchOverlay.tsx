@@ -83,7 +83,7 @@ export default function SearchOverlay({
         </button>
       </div>
 
-      <div className="scroll" style={{ padding: '18px 18px 30px' }}>
+      <div className="scroll" style={{ padding: '18px 18px calc(30px + env(safe-area-inset-bottom))' }}>
         {q.trim().length < 2 && (
           <div className="fu stack" style={{ '--g': '26px' } as React.CSSProperties}>
             {recent.length > 0 && (
