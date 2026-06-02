@@ -89,6 +89,9 @@ html[data-theme="light"] {
 }
 
 html, body, #root { height: 100%; }
+/* Paint the whole document (including any iOS safe-area band) the app colour,
+   so the bottom bar reads as reaching the very edge of the screen. */
+html { background: var(--bg); }
 body {
   font-family: var(--font-sans);
   background: var(--bg);
