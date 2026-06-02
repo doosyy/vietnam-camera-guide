@@ -15,6 +15,7 @@ const CameraMap = lazy(() => import('./pages/CameraMap'))
 const Composition = lazy(() => import('./pages/Composition'))
 const Glossary = lazy(() => import('./pages/Glossary'))
 const MenuReference = lazy(() => import('./pages/MenuReference'))
+const HowTo = lazy(() => import('./pages/HowTo'))
 const ScreenIcons = lazy(() => import('./pages/ScreenIcons'))
 const Trip = lazy(() => import('./pages/Trip'))
 const Setup = lazy(() => import('./pages/Setup'))
@@ -97,6 +98,7 @@ export default function App() {
           <Route path="/learn/composition" element={<Composition />} />
           <Route path="/learn/glossary" element={<Glossary />} />
           <Route path="/learn/menu" element={<MenuReference />} />
+          <Route path="/learn/how-to" element={<HowTo />} />
           <Route path="/learn/icons" element={<ScreenIcons />} />
           <Route path="/trip" element={<Trip />} />
           <Route path="/trip/setup" element={<Setup />} />

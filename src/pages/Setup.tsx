@@ -39,6 +39,18 @@ export default function Setup() {
         </div>
       </div>
 
+      <button
+        onClick={() => navigate('/learn/how-to')}
+        className="tap row between"
+        style={{ width: '100%', textAlign: 'left', gap: 12, marginBottom: 22, padding: 13, borderRadius: 14, background: 'var(--surface)', border: '1px solid var(--border)' }}
+      >
+        <span className="row" style={{ gap: 11, minWidth: 0 }}>
+          <span style={{ color: 'var(--accent)', flexShrink: 0 }}><Icon name="sliders" size={18} /></span>
+          <span className="small" style={{ color: 'var(--text-2)' }}>Lost on a step? Open <b style={{ color: 'var(--text)' }}>How to set anything</b> for the exact buttons and full menu path.</span>
+        </span>
+        <Icon name="chevronRight" size={16} style={{ color: 'var(--text-3)', flexShrink: 0 }} />
+      </button>
+
       <div className="stack" style={{ '--g': '22px' } as React.CSSProperties}>
         {setupGroups.map((g) => {
           const steps = setupSteps.filter((s) => s.group === g.id)

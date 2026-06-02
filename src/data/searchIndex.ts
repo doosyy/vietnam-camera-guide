@@ -8,6 +8,7 @@ import { vietnamLocations } from './vietnam'
 import { glossaryTerms } from './glossary'
 import { lenses } from './lenses'
 import { menuItems } from './menuReference'
+import { settingRecipes } from './settingsRecipes'
 import { screenIcons } from './screenIcons'
 
 // One searchable index built from every data file. Icons use the design icon set.
@@ -41,6 +42,10 @@ export const buildSearchIndex = (): SearchEntry[] => {
 
   menuItems.forEach((m) =>
     e.push({ id: `menu-${m.id}`, title: m.name, snippet: m.plain, section: 'Menu Reference', icon: 'checklist', route: `/learn/menu?q=${encodeURIComponent(m.name)}`, keywords: `${m.sony ?? ''} ${m.group} ${m.tab} setting menu` })
+  )
+
+  settingRecipes.forEach((r) =>
+    e.push({ id: `howto-${r.id}`, title: r.title, snippet: r.what, section: 'How-To', icon: 'sliders', route: `/learn/how-to?open=${r.id}`, keywords: `${r.path} ${r.pick ?? ''} ${r.keywords ?? ''} how to set steps menu path` })
   )
 
   screenIcons.forEach((s) =>

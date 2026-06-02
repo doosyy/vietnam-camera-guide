@@ -400,7 +400,7 @@ export const guideChapters: GuideChapter[] = [
           'It works while the person moves and even when they turn away and back, which is why street portraits feel almost too easy on this camera.',
           'In the menu you can set it to recognise Humans or Animals. For Vietnam’s street dogs and temple cats, switch it to Animal.',
         ],
-        tip: 'Put Eye AF on the AEL button so one thumb press snaps focus to the nearest eye the instant someone turns to you.',
+        tip: 'Put Eye AF on the C2 button or the centre of the control wheel so one thumb press snaps focus to the nearest eye the instant someone turns to you.',
       },
       {
         heading: 'Smart subject recognition',
@@ -735,9 +735,9 @@ export const guideChapters: GuideChapter[] = [
       {
         heading: 'Custom buttons',
         body: [
-          'Several buttons (C1, AEL, AF-ON, the control-wheel edges and centre, even the movie button) can be reassigned to any job you like.',
-          'Set them under MENU → Setup → Operation Customise → Custom Key (Shooting). You can even set different jobs for stills, video and playback.',
-          'Good street choices: C1 → Focus Area, AEL → Eye AF, control-wheel right → ISO, left → Drive Mode.',
+          'Several buttons (C1, C2, AF-ON, the control-wheel edges and centre, even the movie button) can be reassigned to any job you like. Note the A7C II has C1 and C2, not a separate "AEL" button.',
+          'Set them under MENU → Setup → Operation Customize → Custom Key/Dial Set. You can even set different jobs for stills, video and playback.',
+          'Good street choices: C1 → Focus Area, C2 → Eye AF (or Silent Mode), control-wheel right → ISO, left → Drive Mode.',
         ],
         tip: 'The full recommended layout, step by step, lives in the "Before You Fly" checklist on the Trip tab.',
       },
