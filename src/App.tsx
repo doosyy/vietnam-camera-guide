@@ -84,6 +84,7 @@ const TABS = [
   { id: 'shoot', label: 'Shoot', icon: 'wand', path: '/shoot' },
   { id: 'cheat', label: 'Cheat', icon: 'bolt', path: '/cheat' },
   { id: 'learn', label: 'Learn', icon: 'book', path: '/learn' },
+  { id: 'buttons', label: 'Buttons', icon: 'click', path: '/buttons' },
   { id: 'trip', label: 'Trip', icon: 'plane', path: '/trip' },
 ]
 
@@ -91,6 +92,7 @@ function activeTab(pathname: string): string {
   if (pathname === '/') return 'home'
   if (pathname.startsWith('/shoot')) return 'shoot'
   if (pathname.startsWith('/cheat')) return 'cheat'
+  if (pathname.startsWith('/buttons')) return 'buttons'
   if (pathname.startsWith('/learn')) return 'learn'
   if (pathname.startsWith('/trip')) return 'trip'
   return 'home'
@@ -147,7 +149,7 @@ export default function App() {
           <Route path="/learn/glossary" element={<Glossary />} />
           <Route path="/learn/menu" element={<MenuReference />} />
           <Route path="/learn/how-to" element={<HowTo />} />
-          <Route path="/learn/buttons" element={<MyButtons />} />
+          <Route path="/buttons" element={<MyButtons />} />
           <Route path="/learn/icons" element={<ScreenIcons />} />
           <Route path="/trip" element={<Trip />} />
           <Route path="/trip/setup" element={<Setup />} />

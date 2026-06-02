@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { BackBar, Eyebrow, Note, Pill } from '../components/ui'
+import { PageHead, Note, Pill } from '../components/ui'
 import { useApp } from '../context/AppContext'
 import {
   controls, controlGroups, functions, functionById, controlById,
@@ -80,13 +80,8 @@ export default function MyButtons() {
   }
 
   return (
-    <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/learn')} label="Learn" />
-      <div style={{ marginBottom: 16 }}>
-        <Eyebrow style={{ marginBottom: 9 }}>My Buttons</Eyebrow>
-        <h1 className="h1" style={{ fontSize: 25 }}>Your custom controls</h1>
-        <p className="body" style={{ marginTop: 7 }}>Record what each button is set to. I will rate how fast each one is and suggest the best setup for your trip.</p>
-      </div>
+    <div className="screen anim-tab">
+      <PageHead eyebrow="My Buttons" title="Your custom controls" sub="Record what each button is set to. I will rate how fast each one is and suggest the best setup for your trip." />
 
       {/* goal switch */}
       <p className="small" style={{ color: 'var(--text-2)', marginBottom: 8, fontWeight: 600 }}>Tune the suggestions for:</p>

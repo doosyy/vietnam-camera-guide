@@ -48,7 +48,7 @@ export const buildSearchIndex = (): SearchEntry[] => {
     e.push({ id: `howto-${r.id}`, title: r.title, snippet: r.what, section: 'How-To', icon: 'sliders', route: `/learn/how-to?open=${r.id}`, keywords: `${r.path} ${r.pick ?? ''} ${r.keywords ?? ''} how to set steps menu path` })
   )
 
-  e.push({ id: 'my-buttons', title: 'My Buttons', snippet: 'Record your custom buttons and get speed ratings and the ideal Vietnam setup.', section: 'My Buttons', icon: 'click', route: '/learn/buttons', keywords: 'custom buttons C1 C2 AF-ON control wheel Fn tiles assign recommendations setup which button how fast reachable' })
+  e.push({ id: 'my-buttons', title: 'My Buttons', snippet: 'Record your custom buttons and get speed ratings and the ideal Vietnam setup.', section: 'My Buttons', icon: 'click', route: '/buttons', keywords: 'custom buttons C1 C2 AF-ON control wheel Fn tiles assign recommendations setup which button how fast reachable' })
 
   screenIcons.forEach((s) =>
     e.push({ id: `icon-${s.id}`, title: s.label, snippet: s.meaning, section: 'Icon Keys', icon: 'grid', route: `/learn/icons?q=${encodeURIComponent(s.label)}`, keywords: `${s.group} symbol icon screen display` })
