@@ -1,4 +1,4 @@
-import type { CameraHotspot } from './types'
+import type { CameraHotspot, CameraView } from './types'
 
 // Coordinates are percentages (0–100) within the stylised SVG of each view.
 // They line up with the dots drawn by the CameraDiagram component.
@@ -154,7 +154,101 @@ export const hotspots: CameraHotspot[] = [
     whatItDoes: 'Reviews the photos you have taken.',
     beginnerTip: 'Spin the front dial while reviewing to zoom in and check focus is sharp.',
   },
+
+  // ---------------- FRONT VIEW ----------------
+  {
+    id: 'lens-mount',
+    view: 'front',
+    x: 56,
+    y: 55,
+    label: 'Lens & mount',
+    sonyName: 'E-mount',
+    whatItDoes: 'Where the lens attaches. Line up the white dots, push and twist until it clicks.',
+    beginnerTip: 'Change lenses quickly with the camera pointed down, to keep dust off the sensor.',
+  },
+  {
+    id: 'lens-release',
+    view: 'front',
+    x: 35,
+    y: 47,
+    label: 'Lens release button',
+    sonyName: 'Lens release',
+    whatItDoes: 'Hold this in to twist the lens off.',
+    beginnerTip: 'Support the lens with your other hand before you press it, so nothing drops.',
+  },
+  {
+    id: 'front-dial',
+    view: 'front',
+    x: 30,
+    y: 24,
+    label: 'Front dial',
+    sonyName: 'Front dial',
+    whatItDoes: 'A dial under your shooting finger. In A mode it sets the aperture (the blur).',
+    beginnerTip: 'The A7C II added this front dial over the original A7C, giving you two dials for quicker control.',
+  },
+  {
+    id: 'af-lamp',
+    view: 'front',
+    x: 72,
+    y: 30,
+    label: 'AF assist / timer lamp',
+    sonyName: 'AF Illuminator',
+    whatItDoes: 'A small light that helps autofocus in the dark, and blinks during the self-timer.',
+    beginnerTip: 'If it bothers people in quiet places, you can switch the AF Illuminator off in the menu.',
+  },
+  {
+    id: 'grip-front',
+    view: 'front',
+    x: 16,
+    y: 62,
+    label: 'Hand grip',
+    sonyName: 'Grip',
+    whatItDoes: 'The sculpted bulge you hold. The battery lives inside it, reached from the base.',
+    beginnerTip: 'A firm grip plus elbows tucked in is half the secret to sharp handheld shots.',
+  },
+
+  // ---------------- PORTS (LEFT SIDE) ----------------
+  {
+    id: 'port-usb',
+    view: 'ports',
+    x: 44,
+    y: 34,
+    label: 'USB-C port',
+    sonyName: 'USB Type-C',
+    whatItDoes: 'Charges and powers the camera, transfers photos, and acts as a webcam.',
+    beginnerTip: 'A USB-C power bank keeps you shooting all day without swapping batteries.',
+  },
+  {
+    id: 'port-hdmi',
+    view: 'ports',
+    x: 44,
+    y: 52,
+    label: 'Micro HDMI',
+    sonyName: 'HDMI (Type-D)',
+    whatItDoes: 'Sends video out to a TV, monitor or recorder with the right cable.',
+    beginnerTip: 'You will rarely need this for travel. It is mostly for video work.',
+  },
+  {
+    id: 'port-mic',
+    view: 'ports',
+    x: 44,
+    y: 70,
+    label: 'Microphone jack',
+    sonyName: 'Mic in (3.5mm)',
+    whatItDoes: 'Plug in an external microphone for much better sound in videos.',
+    beginnerTip: 'For headphones to monitor audio, use a USB-C headphone adapter.',
+  },
+  {
+    id: 'card-door',
+    view: 'ports',
+    x: 78,
+    y: 50,
+    label: 'Memory card slot',
+    sonyName: 'SD card slot',
+    whatItDoes: 'Holds your single SD card, behind a small door.',
+    beginnerTip: 'Use a fast UHS-II card (V30 or higher) so the camera never stutters.',
+  },
 ]
 
-export const hotspotsByView = (view: 'top' | 'back'): CameraHotspot[] =>
+export const hotspotsByView = (view: CameraView): CameraHotspot[] =>
   hotspots.filter((h) => h.view === view)

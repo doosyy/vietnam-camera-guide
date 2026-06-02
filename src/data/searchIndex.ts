@@ -7,6 +7,8 @@ import { compositionTips } from './composition'
 import { vietnamLocations } from './vietnam'
 import { glossaryTerms } from './glossary'
 import { lenses } from './lenses'
+import { menuItems } from './menuReference'
+import { screenIcons } from './screenIcons'
 
 // One searchable index built from every data file. Icons use the design icon set.
 export const buildSearchIndex = (): SearchEntry[] => {
@@ -35,6 +37,14 @@ export const buildSearchIndex = (): SearchEntry[] => {
   )
   lenses.forEach((l) =>
     e.push({ id: `lens-${l.id}`, title: l.name, snippet: l.oneLiner, section: 'Lenses', icon: 'aperture', route: `/trip/lenses#${l.id}`, keywords: `${l.bestFor.join(' ')} ${l.strengths.join(' ')} ${l.weaknesses.join(' ')} buy` })
+  )
+
+  menuItems.forEach((m) =>
+    e.push({ id: `menu-${m.id}`, title: m.name, snippet: m.plain, section: 'Menu Reference', icon: 'checklist', route: `/learn/menu?q=${encodeURIComponent(m.name)}`, keywords: `${m.sony ?? ''} ${m.group} ${m.tab} setting menu` })
+  )
+
+  screenIcons.forEach((s) =>
+    e.push({ id: `icon-${s.id}`, title: s.label, snippet: s.meaning, section: 'Icon Keys', icon: 'grid', route: `/learn/icons?q=${encodeURIComponent(s.label)}`, keywords: `${s.group} symbol icon screen display` })
   )
 
   return e

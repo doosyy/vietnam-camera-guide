@@ -12,6 +12,8 @@ import GuideChapterPage from './pages/GuideChapter'
 import CameraMap from './pages/CameraMap'
 import Composition from './pages/Composition'
 import Glossary from './pages/Glossary'
+import MenuReference from './pages/MenuReference'
+import ScreenIcons from './pages/ScreenIcons'
 import Trip from './pages/Trip'
 import Setup from './pages/Setup'
 import Vietnam from './pages/Vietnam'
@@ -82,6 +84,8 @@ export default function App() {
           <Route path="/learn/camera" element={<CameraMap />} />
           <Route path="/learn/composition" element={<Composition />} />
           <Route path="/learn/glossary" element={<Glossary />} />
+          <Route path="/learn/menu" element={<MenuReference />} />
+          <Route path="/learn/icons" element={<ScreenIcons />} />
           <Route path="/trip" element={<Trip />} />
           <Route path="/trip/setup" element={<Setup />} />
           <Route path="/trip/vietnam" element={<Vietnam />} />

@@ -4,6 +4,8 @@ import { PageHead, SectionTitle, NavRow } from '../components/ui'
 import { guideChapters, guideGroups } from '../data/guide'
 
 const tools = [
+  { icon: 'checklist', label: 'Menu A–Z', route: '/learn/menu' },
+  { icon: 'grid', label: 'Icon Keys', route: '/learn/icons' },
   { icon: 'camera', label: 'Camera Map', route: '/learn/camera' },
   { icon: 'frame', label: 'Composition', route: '/learn/composition' },
   { icon: 'glossary', label: 'Glossary', route: '/learn/glossary' },

@@ -56,6 +56,8 @@ export interface GuideSection {
   heading: string
   body: string[]
   tip?: string
+  // Advanced sections render collapsed ("go deeper") so the page stays light.
+  advanced?: boolean
 }
 
 export interface GuideChapter {
@@ -67,9 +69,11 @@ export interface GuideChapter {
   sections: GuideSection[]
 }
 
+export type CameraView = 'front' | 'back' | 'top' | 'ports'
+
 export interface CameraHotspot {
   id: string
-  view: 'top' | 'back'
+  view: CameraView
   x: number
   y: number
   label: string
@@ -125,6 +129,31 @@ export interface GlossaryTerm {
   term: string
   plain: string
   also?: string
+}
+
+export interface MenuTab {
+  id: string
+  label: string
+  icon: string
+  blurb: string
+}
+
+export interface MenuRefItem {
+  id: string
+  tab: string // which menu tab it lives under
+  group: string // sub-grouping label
+  name: string // plain-English name
+  sony?: string // Sony's exact menu wording, if different
+  plain: string // one-sentence plain explanation
+  advanced?: boolean // tuck behind the "advanced" expander
+}
+
+export interface ScreenIcon {
+  id: string
+  glyph: string // which mini-SVG to draw
+  label: string
+  meaning: string
+  group: string // e.g. "Mode & exposure", "Focus", "Battery & card"
 }
 
 export interface SearchEntry {

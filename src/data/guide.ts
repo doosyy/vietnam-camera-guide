@@ -963,6 +963,217 @@ export const guideChapters: GuideChapter[] = [
       },
     ],
   },
+
+  // ════════════════════════ MORE EXPOSURE TOPICS ════════════════════════
+  {
+    id: 'auto-scene-modes',
+    title: 'Auto & scene modes',
+    icon: 'sliders',
+    group: 'Exposure & light',
+    summary: 'The fully-automatic options, for when you just want the shot.',
+    sections: [
+      {
+        heading: 'Intelligent Auto',
+        body: [
+          'Turn the mode dial to the green Auto and the camera handles everything: brightness, focus, even recognising the scene.',
+          'It is a fine safety net when you have no time to think, like a fleeting street moment. You give up creative control, but you get a solid photo.',
+          'As you grow, move to A (Aperture Priority) so you keep the one creative choice that matters: background blur.',
+        ],
+        tip: 'Auto is great for handing the camera to someone else to take a photo of you.',
+      },
+      {
+        heading: 'Scene picker & Bulb',
+        body: [
+          'Scene Selection offers ready-made recipes (Portrait, Landscape, Sunset, Night Scene and more) if you would rather pick a situation than juggle settings.',
+          'Bulb is the opposite extreme: the shutter stays open for as long as you hold it, for very long night exposures like light trails. Use a tripod and the timer.',
+        ],
+        advanced: true,
+      },
+    ],
+  },
+  {
+    id: 'flash',
+    title: 'Using a flash',
+    icon: 'zap',
+    group: 'Exposure & light',
+    summary: 'The A7C II has no built-in flash. Here is what to know if you add one.',
+    sections: [
+      {
+        heading: 'When you might want one',
+        body: [
+          'There is no pop-up flash on this camera, which is fine: it is so good in low light you rarely need one for travel.',
+          'A small flash on the hot shoe helps in two spots: filling harsh midday shadows on faces, and adding a catch-light indoors.',
+          'Point the flash head at the ceiling (bounce) for soft, natural light rather than a harsh straight-on blast.',
+        ],
+        tip: 'For night markets, a fast lens and high ISO almost always look more natural than a flash.',
+      },
+      {
+        heading: 'Flash settings',
+        body: [
+          'Flash Mode decides when it fires: Fill-flash forces it on (great for shadowed faces in daylight), Slow Sync keeps the background bright at night.',
+          'Flash Compensation dials the flash brighter or softer if it looks too strong.',
+          'Red-Eye Reduction fires a quick pre-flash, and Wireless Flash lets you place compatible flashes off to the side.',
+        ],
+        advanced: true,
+      },
+    ],
+  },
+  {
+    id: 'display-tools',
+    title: 'Display & framing aids',
+    icon: 'frame',
+    group: 'Getting started',
+    summary: 'On-screen helpers for level horizons, exposure and clean framing.',
+    sections: [
+      {
+        heading: 'The everyday helpers',
+        body: [
+          'Press DISP to cycle screen layouts: a clean view, a detailed view, a level gauge, the brightness graph (histogram), and a grid.',
+          'The grid (with rule-of-thirds or square styles) helps you place subjects and keep horizons straight.',
+          'The level gauge shows if the camera is tilted left/right or leaning forward, perfect for buildings and seascapes.',
+        ],
+        tip: 'Turn on both the grid and the level for architecture, so verticals stay upright.',
+      },
+      {
+        heading: 'Going deeper',
+        body: [
+          'Zebra stripes warn when something is too bright (covered in the "Reading the light" chapter).',
+          'Markers can overlay a chosen crop or aspect outline for video framing.',
+          'Gamma Display Assist makes flat Log video look normal on screen while you film. Bright Monitoring brightens the preview in near-darkness so you can compose.',
+        ],
+        advanced: true,
+      },
+    ],
+  },
+
+  // ════════════════════════ MOVIE SUITE ════════════════════════
+  {
+    id: 'movie-suite',
+    title: 'The full movie toolkit',
+    icon: 'video',
+    group: 'Video & playback',
+    summary: 'Everything beyond pressing record, kept light unless you dig in.',
+    sections: [
+      {
+        heading: 'Sound that matches the picture',
+        body: [
+          'The built-in mic captures ambience well. For talking, a small shoe-mounted mic is a big step up and needs no cables thanks to the digital hot shoe.',
+          'Audio Rec Level lets you turn the recording volume up or down, and Wind Noise Reduction cuts that rumble on breezy days by the bay.',
+        ],
+      },
+      {
+        heading: 'Recording formats & quality',
+        body: [
+          'Movie Settings picks the resolution (4K or HD) and smoothness (frames per second). 4K at 24-30 is ideal for travel.',
+          'File Format chooses the underlying video type; XAVC S is the simple, widely-compatible one.',
+          'Slow & Quick (S&Q) records graceful slow motion or sped-up motion in-camera.',
+        ],
+        advanced: true,
+      },
+      {
+        heading: 'Pro colour: Log, LUTs & Picture Profiles',
+        body: [
+          'These exist for film-makers who colour-grade afterwards. Log records a flat, grey-looking image that holds maximum detail to push around in editing.',
+          'A LUT is a colour preset that turns that flat footage back into a finished look, and you can preview it on-screen while filming.',
+          'For normal clips, ignore all of this and leave Picture Profile off. Your footage will look great straight out of the camera.',
+        ],
+        advanced: true,
+      },
+      {
+        heading: 'Backup & timing extras',
+        body: [
+          'Proxy saves a tiny second copy of each clip so you can edit quickly on a phone, then swap in the full-quality version later.',
+          'Time Code stamps each frame with a running clock, used to sync multiple cameras on a shoot.',
+          'These are pro conveniences you will likely never need for travel video.',
+        ],
+        advanced: true,
+      },
+    ],
+  },
+
+  // ════════════════════════ NETWORK ════════════════════════
+  {
+    id: 'networking',
+    title: 'Wireless, in full',
+    icon: 'wifi',
+    group: 'Power & storage',
+    summary: 'Every way the camera connects, from phone transfer to pro upload.',
+    sections: [
+      {
+        heading: 'The two you will actually use',
+        body: [
+          'Phone transfer: the free Creators’ App copies photos to your phone over the camera’s own Wi-Fi, with no internet needed.',
+          'Remote control: the same app turns your phone into a live viewfinder and shutter, brilliant for group shots and tripod selfies in Vietnam.',
+          'Pair once over Bluetooth, and the camera can even add your location to each photo from the phone’s GPS.',
+        ],
+        tip: 'Set transfers to send a smaller JPEG for speedy sharing while the full RAW stays safe on the card.',
+      },
+      {
+        heading: 'Bluetooth remote',
+        body: [
+          'A tiny Sony remote or shooting grip can fire the shutter over Bluetooth, handy for shake-free night shots and self-portraits.',
+        ],
+        advanced: true,
+      },
+      {
+        heading: 'Pro connections',
+        body: [
+          'USB Streaming turns the camera into a high-quality webcam with a single cable.',
+          'FTP Transfer auto-sends photos to a server, and Wired LAN / tethering plug the camera into a network by cable. These are for press and studio pros.',
+          'Creators’ Cloud is Sony’s optional online backup and sharing service.',
+        ],
+        advanced: true,
+      },
+    ],
+  },
+
+  // ════════════════════════ REFERENCE ════════════════════════
+  {
+    id: 'specs',
+    title: 'The camera at a glance',
+    icon: 'info',
+    group: 'Reference',
+    summary: 'Key numbers for your A7C II, in plain terms.',
+    sections: [
+      {
+        heading: 'What the numbers mean',
+        body: [
+          'Sensor: 33 megapixels, full-frame. Big and detailed, with lovely low-light ability and room to crop.',
+          'Focus: 759 points covering most of the frame, with AI subject recognition for people, animals, birds, insects and vehicles.',
+          'Speed: up to 10 photos per second. Stabilisation worth up to 7 stops, so sharp handheld shots in dim light.',
+          'ISO: 100 to 51200 (stretchable further). Video up to 4K. One UHS-II SD card slot. USB-C charging.',
+        ],
+        tip: 'In short: a small body with the guts of Sony’s bigger cameras. The "C" is for compact, not cut-down.',
+      },
+    ],
+  },
+  {
+    id: 'warnings',
+    title: 'Warning messages & fixes',
+    icon: 'alert',
+    group: 'Reference',
+    summary: 'What the camera is telling you, and what to do about it.',
+    sections: [
+      {
+        heading: 'Common messages',
+        body: [
+          '"No card" or "Cannot recognise card": reseat the card; if it persists, back it up and format it in the camera.',
+          'Overheating (thermometer icon): the camera is hot from long video. Let it rest in shade; set Auto Power OFF Temp. to High to run longer.',
+          '"Unable to magnify" or focus will not lock: there is too little contrast. Aim at a defined edge or switch to manual focus.',
+          'Battery icon flashing: charge soon, or top up from a USB-C power bank.',
+        ],
+        tip: 'When in doubt, turn the camera off and on. If it stays odd, a Setting Reset cures most gremlins (you will redo your custom buttons).',
+      },
+      {
+        heading: 'Looking after it in Vietnam',
+        body: [
+          'Heat and humidity cause condensation when moving from air-conditioning into hot air. Let the camera adjust gradually and keep a silica gel packet in your bag.',
+          'Wipe the lens with a microfibre cloth, and blow grit off before wiping so you do not scratch it.',
+          'Change lenses quickly with the camera pointed down to keep dust off the sensor; it shakes itself clean at power-off.',
+        ],
+      },
+    ],
+  },
 ]
 
 export const guideChapterById = (id: string): GuideChapter | undefined =>
@@ -979,4 +1190,5 @@ export const guideGroups: string[] = [
   'Video & playback',
   'Power & storage',
   'Care & fixing',
+  'Reference',
 ]
