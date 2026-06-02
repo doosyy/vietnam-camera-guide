@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import Icon from './components/Icon'
 import { useApp } from './context/AppContext'
+import { refreshApp } from './pwa'
 
 // Home loads eagerly (first paint); the rest split into on-demand chunks.
 import Home from './pages/Home'
@@ -30,6 +31,51 @@ function Loading() {
     <div className="screen" style={{ display: 'flex', justifyContent: 'center', paddingTop: 60 }}>
       <span className="mono" style={{ fontSize: 11, letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--text-3)' }}>Loading…</span>
     </div>
+  )
+}
+
+function RefreshButton() {
+  const [state, setState] = useState<'idle' | 'checking' | 'current' | 'offline'>('idle')
+
+  const onClick = async () => {
+    if (state === 'checking') return
+    setState('checking')
+    let res: Awaited<ReturnType<typeof refreshApp>>
+    try {
+      res = await refreshApp()
+    } catch {
+      res = 'offline'
+    }
+    if (res === 'updating') return // the page is about to reload
+    setState(res === 'offline' ? 'offline' : 'current')
+    setTimeout(() => setState('idle'), 1800)
+  }
+
+  const icon = state === 'current' ? 'check' : 'rotate'
+  const label = state === 'checking' ? 'Checking for updates…' : state === 'current' ? 'Up to date' : state === 'offline' ? 'Offline, no update' : 'Check for updates'
+
+  return (
+    <>
+      <button className="tap hdr-btn" onClick={onClick} aria-label={label} title="Check for updates" style={{ color: state === 'current' ? 'var(--good)' : undefined }}>
+        <span className={state === 'checking' ? 'spin' : undefined} style={{ display: 'inline-flex', opacity: state === 'offline' ? 0.4 : 1, transition: 'opacity .2s' }}>
+          <Icon name={icon} size={18} />
+        </span>
+      </button>
+      {(state === 'current' || state === 'offline') && (
+        <div
+          role="status"
+          style={{
+            position: 'fixed', top: 'calc(env(safe-area-inset-top, 0px) + 60px)', left: '50%', transform: 'translateX(-50%)',
+            zIndex: 200, padding: '8px 14px', borderRadius: 999, background: 'var(--surface-3)', border: '1px solid var(--border)',
+            boxShadow: '0 6px 20px rgba(0,0,0,.25)', display: 'flex', alignItems: 'center', gap: 7,
+            fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600, letterSpacing: '.02em', color: 'var(--text-2)',
+          }}
+        >
+          <Icon name={state === 'current' ? 'check' : 'wifi'} size={13} style={{ color: state === 'current' ? 'var(--good)' : 'var(--text-3)' }} />
+          {state === 'current' ? 'You have the latest version' : 'Offline, kept as is'}
+        </div>
+      )}
+    </>
   )
 }
 
@@ -79,6 +125,7 @@ export default function App() {
           <button className="tap hdr-btn" onClick={toggleTheme} aria-label="Toggle theme">
             <Icon name={theme === 'dark' ? 'sun' : 'moon'} size={18} />
           </button>
+          <RefreshButton />
           <button className="tap hdr-btn" onClick={() => setSearchOpen(true)} aria-label="Search">
             <Icon name="search" size={18} />
           </button>

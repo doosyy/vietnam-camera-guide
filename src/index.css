@@ -213,6 +213,8 @@ html[data-theme="dark"] .seg button.on { background: var(--surface-3); }
   background: var(--surface-2); border: 1px solid var(--border); color: var(--text-2);
 }
 .hdr-btn:active { color: var(--accent-text); }
+.spin { display: inline-flex; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
 .hdr-title { display: flex; align-items: center; gap: 9px; min-width: 0; }
 .brandmark {
   width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
