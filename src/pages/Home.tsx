@@ -27,24 +27,14 @@ export default function Home() {
 
   return (
     <div className="screen">
-      {/* hero */}
-      <div className="vf fu fu1" style={{ marginTop: 6, paddingTop: 14, paddingBottom: 6 }}>
+      {/* greeting */}
+      <div className="fu fu1" style={{ marginTop: 6, paddingTop: 14 }}>
         <Eyebrow>A7C II · Field Guide</Eyebrow>
         <p className="mono" style={{ fontSize: 13, color: 'var(--accent-text)', marginTop: 14, fontWeight: 600 }}>Xin chào, Chris</p>
-        <h1 className="display" style={{ marginTop: 6, fontSize: 33 }}>Your Sony A7C&nbsp;II,<br />made simple.</h1>
-        <p className="body" style={{ marginTop: 11, color: 'var(--text-2)' }}>
-          Street, food, temples and night markets across Hanoi, Ha Long Bay and Ho Chi Minh City. No jargon, works offline.
-        </p>
-        <div className="row" style={{ gap: 10, marginTop: 14, color: 'var(--text-3)', fontFamily: 'var(--font-mono)', fontSize: 10.5, letterSpacing: '.1em' }}>
-          <span>A</span><span style={{ color: 'var(--border-2)' }}>·</span>
-          <span>f/5.6</span><span style={{ color: 'var(--border-2)' }}>·</span>
-          <span>1/250</span><span style={{ color: 'var(--border-2)' }}>·</span>
-          <span>ISO AUTO</span>
-        </div>
       </div>
 
       {/* what shooting */}
-      <div className="fu fu3" style={{ marginTop: 22 }}>
+      <div className="fu fu3" style={{ marginTop: 20 }}>
         <SectionTitle>What are you shooting?</SectionTitle>
         <div className="grid4">
           {quick.map((q) => (
