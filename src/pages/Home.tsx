@@ -28,13 +28,13 @@ export default function Home() {
   return (
     <div className="screen">
       {/* greeting */}
-      <div className="fu fu1" style={{ marginTop: 6, paddingTop: 14 }}>
+      <div className="fu fu1" style={{ marginTop: 2, paddingTop: 6 }}>
         <Eyebrow>A7C II · Field Guide</Eyebrow>
-        <p className="mono" style={{ fontSize: 13, color: 'var(--accent-text)', marginTop: 14, fontWeight: 600 }}>Xin chào, Chris</p>
+        <p className="mono" style={{ fontSize: 13, color: 'var(--accent-text)', marginTop: 8, fontWeight: 600 }}>Xin chào, Chris</p>
       </div>
 
       {/* what shooting */}
-      <div className="fu fu3" style={{ marginTop: 20 }}>
+      <div className="fu fu3" style={{ marginTop: 14 }}>
         <SectionTitle>What are you shooting?</SectionTitle>
         <div className="grid4">
           {quick.map((q) => (
@@ -42,7 +42,7 @@ export default function Home() {
               key={q.id}
               onClick={() => navigate(`/shoot/${q.id}`)}
               className="tap"
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, padding: '15px 4px', borderRadius: 15, background: 'var(--surface)', border: '1px solid var(--border)' }}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 7, padding: '12px 4px', borderRadius: 15, background: 'var(--surface)', border: '1px solid var(--border)' }}
             >
               <span style={{ color: 'var(--accent)' }}><Icon name={q.icon} size={22} /></span>
               <span className="mono" style={{ fontSize: 10.5, fontWeight: 600, color: 'var(--text-2)', letterSpacing: '.04em' }}>{q.label}</span>
@@ -52,17 +52,17 @@ export default function Home() {
       </div>
 
       {/* lens */}
-      <div className="fu fu4" style={{ marginTop: 18 }}><LensSelector /></div>
+      <div className="fu fu4" style={{ marginTop: 12 }}><LensSelector note={false} /></div>
 
       {/* setup nudge */}
       {!complete && (
         <button
           onClick={() => navigate('/trip/setup')}
           className="tap fu fu5"
-          style={{ width: '100%', textAlign: 'left', marginTop: 14, padding: 16, borderRadius: 18, background: 'var(--accent-soft)', border: '1px solid var(--accent-line)' }}
+          style={{ width: '100%', textAlign: 'left', marginTop: 12, padding: 14, borderRadius: 18, background: 'var(--accent-soft)', border: '1px solid var(--accent-line)' }}
         >
           <div className="row" style={{ gap: 13 }}>
-            <ProgressRing value={done} total={total} size={50} />
+            <ProgressRing value={done} total={total} size={46} />
             <div style={{ flex: 1 }}>
               <div className="row between">
                 <span className="h3" style={{ color: 'var(--accent-text)' }}>Before You Fly</span>
@@ -96,7 +96,7 @@ export default function Home() {
       )}
 
       {/* quick links */}
-      <div className="fu fu6" style={{ marginTop: 22 }}>
+      <div className="fu fu6" style={{ marginTop: 14 }}>
         <SectionTitle icon="compass">Jump in</SectionTitle>
         <div className="grid2">
           <HomeTile icon="wand" title="Scene Wizard" sub="Get exact settings" onClick={() => navigate('/shoot')} />
@@ -111,7 +111,7 @@ export default function Home() {
 
 function HomeTile({ icon, title, sub, onClick }: { icon: string; title: string; sub: string; onClick: () => void }) {
   return (
-    <button onClick={onClick} className="tap card" style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 4, padding: 15 }}>
+    <button onClick={onClick} className="tap card" style={{ textAlign: 'left', display: 'flex', flexDirection: 'column', gap: 4, padding: 13 }}>
       <span style={{ color: 'var(--accent)', marginBottom: 4 }}><Icon name={icon} size={20} /></span>
       <span className="h3">{title}</span>
       <span className="row" style={{ gap: 5, color: 'var(--text-3)', fontSize: 12 }}>{sub} <Icon name="arrowRight" size={11} /></span>
