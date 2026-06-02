@@ -204,7 +204,9 @@ html[data-theme="dark"] .seg button.on { background: var(--surface-3); }
 
 /* ---------- BOTTOM NAV ---------- */
 .nav {
-  position: absolute; left: 0; right: 0; bottom: 0; z-index: 40;
+  /* Fixed to the viewport bottom so it always hugs the screen edge on iPhone,
+     with the home-indicator area filled by the nav's own background. */
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
   padding: 9px 10px max(12px, env(safe-area-inset-bottom));
   background: var(--nav-bg);
   backdrop-filter: blur(20px) saturate(170%); -webkit-backdrop-filter: blur(20px) saturate(170%);
