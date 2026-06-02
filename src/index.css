@@ -100,11 +100,10 @@ body {
 
 /* ---------- THE APP (full screen) ---------- */
 .app {
-  position: fixed; top: 0; left: 0; right: 0;
-  /* Dynamic viewport height tracks iOS Safari's collapsing toolbar so the
-     bottom nav always sits flush at the visible bottom edge. */
-  height: 100vh;
-  height: 100dvh;
+  /* Pin to the real edges of the web view (inset:0). On an installed iPhone
+     PWA this fills the whole screen reliably, where a computed `100dvh`
+     height could fall short and let the bottom bar float up. */
+  position: fixed; inset: 0;
   background: var(--bg);
   color: var(--text);
   display: flex; flex-direction: column;
@@ -185,9 +184,9 @@ a { color: inherit; text-decoration: none; }
 html[data-theme="dark"] .seg button.on { background: var(--surface-3); }
 
 /* ---------- LAYOUT ---------- */
-/* Bottom padding clears the floating nav (~55px tall) plus the iPhone home
-   indicator, leaving a small, consistent gap above the toolbar. */
-.screen { padding: 18px 18px calc(80px + env(safe-area-inset-bottom)); }
+/* The nav is now in-flow at the base, so content only needs a little breathing
+   room at the bottom of the scroll area. */
+.screen { padding: 18px 18px 26px; }
 .stack > * + * { margin-top: var(--g, 14px); }
 .row { display: flex; align-items: center; }
 .between { display: flex; align-items: center; justify-content: space-between; }
@@ -221,9 +220,10 @@ html[data-theme="dark"] .seg button.on { background: var(--surface-3); }
 
 /* ---------- BOTTOM NAV ---------- */
 .nav {
-  /* Fixed to the viewport bottom so it always hugs the screen edge on iPhone,
-     with the home-indicator area filled by the nav's own background. */
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+  /* A normal flex child at the bottom of the column, so it always sits flush
+     at the base of the app. The home-indicator area is filled by its own
+     background via the safe-area padding below. */
+  flex-shrink: 0;
   padding: 9px 10px max(12px, env(safe-area-inset-bottom));
   background: var(--nav-bg);
   backdrop-filter: blur(20px) saturate(170%); -webkit-backdrop-filter: blur(20px) saturate(170%);
@@ -297,7 +297,7 @@ html[data-theme="dark"] .seg button.on { background: var(--surface-3); }
 .fu4 { animation-delay: .19s; } .fu5 { animation-delay: .24s; } .fu6 { animation-delay: .29s; }
 
 /* scroll area */
-.scroll { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; position: relative; }
+.scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; position: relative; }
 
 /* overlay (search) */
 .overlay { position: absolute; inset: 0; z-index: 120; background: var(--bg); display: flex; flex-direction: column; animation: overlayIn .25s ease both; }
