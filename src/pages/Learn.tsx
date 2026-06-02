@@ -5,6 +5,7 @@ import { guideChapters, guideGroups } from '../data/guide'
 
 const tools = [
   { icon: 'sliders', label: 'How-To', route: '/learn/how-to' },
+  { icon: 'click', label: 'My Buttons', route: '/learn/buttons' },
   { icon: 'checklist', label: 'Menu A–Z', route: '/learn/menu' },
   { icon: 'grid', label: 'Icon Keys', route: '/learn/icons' },
   { icon: 'camera', label: 'Camera Map', route: '/learn/camera' },

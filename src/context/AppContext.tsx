@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
 import type { Lens, LensId } from '../data/types'
 import { lensById } from '../data/lenses'
+import type { Goal } from '../data/buttons'
 
 type Theme = 'dark' | 'light'
 
@@ -23,6 +24,12 @@ interface AppCtx {
   bookmarks: Bookmark[]
   toggleBookmark: (b: Bookmark) => void
   isBookmarked: (id: string) => boolean
+  buttons: Record<string, string>
+  setButton: (controlId: string, fnId: string) => void
+  setButtons: (map: Record<string, string>) => void
+  resetButtons: () => void
+  buttonGoal: Goal
+  setButtonGoal: (g: Goal) => void
 }
 
 const Ctx = createContext<AppCtx | null>(null)
@@ -50,6 +57,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [lensId, setLensId] = useState<LensId>(() => ls.get<LensId>('vcc_lens', 'kit-28-60'))
   const [setupDone, setSetupDone] = useState<string[]>(() => ls.get<string[]>('vcc_setup', []))
   const [bookmarks, setBookmarks] = useState<Bookmark[]>(() => ls.get<Bookmark[]>('vcc_bookmarks', []))
+  const [buttons, setButtonsState] = useState<Record<string, string>>(() => ls.get<Record<string, string>>('vcc_buttons', {}))
+  const [buttonGoal, setButtonGoal] = useState<Goal>(() => ls.get<Goal>('vcc_btn_goal', 'balanced'))
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -58,6 +67,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => ls.set('vcc_lens', lensId), [lensId])
   useEffect(() => ls.set('vcc_setup', setupDone), [setupDone])
   useEffect(() => ls.set('vcc_bookmarks', bookmarks), [bookmarks])
+  useEffect(() => ls.set('vcc_buttons', buttons), [buttons])
+  useEffect(() => ls.set('vcc_btn_goal', buttonGoal), [buttonGoal])
 
   const value: AppCtx = {
     theme,
@@ -73,6 +84,18 @@ export function AppProvider({ children }: { children: ReactNode }) {
     toggleBookmark: (b) =>
       setBookmarks((list) => (list.some((x) => x.id === b.id) ? list.filter((x) => x.id !== b.id) : [b, ...list])),
     isBookmarked: (id) => bookmarks.some((x) => x.id === id),
+    buttons,
+    setButton: (controlId, fnId) =>
+      setButtonsState((m) => {
+        const next = { ...m }
+        if (fnId === 'not-set') delete next[controlId]
+        else next[controlId] = fnId
+        return next
+      }),
+    setButtons: (map) => setButtonsState(map),
+    resetButtons: () => setButtonsState({}),
+    buttonGoal,
+    setButtonGoal,
   }
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
