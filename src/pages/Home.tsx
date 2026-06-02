@@ -11,9 +11,16 @@ const quick = [
   { id: 'night-market', label: 'Night', icon: 'moon' },
 ]
 
+const kindIcon: Record<string, string> = {
+  chapter: 'book',
+  scene: 'wand',
+  menu: 'checklist',
+  page: 'compass',
+}
+
 export default function Home() {
   const navigate = useNavigate()
-  const { setupDone } = useApp()
+  const { setupDone, bookmarks } = useApp()
   const total = setupSteps.length
   const done = setupDone.length
   const complete = done >= total
@@ -75,6 +82,27 @@ export default function Home() {
             </div>
           </div>
         </button>
+      )}
+
+      {/* saved */}
+      {bookmarks.length > 0 && (
+        <div style={{ marginTop: 22 }}>
+          <SectionTitle icon="star">Saved</SectionTitle>
+          <div className="card flush">
+            {bookmarks.slice(0, 6).map((b, i) => (
+              <button
+                key={b.id}
+                onClick={() => navigate(b.route)}
+                className="tap lrow"
+                style={{ width: '100%', textAlign: 'left', gap: 11, borderTop: i ? '1px solid var(--border)' : 'none' }}
+              >
+                <span style={{ color: 'var(--accent)', flexShrink: 0 }}><Icon name={kindIcon[b.kind]} size={17} /></span>
+                <span className="h3" style={{ flex: 1, minWidth: 0, fontSize: 14, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{b.title}</span>
+                <span className="mono" style={{ fontSize: 9, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--text-4)' }}>{b.kind}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       )}
 
       {/* quick links */}

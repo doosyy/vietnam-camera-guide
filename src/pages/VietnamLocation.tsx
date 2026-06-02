@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
 import { BackBar, Eyebrow, SectionTitle } from '../components/ui'
 import { locationById } from '../data/vietnam'
+import { dayLight } from '../data/solar'
 
 export default function VietnamLocationPage() {
   const { id } = useParams()
@@ -17,6 +18,10 @@ export default function VietnamLocationPage() {
     )
   }
 
+  const today = dayLight(loc.lat, loc.lon, new Date())
+  const goldPm = today.find((w) => w.key === 'gold-pm')
+  const bluePm = today.find((w) => w.key === 'blue-pm')
+
   return (
     <div className="screen anim-fwd" key={loc.id}>
       <BackBar onBack={() => navigate('/trip/vietnam')} label="Vietnam" />
@@ -25,6 +30,25 @@ export default function VietnamLocationPage() {
         <h1 className="h1" style={{ fontSize: 26 }}>{loc.name}</h1>
         <p className="body" style={{ marginTop: 8 }}>{loc.vibe}</p>
       </div>
+
+      {/* today's light at a glance */}
+      <button
+        onClick={() => navigate(`/trip/light?city=${loc.id}`)}
+        className="tap card row between"
+        style={{ marginBottom: 18, gap: 12, textAlign: 'left' }}
+      >
+        <div className="row" style={{ gap: 12, minWidth: 0 }}>
+          <span style={{ color: 'var(--accent)', flexShrink: 0 }}><Icon name="clock" size={20} /></span>
+          <div style={{ minWidth: 0 }}>
+            <span className="mono" style={{ fontSize: 9.5, letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--text-3)' }}>Today’s light</span>
+            <div className="row" style={{ gap: 12, marginTop: 3, flexWrap: 'wrap' }}>
+              <span className="small"><span style={{ color: 'var(--accent-text)' }}>Golden</span> <span className="data" style={{ fontSize: 12 }}>{goldPm?.time}</span></span>
+              <span className="small"><span style={{ color: 'var(--info)' }}>Blue</span> <span className="data" style={{ fontSize: 12 }}>{bluePm?.time}</span></span>
+            </div>
+          </div>
+        </div>
+        <Icon name="chevronRight" size={17} style={{ color: 'var(--text-3)', flexShrink: 0 }} />
+      </button>
 
       <Eyebrow style={{ marginBottom: 11, color: 'var(--text-2)' }}>Through the day</Eyebrow>
       <div className="stack" style={{ '--g': '11px' } as React.CSSProperties}>

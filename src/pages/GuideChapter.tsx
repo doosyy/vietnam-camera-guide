@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
 import { BackBar, Note } from '../components/ui'
+import RichText from '../components/RichText'
+import BookmarkButton from '../components/BookmarkButton'
 import { guideChapterById } from '../data/guide'
 import type { GuideSection } from '../data/types'
 
@@ -9,7 +11,7 @@ function SectionBody({ sec }: { sec: GuideSection }) {
   return (
     <>
       <div className="stack" style={{ '--g': '10px' } as React.CSSProperties}>
-        {sec.body.map((p, i) => <p key={i} className="body">{p}</p>)}
+        {sec.body.map((p, i) => <RichText key={i}>{p}</RichText>)}
       </div>
       {sec.tip && <div style={{ marginTop: 13 }}><Note tone="amber" icon="bulb">{sec.tip}</Note></div>}
     </>
@@ -66,7 +68,10 @@ export default function GuideChapterPage() {
     <div className="screen anim-fwd" key={c.id}>
       <BackBar onBack={() => navigate('/learn')} label="Learn" />
       <div style={{ marginBottom: 18 }}>
-        <div className="brandmark" style={{ marginBottom: 13, width: 40, height: 40 }}><Icon name={c.icon} size={20} /></div>
+        <div className="row between" style={{ marginBottom: 13 }}>
+          <div className="brandmark" style={{ width: 40, height: 40 }}><Icon name={c.icon} size={20} /></div>
+          <BookmarkButton bookmark={{ id: `chapter-${c.id}`, kind: 'chapter', title: c.title, route: `/learn/guide/${c.id}` }} />
+        </div>
         <h1 className="h1" style={{ fontSize: 25 }}>{c.title}</h1>
         <p className="body" style={{ marginTop: 7 }}>{c.summary}</p>
       </div>

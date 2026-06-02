@@ -2,6 +2,7 @@ import { useState, type ReactNode } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
 import { BackBar, Eyebrow, ExposureStrip, Note, SectionTitle, NumberStep, LensSelector } from '../components/ui'
+import BookmarkButton from '../components/BookmarkButton'
 import { useApp } from '../context/AppContext'
 import { sceneById, sceneCategories } from '../data/scenes'
 import type { Lens, SceneSettings } from '../data/types'
@@ -60,10 +61,13 @@ export default function SceneDetail() {
   return (
     <div className="screen anim-fwd" key={scene.id}>
       <BackBar onBack={() => navigate('/shoot')} label="Scene Wizard" />
-      <div style={{ marginBottom: 16 }}>
-        <Eyebrow style={{ marginBottom: 9 }}>{category?.label}</Eyebrow>
-        <h1 className="h1" style={{ fontSize: 25 }}>{scene.title}</h1>
-        <p className="body" style={{ marginTop: 7 }}>{scene.blurb}</p>
+      <div className="row between" style={{ marginBottom: 16, gap: 12, alignItems: 'flex-start' }}>
+        <div style={{ minWidth: 0 }}>
+          <Eyebrow style={{ marginBottom: 9 }}>{category?.label}</Eyebrow>
+          <h1 className="h1" style={{ fontSize: 25 }}>{scene.title}</h1>
+          <p className="body" style={{ marginTop: 7 }}>{scene.blurb}</p>
+        </div>
+        <BookmarkButton bookmark={{ id: `scene-${scene.id}`, kind: 'scene', title: scene.title, route: `/shoot/${scene.id}` }} />
       </div>
 
       {scene.modifier && (

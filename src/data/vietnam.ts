@@ -5,6 +5,8 @@ export const vietnamLocations: VietnamLocation[] = [
     id: 'hanoi',
     name: 'Hanoi',
     region: 'North',
+    lat: 21.028,
+    lon: 105.804,
     vibe: 'Old-soul capital. Narrow Old Quarter lanes, lakes, motorbike rivers, soft northern light.',
     times: [
       { label: 'Early morning', range: '5:30–7:30', light: 'Soft, often misty and cool. Tai chi by Hoan Kiem Lake, markets waking up.', shoot: 'Calm street life and reflections before the crowds. Low ISO, gentle light.', sceneLink: 'street-candid', icon: 'sunrise' },
@@ -22,6 +24,8 @@ export const vietnamLocations: VietnamLocation[] = [
     id: 'hcmc',
     name: 'Ho Chi Minh City',
     region: 'South',
+    lat: 10.823,
+    lon: 106.63,
     vibe: 'Fast, hot, modern south. Wide boulevards, colonial facades, relentless motorbike energy.',
     times: [
       { label: 'Early morning', range: '5:30–7:30', light: 'Bright and clear quickly. Streets already humming with breakfast stalls.', shoot: 'Coffee and pho stalls, soft early light on busy pavements.', sceneLink: 'food-table', icon: 'sunrise' },
@@ -39,6 +43,8 @@ export const vietnamLocations: VietnamLocation[] = [
     id: 'halong',
     name: 'Ha Long Bay',
     region: 'Northeast coast',
+    lat: 20.91,
+    lon: 107.184,
     vibe: 'Emerald water and limestone karsts. Big skies, boats, mist. A landscape change of pace.',
     times: [
       { label: 'Sunrise from the boat', range: 'dawn', light: 'Misty, pastel, ethereal. Karsts fade into soft layers.', shoot: 'Moody layered seascapes. f/8 for sharpness, low ISO.', sceneLink: 'arch-temple', icon: 'sunrise' },

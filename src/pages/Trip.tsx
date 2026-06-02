@@ -25,6 +25,7 @@ export default function Trip() {
           <span style={{ color: 'var(--text-3)' }}><Icon name="chevronRight" size={17} /></span>
         </button>
         <NavRow icon="sun" title="Vietnam lighting guide" sub={vietnamLocations.map((l) => l.name).join(' · ')} onClick={() => navigate('/trip/vietnam')} />
+        <NavRow icon="clock" title="Light clock" sub="Golden & blue hour times, any day" onClick={() => navigate('/trip/light')} />
         <NavRow icon="aperture" title="Lens guide" sub="Compare lenses & “should I buy it?”" onClick={() => navigate('/trip/lenses')} />
       </div>
 

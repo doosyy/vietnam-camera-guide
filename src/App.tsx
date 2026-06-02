@@ -1,24 +1,35 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import Icon from './components/Icon'
-import SearchOverlay from './components/SearchOverlay'
 import { useApp } from './context/AppContext'
+
+// Home loads eagerly (first paint); the rest split into on-demand chunks.
 import Home from './pages/Home'
-import Shoot from './pages/Shoot'
-import SceneDetail from './pages/SceneDetail'
-import Cheat from './pages/Cheat'
-import Learn from './pages/Learn'
-import GuideChapterPage from './pages/GuideChapter'
-import CameraMap from './pages/CameraMap'
-import Composition from './pages/Composition'
-import Glossary from './pages/Glossary'
-import MenuReference from './pages/MenuReference'
-import ScreenIcons from './pages/ScreenIcons'
-import Trip from './pages/Trip'
-import Setup from './pages/Setup'
-import Vietnam from './pages/Vietnam'
-import VietnamLocationPage from './pages/VietnamLocation'
-import Lenses from './pages/Lenses'
+const SearchOverlay = lazy(() => import('./components/SearchOverlay'))
+const Shoot = lazy(() => import('./pages/Shoot'))
+const SceneDetail = lazy(() => import('./pages/SceneDetail'))
+const Cheat = lazy(() => import('./pages/Cheat'))
+const Learn = lazy(() => import('./pages/Learn'))
+const GuideChapterPage = lazy(() => import('./pages/GuideChapter'))
+const CameraMap = lazy(() => import('./pages/CameraMap'))
+const Composition = lazy(() => import('./pages/Composition'))
+const Glossary = lazy(() => import('./pages/Glossary'))
+const MenuReference = lazy(() => import('./pages/MenuReference'))
+const ScreenIcons = lazy(() => import('./pages/ScreenIcons'))
+const Trip = lazy(() => import('./pages/Trip'))
+const Setup = lazy(() => import('./pages/Setup'))
+const Vietnam = lazy(() => import('./pages/Vietnam'))
+const VietnamLocationPage = lazy(() => import('./pages/VietnamLocation'))
+const Lenses = lazy(() => import('./pages/Lenses'))
+const LightClock = lazy(() => import('./pages/LightClock'))
+
+function Loading() {
+  return (
+    <div className="screen" style={{ display: 'flex', justifyContent: 'center', paddingTop: 60 }}>
+      <span className="mono" style={{ fontSize: 11, letterSpacing: '.16em', textTransform: 'uppercase', color: 'var(--text-3)' }}>Loading…</span>
+    </div>
+  )
+}
 
 const TABS = [
   { id: 'home', label: 'Home', icon: 'home', path: '/' },
@@ -74,6 +85,7 @@ export default function App() {
 
       {/* scroll content */}
       <div className="scroll" ref={scrollRef}>
+        <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/shoot" element={<Shoot />} />
@@ -91,7 +103,9 @@ export default function App() {
           <Route path="/trip/vietnam" element={<Vietnam />} />
           <Route path="/trip/vietnam/:id" element={<VietnamLocationPage />} />
           <Route path="/trip/lenses" element={<Lenses />} />
+          <Route path="/trip/light" element={<LightClock />} />
         </Routes>
+        </Suspense>
       </div>
 
       {/* bottom nav */}
@@ -110,13 +124,15 @@ export default function App() {
       </nav>
 
       {searchOpen && (
-        <SearchOverlay
-          onClose={() => setSearchOpen(false)}
-          onNavigate={(route) => {
-            setSearchOpen(false)
-            navigate(route)
-          }}
-        />
+        <Suspense fallback={null}>
+          <SearchOverlay
+            onClose={() => setSearchOpen(false)}
+            onNavigate={(route) => {
+              setSearchOpen(false)
+              navigate(route)
+            }}
+          />
+        </Suspense>
       )}
     </div>
   )

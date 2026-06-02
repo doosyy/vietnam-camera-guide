@@ -4,12 +4,15 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.tsx'
 import { AppProvider } from './context/AppContext.tsx'
+import { GlossaryProvider } from './components/GlossarySheet.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <AppProvider>
-        <App />
+        <GlossaryProvider>
+          <App />
+        </GlossaryProvider>
       </AppProvider>
     </BrowserRouter>
   </StrictMode>,

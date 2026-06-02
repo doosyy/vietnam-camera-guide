@@ -4,10 +4,11 @@ import Icon from '../components/Icon'
 import { BackBar, Eyebrow, Pill } from '../components/ui'
 import { menuTabs, menuItems, menuItemsByTab } from '../data/menuReference'
 import type { MenuRefItem } from '../data/types'
+import BookmarkButton from '../components/BookmarkButton'
 
 function Row({ item }: { item: MenuRefItem }) {
   return (
-    <div className="lrow" style={{ alignItems: 'flex-start', padding: '13px 15px' }}>
+    <div className="lrow" style={{ alignItems: 'flex-start', padding: '13px 15px', gap: 8 }}>
       <span style={{ flex: 1, minWidth: 0 }}>
         <span className="row" style={{ gap: 8, flexWrap: 'wrap' }}>
           <span className="h3" style={{ fontSize: 14 }}>{item.name}</span>
@@ -17,6 +18,7 @@ function Row({ item }: { item: MenuRefItem }) {
         </span>
         <span className="small" style={{ display: 'block', color: 'var(--text-2)', marginTop: 3 }}>{item.plain}</span>
       </span>
+      <BookmarkButton compact size={16} bookmark={{ id: `menu-${item.id}`, kind: 'menu', title: item.name, route: `/learn/menu?q=${encodeURIComponent(item.name)}` }} />
     </div>
   )
 }

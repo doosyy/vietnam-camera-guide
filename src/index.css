@@ -1,3 +1,20 @@
+/* Self-hosted variable fonts (SIL Open Font License) for a fast, fully-offline
+   first paint. One file per family covers the whole weight range. */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('./fonts/hanken.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('./fonts/jbmono.woff2') format('woff2');
+}
+
 /* ============================================================
    REFINED DARKROOM — design system
    Ported from the Claude design template, adapted for a
@@ -284,6 +301,15 @@ html[data-theme="dark"] .seg button.on { background: var(--surface-3); }
 
 /* overlay (search) */
 .overlay { position: absolute; inset: 0; z-index: 120; background: var(--bg); display: flex; flex-direction: column; animation: overlayIn .25s ease both; }
+
+/* bottom sheet (glossary peek) */
+.sheet-scrim { position: fixed; inset: 0; z-index: 150; background: rgba(0,0,0,.5); animation: overlayIn .25s ease both; display: flex; align-items: flex-end; }
+.sheet { width: 100%; max-width: 640px; margin: 0 auto; background: var(--bg-2); border-top-left-radius: var(--r-xl); border-top-right-radius: var(--r-xl); border-top: 1px solid var(--border-2); padding: 10px 18px 30px; animation: sheetUp .4s var(--ease) both; }
+.grabber { width: 38px; height: 4px; border-radius: 999px; background: var(--text-4); margin: 4px auto 14px; }
+
+/* inline glossary link inside body text */
+.gloss-link { display: inline; color: var(--accent-text); background: none; border: none; padding: 0; margin: 0; font: inherit; line-height: inherit; cursor: pointer; border-bottom: 1px dashed var(--accent-line); -webkit-tap-highlight-color: transparent; }
+.gloss-link:active { opacity: .6; }
 
 input.field { width: 100%; background: transparent; border: none; outline: none; color: var(--text); font-family: var(--font-sans); font-size: 16px; }
 input.field::placeholder { color: var(--text-3); }

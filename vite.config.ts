@@ -30,24 +30,8 @@ export default defineConfig({
         ],
       },
       workbox: {
+        // Fonts are now bundled (self-hosted), so they precache with everything else.
         globPatterns: ['**/*.{js,css,html,svg,png,ico,woff2}'],
-        // Cache Google Fonts after first load so the app looks right fully offline.
-        runtimeCaching: [
-          {
-            urlPattern: ({ url }) => url.origin === 'https://fonts.googleapis.com',
-            handler: 'StaleWhileRevalidate',
-            options: { cacheName: 'google-fonts-stylesheets' },
-          },
-          {
-            urlPattern: ({ url }) => url.origin === 'https://fonts.gstatic.com',
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-webfonts',
-              expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 * 365 },
-              cacheableResponse: { statuses: [0, 200] },
-            },
-          },
-        ],
       },
     }),
   ],

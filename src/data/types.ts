@@ -19,7 +19,7 @@ export interface Lens {
   bestFor: string[]
 }
 
-export type SceneCategory = 'street' | 'food' | 'architecture' | 'night'
+export type SceneCategory = 'street' | 'food' | 'architecture' | 'night' | 'landscape'
 
 export interface SceneSettings {
   mode: string
@@ -120,6 +120,8 @@ export interface VietnamLocation {
   name: string
   region: string
   vibe: string
+  lat: number
+  lon: number
   times: VietnamTime[]
   localTips: string[]
 }
