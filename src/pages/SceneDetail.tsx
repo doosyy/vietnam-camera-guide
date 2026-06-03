@@ -5,7 +5,19 @@ import { BackBar, Eyebrow, ExposureStrip, Note, SectionTitle, NumberStep, LensSe
 import BookmarkButton from '../components/BookmarkButton'
 import { useApp } from '../context/AppContext'
 import { sceneById, sceneCategories } from '../data/scenes'
+import { controlForFunction, functionById, controlById } from '../data/buttons'
 import type { Lens, SceneSettings } from '../data/types'
+import type { SceneCategory } from '../data/types'
+
+// Which button jobs matter most for each kind of scene, so we can point at the
+// user's own controls ("Focus Area is on your C1").
+const sceneJobs: Record<SceneCategory, string[]> = {
+  street: ['focus-area', 'eye-af', 'tracking', 'drive', 'iso', 'exp-comp'],
+  food: ['focus-area', 'eye-af', 'white-balance', 'exp-comp'],
+  architecture: ['focus-area', 'exp-comp', 'grid', 'aps-c'],
+  night: ['iso', 'silent', 'exp-comp', 'white-balance', 'focus-area'],
+  landscape: ['focus-area', 'exp-comp', 'grid', 'white-balance'],
+}
 
 function smallestF(str: string): number | null {
   const m = [...str.matchAll(/f\/(\d+(?:\.\d+)?)/gi)].map((x) => parseFloat(x[1]))
@@ -39,7 +51,7 @@ const ROWS: { key: keyof SceneSettings; label: string; icon: string }[] = [
 export default function SceneDetail() {
   const { sceneId } = useParams()
   const navigate = useNavigate()
-  const { lens } = useApp()
+  const { lens, activeLayout } = useApp()
   const scene = sceneId ? sceneById(sceneId) : undefined
   const [mod, setMod] = useState(() => (scene && scene.modifier ? scene.modifier.options[0].id : 'default'))
 
@@ -133,6 +145,29 @@ export default function SceneDetail() {
           <Icon name="chevronRight" size={14} />
         </button>
       </Section>
+
+      {(() => {
+        const jobs = sceneJobs[scene.category] || []
+        const yours = jobs
+          .map((j) => ({ job: j, ctrl: controlForFunction(activeLayout.map, j) }))
+          .filter((x) => x.ctrl) as { job: string; ctrl: string }[]
+        if (!yours.length) return null
+        return (
+          <Section icon="click" title="Your buttons for this">
+            <div className="card flush">
+              {yours.map((y, i) => (
+                <div key={y.job} className="row between" style={{ gap: 12, padding: '11px 15px', borderTop: i ? '1px solid var(--border)' : 'none' }}>
+                  <span className="body" style={{ color: 'var(--text-2)' }}>{functionById(y.job)?.label ?? y.job}</span>
+                  <span className="data" style={{ fontSize: 12.5, color: 'var(--accent-text)', flexShrink: 0 }}>{controlById(y.ctrl)?.label}</span>
+                </div>
+              ))}
+            </div>
+            <button onClick={() => navigate('/buttons')} className="tap row" style={{ gap: 6, marginTop: 10, color: 'var(--text-3)', fontSize: 12 }}>
+              <Icon name="click" size={13} /> Edit your buttons <Icon name="chevronRight" size={12} />
+            </button>
+          </Section>
+        )
+      })()}
       <Section icon="eye" title="What to watch for">
         <ul className="stack" style={{ '--g': '9px', listStyle: 'none' } as React.CSSProperties}>
           {scene.watchFor.map((w, i) => (

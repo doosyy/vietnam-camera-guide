@@ -3,8 +3,32 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import Icon from '../components/Icon'
 import { BackBar, Eyebrow, Note, NumberStep } from '../components/ui'
 import BookmarkButton from '../components/BookmarkButton'
+import { useApp } from '../context/AppContext'
+import { controlForFunction, controlById } from '../data/buttons'
 import { recipeGroups, settingRecipes, recipesByGroup } from '../data/settingsRecipes'
 import type { SettingRecipe } from '../data/settingsRecipes'
+
+// Which How-To recipe corresponds to a button job, so we can show "on your camera: C1".
+const recipeFn: Record<string, string> = {
+  'focus-mode': 'focus-mode', 'focus-area': 'focus-area', 'eye-af': 'eye-af', tracking: 'tracking',
+  iso: 'iso', 'exp-comp': 'exp-comp', metering: 'metering', drive: 'drive', 'self-timer': 'drive',
+  'white-balance': 'white-balance', 'creative-look': 'creative-look', silent: 'silent',
+  aperture: 'aperture', shutter: 'shutter', grid: 'grid',
+}
+
+function YourControlChip({ recipeId }: { recipeId: string }) {
+  const { activeLayout } = useApp()
+  const fn = recipeFn[recipeId]
+  const ctrlId = fn ? controlForFunction(activeLayout.map, fn) : undefined
+  if (!ctrlId) return null
+  const label = controlById(ctrlId)?.label
+  if (!label) return null
+  return (
+    <span className="mono" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 10.5, fontWeight: 600, color: 'var(--good)', background: 'var(--good-soft)', border: '1px solid color-mix(in oklab, var(--good) 34%, transparent)', borderRadius: 8, padding: '5px 9px' }}>
+      <Icon name="click" size={12} /> On your camera: {label}
+    </span>
+  )
+}
 
 function PathChip({ path }: { path: string }) {
   return (
@@ -48,7 +72,10 @@ function RecipeCard({ recipe, open, onToggle }: { recipe: SettingRecipe; open: b
 
       {open && (
         <div style={{ padding: '0 15px 16px', borderTop: '1px solid var(--border)' }}>
-          <div style={{ marginTop: 13, marginBottom: 13 }}><PathChip path={recipe.path} /></div>
+          <div className="row" style={{ gap: 7, flexWrap: 'wrap', marginTop: 13, marginBottom: 13 }}>
+            <PathChip path={recipe.path} />
+            <YourControlChip recipeId={recipe.id} />
+          </div>
 
           {recipe.fast && (
             <div className="note plain" style={{ marginBottom: 13 }}>

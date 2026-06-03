@@ -7,9 +7,22 @@
 //   two-step = press Fn first, then tap the tile
 //   awkward  = reachable, but placed where you would not use it in a hurry
 
+import type { CameraView } from './types'
+
 export type Reach = 'instant' | 'two-step' | 'awkward'
 export type ControlGroup = 'thumb' | 'wheel' | 'dial' | 'movie' | 'fn'
 export type Goal = 'balanced' | 'street' | 'portrait' | 'night'
+
+// A saved button layout. The app can hold several (e.g. Street, Night) and switch
+// between them, mirroring the camera's memory-recall dial slots.
+export interface ButtonLayout {
+  id: string
+  name: string
+  goal: Goal
+  slot?: 1 | 2 | 3 // optional camera Memory Recall slot this layout maps to
+  map: Record<string, string> // controlId -> functionId
+  done: string[] // controlIds actually set on the camera
+}
 
 export interface ButtonControl {
   id: string
@@ -155,4 +168,88 @@ export const recommendedFor = (goal: Goal, controlId: string): string | undefine
     return fnRecommendedFor(goal)[idx]
   }
   return recommendations[goal][controlId]
+}
+
+// ─────────────────────────── ANALYSIS HELPERS ───────────────────────────
+const IGNORE_DUPE = new Set(['not-set', 'custom', 'disp'])
+
+// Which control currently holds a given job (prefer the fastest one).
+export const controlForFunction = (map: Record<string, string>, fnId: string): string | undefined => {
+  const instant = controls.find((c) => c.reach === 'instant' && map[c.id] === fnId)
+  if (instant) return instant.id
+  return controls.find((c) => map[c.id] === fnId)?.id
+}
+
+export interface LayoutScore { score: number; outOf10: number; reasons: string[] }
+
+// A 0–100 "how fast and complete is this layout" score, with the main reasons.
+export const scoreLayout = (map: Record<string, string>, goal: Goal): LayoutScore => {
+  const reasons: string[] = []
+
+  // Essentials on an instant control (up to 60).
+  const essOnInstant = essentialFunctionIds.filter((fn) =>
+    controls.some((c) => c.reach === 'instant' && map[c.id] === fn)
+  ).length
+  let score = Math.round((essOnInstant / essentialFunctionIds.length) * 60)
+
+  // Matches the suggested setup (up to 25).
+  const recControls = controls.filter((c) => c.recommendable)
+  const matches = recControls.filter((c) => {
+    const rec = recommendedFor(goal, c.id)
+    return rec && map[c.id] === rec
+  }).length
+  score += Math.round((matches / recControls.length) * 25)
+
+  // Fn tiles filled (up to 15).
+  const fnSet = controls.filter((c) => c.group === 'fn' && map[c.id]).length
+  score += Math.round((Math.min(fnSet, 12) / 12) * 15)
+
+  // Penalty for the same job on more than one PHYSICAL control (overlapping an Fn
+  // tile with a button is normal, so Fn tiles are excluded here).
+  const dupes = duplicateFunctions(map).length
+  score -= dupes * 5
+
+  score = Math.max(0, Math.min(100, score))
+
+  const missing = essentialFunctionIds.length - essOnInstant
+  if (missing > 0) reasons.push(`${missing} key ${missing === 1 ? 'job is' : 'jobs are'} not on a fast button`)
+  if (dupes > 0) reasons.push(`${dupes} ${dupes === 1 ? 'job sits' : 'jobs sit'} on more than one control`)
+  if (matches < recControls.length && missing === 0 && dupes === 0) reasons.push('Some controls differ from the suggested setup')
+  if (reasons.length === 0) reasons.push('Fast and complete, nicely done')
+
+  return { score, outOf10: Math.round(score / 10), reasons }
+}
+
+// Duplicate jobs: the same function on two or more PHYSICAL controls. Fn tiles are
+// excluded, since backing up a button job on an Fn tile is normal and useful.
+export const duplicateFunctions = (map: Record<string, string>): { fnId: string; controlIds: string[] }[] => {
+  const byFn = new Map<string, string[]>()
+  controls
+    .filter((c) => c.group !== 'fn')
+    .forEach((c) => {
+      const fn = map[c.id]
+      if (!fn || IGNORE_DUPE.has(fn)) return
+      byFn.set(fn, [...(byFn.get(fn) ?? []), c.id])
+    })
+  return [...byFn.entries()].filter(([, ids]) => ids.length > 1).map(([fnId, controlIds]) => ({ fnId, controlIds }))
+}
+
+// ─────────────────────────── VISUAL MAP POSITIONS ───────────────────────────
+// Where each physical control sits on the recreated camera body, as percentages
+// (0–100) within the CameraBody viewBox. Fn tiles are not on the body. Positions
+// match Chris's A7C II photos (e.g. C1 on the top edge of the back, by MENU).
+export const controlDiagram: Record<string, { view: CameraView; x: number; y: number }> = {
+  // back
+  c1: { view: 'back', x: 41, y: 11 },
+  'af-on': { view: 'back', x: 82, y: 41 },
+  'wheel-up': { view: 'back', x: 74, y: 54 },
+  'wheel-right': { view: 'back', x: 85, y: 65 },
+  'wheel-down': { view: 'back', x: 74, y: 77 },
+  'wheel-left': { view: 'back', x: 63, y: 65 },
+  'wheel-center': { view: 'back', x: 74, y: 65 },
+  c2: { view: 'back', x: 86, y: 88 },
+  // top
+  'front-dial': { view: 'top', x: 40, y: 33 },
+  'rear-dial': { view: 'top', x: 70, y: 28 },
+  movie: { view: 'top', x: 56, y: 47 },
 }

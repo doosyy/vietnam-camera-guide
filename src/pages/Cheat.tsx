@@ -1,10 +1,24 @@
+import { useNavigate } from 'react-router-dom'
 import { PageHead, SectionTitle, NumberStep } from '../components/ui'
+import ButtonsCheatCard from '../components/ButtonsCheatCard'
+import { useApp } from '../context/AppContext'
 import { quickFixes, afPicks, streetStarter, lowLightLadder } from '../data/cheatsheet'
 
 export default function Cheat() {
+  const navigate = useNavigate()
+  const { activeLayout } = useApp()
+  const hasButtons = Object.keys(activeLayout.map).length > 0
+
   return (
     <div className="screen anim-tab">
       <PageHead eyebrow="Cheat Sheet" title="Pocket field card" sub="Glance, fix, keep shooting." />
+
+      {hasButtons && (
+        <section style={{ marginBottom: 22 }}>
+          <SectionTitle icon="click" right={<button onClick={() => navigate('/buttons')} className="tap" style={{ fontSize: 11, color: 'var(--accent-text)' }}>Edit</button>}>My button layout{activeLayout.name ? ` · ${activeLayout.name}` : ''}</SectionTitle>
+          <div className="card"><ButtonsCheatCard map={activeLayout.map} /></div>
+        </section>
+      )}
 
       <section style={{ marginBottom: 22 }}>
         <SectionTitle icon="alert">Something’s wrong? Fix this first</SectionTitle>
