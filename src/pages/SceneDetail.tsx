@@ -136,13 +136,13 @@ export default function SceneDetail() {
         <ol className="stack" style={{ '--g': '11px', listStyle: 'none' } as React.CSSProperties}>
           {scene.howTo.map((s, i) => <NumberStep key={i} n={i + 1}>{s}</NumberStep>)}
         </ol>
+        <p className="small" style={{ color: 'var(--text-3)', marginTop: 13, marginBottom: 9 }}>Not sure where a setting lives?</p>
         <button
           onClick={() => navigate('/learn/how-to')}
-          className="tap row"
-          style={{ gap: 7, marginTop: 13, color: 'var(--accent-text)', fontSize: 13, fontWeight: 600 }}
+          className="btn-accent"
         >
-          <Icon name="sliders" size={14} /> Not sure where a setting lives? Open How to set anything
-          <Icon name="chevronRight" size={14} />
+          <Icon name="sliders" size={15} /> How to set anything
+          <Icon name="chevronRight" size={15} />
         </button>
       </Section>
 

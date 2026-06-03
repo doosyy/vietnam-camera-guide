@@ -48,6 +48,7 @@ html[data-theme="dark"] {
   --accent-text: #ffb766;
   --accent-soft: rgba(255,158,61,.13);
   --accent-line: rgba(255,158,61,.34);
+  --accent-ink: #2a1606;
   --good: #57c98a;
   --good-soft: rgba(87,201,138,.12);
   --bad: #f0726f;
@@ -80,6 +81,7 @@ html[data-theme="light"] {
   --accent-text: #a8550f;
   --accent-soft: rgba(201,106,22,.11);
   --accent-line: rgba(201,106,22,.32);
+  --accent-ink: #fff7ef;
   --good: #2f9c64;
   --good-soft: rgba(47,156,100,.12);
   --bad: #c8463f;
@@ -92,6 +94,38 @@ html[data-theme="light"] {
   --grain: 0;
   --nav-bg: rgba(245,242,235,.78);
   --header-bg: rgba(239,236,229,.72);
+}
+
+/* ---------- ACCENT TONES ----------
+   Default (no data-accent) is amber, defined per theme above. Each tone below
+   re-maps only the accent tokens, for dark and light, so the rest of the
+   darkroom palette is untouched. Stored as `vcc_accent` in AppContext. */
+/* Safelight red — the classic darkroom glow */
+html[data-accent="crimson"][data-theme="dark"] {
+  --accent: #f2545b; --accent-2: #ff7d83; --accent-text: #ff8a8f;
+  --accent-soft: rgba(242,84,91,.14); --accent-line: rgba(242,84,91,.36); --accent-ink: #2a080a;
+}
+html[data-accent="crimson"][data-theme="light"] {
+  --accent: #c5363d; --accent-2: #ad2a30; --accent-text: #a82127;
+  --accent-soft: rgba(197,54,61,.10); --accent-line: rgba(197,54,61,.30); --accent-ink: #fff2f2;
+}
+/* Cyan — cool developer tray */
+html[data-accent="teal"][data-theme="dark"] {
+  --accent: #2fc4b0; --accent-2: #5cd8c8; --accent-text: #5fd8c7;
+  --accent-soft: rgba(47,196,176,.14); --accent-line: rgba(47,196,176,.34); --accent-ink: #04211d;
+}
+html[data-accent="teal"][data-theme="light"] {
+  --accent: #0e8d7c; --accent-2: #0b7568; --accent-text: #0a6e62;
+  --accent-soft: rgba(14,141,124,.11); --accent-line: rgba(14,141,124,.30); --accent-ink: #f0fffb;
+}
+/* Violet — dusk over the rooftops */
+html[data-accent="violet"][data-theme="dark"] {
+  --accent: #a78bfa; --accent-2: #c4abff; --accent-text: #c4b0ff;
+  --accent-soft: rgba(167,139,250,.15); --accent-line: rgba(167,139,250,.36); --accent-ink: #190f33;
+}
+html[data-accent="violet"][data-theme="light"] {
+  --accent: #6d4fc4; --accent-2: #5b3fb0; --accent-text: #573aa8;
+  --accent-soft: rgba(109,79,196,.11); --accent-line: rgba(109,79,196,.30); --accent-ink: #f6f2ff;
 }
 
 html, body, #root { height: 100%; }
@@ -189,6 +223,40 @@ body {
 .tap:active { transform: scale(.975); }
 button { font-family: inherit; color: inherit; background: none; border: none; cursor: pointer; }
 a { color: inherit; text-decoration: none; }
+
+/* ---------- PRIMARY CALL-TO-ACTION ----------
+   The signature filled button: a subtle accent gradient, an inner highlight to
+   catch the light, and a soft press depth. Reusable across the key CTAs. */
+.btn-accent {
+  position: relative; isolation: isolate;
+  display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+  padding: 13px 16px; border-radius: var(--r-md); width: 100%;
+  font-family: var(--font-sans); font-weight: 700; font-size: 14px; line-height: 1.2;
+  color: var(--accent-ink);
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  border: 1px solid var(--accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.4),
+    0 6px 18px -9px var(--accent),
+    0 1px 2px rgba(0,0,0,.22);
+  transition: transform .14s var(--ease), box-shadow .22s var(--ease), filter .2s var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+/* glossy top sheen sitting above the gradient */
+.btn-accent::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,0) 46%);
+  pointer-events: none;
+}
+.btn-accent:active {
+  transform: translateY(1px) scale(.99);
+  box-shadow:
+    inset 0 2px 5px rgba(0,0,0,.24),
+    0 2px 8px -6px var(--accent);
+  filter: brightness(.98);
+}
+.btn-accent svg { color: var(--accent-ink); }
+.btn-accent.compact { width: auto; padding: 10px 15px; font-size: 13px; }
 
 /* segmented control */
 .seg { display: flex; gap: 4px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px; padding: 4px; }
@@ -319,6 +387,15 @@ html[data-theme="dark"] .seg button.on { background: var(--surface-3); }
 
 /* scroll area */
 .scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; position: relative; }
+
+/* route shell: a quick cross-fade between screens that layers under each page's
+   own directional slide (anim-fwd / anim-tab) for a softer hand-off. */
+.route-shell { animation: routeIn .26s var(--ease) both; }
+@keyframes routeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- LAUNCH SPLASH ---------- */
+@keyframes splashMark { from { opacity: 0; transform: scale(.86); } to { opacity: 1; transform: scale(1); } }
+@keyframes splashRing { to { transform: rotate(360deg); } }
 
 /* overlay (search) */
 .overlay { position: absolute; inset: 0; z-index: 120; background: var(--bg); display: flex; flex-direction: column; animation: overlayIn .25s ease both; }

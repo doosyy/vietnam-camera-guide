@@ -4,6 +4,14 @@ import { lensById } from '../data/lenses'
 import type { Goal, ButtonLayout } from '../data/buttons'
 
 type Theme = 'dark' | 'light'
+export type Accent = 'amber' | 'crimson' | 'teal' | 'violet'
+
+export const ACCENTS: { id: Accent; label: string; hint: string; swatch: string }[] = [
+  { id: 'amber', label: 'Amber', hint: 'Warm darkroom glow', swatch: '#ff9e3d' },
+  { id: 'crimson', label: 'Safelight', hint: 'Classic red glow', swatch: '#f2545b' },
+  { id: 'teal', label: 'Cyan', hint: 'Cool developer tray', swatch: '#2fc4b0' },
+  { id: 'violet', label: 'Violet', hint: 'Dusk over rooftops', swatch: '#a78bfa' },
+]
 
 export interface Bookmark {
   id: string
@@ -15,6 +23,8 @@ export interface Bookmark {
 interface AppCtx {
   theme: Theme
   toggleTheme: () => void
+  accent: Accent
+  setAccent: (a: Accent) => void
   lens: Lens
   lensId: LensId
   setLens: (id: LensId) => void
@@ -82,6 +92,7 @@ function initLayouts(): ButtonLayout[] {
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => ls.get<Theme>('vcc_theme', 'dark'))
+  const [accent, setAccentState] = useState<Accent>(() => ls.get<Accent>('vcc_accent', 'amber'))
   const [lensId, setLensId] = useState<LensId>(() => ls.get<LensId>('vcc_lens', 'kit-28-60'))
   const [setupDone, setSetupDone] = useState<string[]>(() => ls.get<string[]>('vcc_setup', []))
   const [bookmarks, setBookmarks] = useState<Bookmark[]>(() => ls.get<Bookmark[]>('vcc_bookmarks', []))
@@ -98,6 +109,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     document.documentElement.dataset.theme = theme
     ls.set('vcc_theme', theme)
   }, [theme])
+  useEffect(() => {
+    if (accent === 'amber') delete document.documentElement.dataset.accent
+    else document.documentElement.dataset.accent = accent
+    ls.set('vcc_accent', accent)
+  }, [accent])
   useEffect(() => ls.set('vcc_lens', lensId), [lensId])
   useEffect(() => ls.set('vcc_setup', setupDone), [setupDone])
   useEffect(() => ls.set('vcc_bookmarks', bookmarks), [bookmarks])
@@ -117,6 +133,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const value: AppCtx = {
     theme,
     toggleTheme: () => setTheme((t) => (t === 'dark' ? 'light' : 'dark')),
+    accent,
+    setAccent: setAccentState,
     lens: lensById(lensId),
     lensId,
     setLens: setLensId,

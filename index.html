@@ -16,8 +16,68 @@
       content="Your Sony A7C II field guide for street photography in Vietnam."
     />
     <title>Vietnam Camera Companion</title>
+    <!-- Apply the saved theme + accent before first paint, so there is no flash
+         of the wrong palette and the splash matches. Runs synchronously. -->
+    <script>
+      (function () {
+        try {
+          var t = JSON.parse(localStorage.getItem('vcc_theme')) || 'dark';
+          document.documentElement.dataset.theme = t === 'light' ? 'light' : 'dark';
+          var a = JSON.parse(localStorage.getItem('vcc_accent'));
+          if (a && a !== 'amber') document.documentElement.dataset.accent = a;
+        } catch (e) {}
+      })();
+    </script>
+    <style>
+      /* Self-contained splash so it paints instantly, before the app CSS/JS
+         load. Literal colours (CSS vars aren't available this early). */
+      #splash {
+        position: fixed; inset: 0; z-index: 10000;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        gap: 18px; background: #0b0b0d;
+        transition: opacity .5s ease; will-change: opacity;
+        font-family: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+      }
+      html[data-theme="light"] #splash { background: #efece5; }
+      #splash.hide { opacity: 0; pointer-events: none; }
+      .splash-mark {
+        position: relative; width: 64px; height: 64px;
+        display: flex; align-items: center; justify-content: center;
+        animation: splashMarkIn .6s cubic-bezier(.32,.72,0,1) both;
+      }
+      .splash-mark svg { width: 34px; height: 34px; }
+      .splash-ring {
+        position: absolute; inset: 0; border-radius: 18px;
+        border: 1.5px solid rgba(255,158,61,.18);
+        border-top-color: #ff9e3d;
+        animation: splashSpin 1s linear infinite;
+      }
+      html[data-theme="light"] .splash-ring { border-color: rgba(201,106,22,.2); border-top-color: #c96a16; }
+      .splash-word {
+        font-size: 12px; font-weight: 600; letter-spacing: .28em; text-transform: uppercase;
+        color: #6f6d67; font-family: 'JetBrains Mono', ui-monospace, monospace;
+        animation: splashFade .6s ease .15s both;
+      }
+      @keyframes splashMarkIn { from { opacity: 0; transform: scale(.8); } to { opacity: 1; transform: scale(1); } }
+      @keyframes splashFade { from { opacity: 0; } to { opacity: 1; } }
+      @keyframes splashSpin { to { transform: rotate(360deg); } }
+      @media (prefers-reduced-motion: reduce) {
+        .splash-ring { animation: none; }
+        .splash-mark, .splash-word { animation-duration: .001ms; }
+      }
+    </style>
   </head>
   <body>
+    <div id="splash" aria-hidden="true">
+      <div class="splash-mark">
+        <div class="splash-ring"></div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#ff9e3d" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83M16.62 12l-5.74 9.94" />
+        </svg>
+      </div>
+      <div class="splash-word">A7C II · Vietnam</div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -207,15 +207,11 @@ export default function MyButtons() {
         <button
           onClick={() => (confirmApply ? applySuggested() : setConfirmApply(true))}
           onBlur={() => setConfirmApply(false)}
-          className="tap"
-          style={{ flex: 1, textAlign: 'left', padding: 13, borderRadius: 14, background: confirmApply ? 'var(--accent)' : 'var(--accent-soft)', border: '1px solid var(--accent-line)' }}
+          className="btn-accent"
+          style={{ flex: 1, fontSize: 13 }}
         >
-          <span className="row" style={{ gap: 9, minWidth: 0 }}>
-            <Icon name="sparkle" size={16} style={{ color: confirmApply ? 'var(--bg)' : 'var(--accent)', flexShrink: 0 }} />
-            <span className="h3" style={{ fontSize: 13, color: confirmApply ? 'var(--bg)' : 'var(--accent-text)' }}>
-              {confirmApply ? 'Tap again to fill all' : 'Use suggested setup'}
-            </span>
-          </span>
+          <Icon name="sparkle" size={16} style={{ flexShrink: 0 }} />
+          {confirmApply ? 'Tap again to fill all' : 'Use suggested setup'}
         </button>
         <button onClick={() => setDrill(true)} className="tap" style={{ padding: 13, borderRadius: 14, background: 'var(--surface-3)', border: '1px solid var(--border)' }}>
           <span className="row" style={{ gap: 8 }}><Icon name="rocket" size={16} style={{ color: 'var(--accent)' }} /><span className="h3" style={{ fontSize: 13 }}>Practice</span></span>

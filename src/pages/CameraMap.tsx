@@ -26,16 +26,20 @@ function CameraDiagram({
         return (
           <g key={s.id} onClick={() => onSelect(s.id)} style={{ cursor: 'pointer' }}>
             {on && (
-              <circle cx={cx} cy={cy} r="14" style={{ fill: 'var(--accent)', opacity: 0.22 }}>
-                <animate attributeName="r" values="11;15;11" dur="1.8s" repeatCount="indefinite" />
-              </circle>
+              <>
+                <circle cx={cx} cy={cy} r="17" style={{ fill: 'var(--accent)', opacity: 0.16 }}>
+                  <animate attributeName="r" values="13;19;13" dur="1.8s" repeatCount="indefinite" />
+                  <animate attributeName="opacity" values="0.18;0.05;0.18" dur="1.8s" repeatCount="indefinite" />
+                </circle>
+                <circle cx={cx} cy={cy} r="13" style={{ fill: 'none', stroke: 'var(--accent)', opacity: 0.9 }} strokeWidth="1.4" />
+              </>
             )}
             <circle
               cx={cx}
               cy={cy}
-              r="9"
+              r={on ? 10 : 8.5}
               style={{ fill: on ? 'var(--accent)' : 'var(--surface-2)', stroke: on ? 'var(--accent-2)' : s.recommendCustom ? 'var(--accent)' : 'var(--text-3)' }}
-              strokeWidth="1.6"
+              strokeWidth="1.7"
             />
             <text x={cx} y={cy + 3.4} textAnchor="middle" fontSize="9.5" fontWeight="700" fontFamily="JetBrains Mono, monospace" style={{ fill: on ? 'var(--bg)' : 'var(--text)' }}>
               {i + 1}
@@ -71,7 +75,7 @@ export default function CameraMap() {
       <div style={{ marginBottom: 14 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Camera Map</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>Tap any button</h1>
-        <p className="body" style={{ marginTop: 7 }}>Numbered dots show what each control does. An amber ring means we suggest customising it.</p>
+        <p className="body" style={{ marginTop: 7 }}>Numbered dots show what each control does. A coloured ring means we suggest customising it.</p>
       </div>
       <div className="seg" style={{ marginBottom: 13 }}>
         {(['front', 'back', 'top', 'ports'] as const).map((v) => (

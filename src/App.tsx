@@ -137,6 +137,7 @@ export default function App() {
 
       {/* scroll content */}
       <div className="scroll" ref={scrollRef}>
+        <div className="route-shell" key={pathname}>
         <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -161,6 +162,7 @@ export default function App() {
           <Route path="/trip/light" element={<LightClock />} />
         </Routes>
         </Suspense>
+        </div>
       </div>
 
       {/* bottom nav */}

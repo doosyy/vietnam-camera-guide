@@ -17,3 +17,16 @@ createRoot(document.getElementById('root')!).render(
     </BrowserRouter>
   </StrictMode>,
 )
+
+// Fade out the launch splash once the app has painted, then remove it so it
+// never traps taps. Kept brief so it reads as a hand-off, not a wait. Uses
+// setTimeout (not rAF, which pauses in background tabs) so it always clears.
+const splash = document.getElementById('splash')
+if (splash) {
+  const remove = () => splash.remove()
+  setTimeout(() => {
+    splash.classList.add('hide')
+    splash.addEventListener('transitionend', remove, { once: true })
+    setTimeout(remove, 700) // safety net if transitionend never fires
+  }, 480)
+}
