@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { PageHead, SectionTitle, NavRow } from '../components/ui'
+import { PageHead, SectionTitle, NavRow, ProgressRing } from '../components/ui'
+import { useApp } from '../context/AppContext'
 import { guideChapters, guideGroups } from '../data/guide'
 
 const tools = [
@@ -14,9 +15,29 @@ const tools = [
 
 export default function Learn() {
   const navigate = useNavigate()
+  const { readChapters } = useApp()
+  const readCount = guideChapters.filter((c) => readChapters.includes(c.id)).length
+
   return (
     <div className="screen anim-tab">
       <PageHead eyebrow="Learn" title="The manual, de-jargoned" sub="Plain-English photography for beginners, the way the manual should have been written. Everything the Sony book covers, in clear words." />
+
+      <button
+        onClick={() => navigate('/learn/path')}
+        className="tap"
+        style={{ width: '100%', textAlign: 'left', marginBottom: 12, padding: 15, borderRadius: 18, background: 'var(--accent-soft)', border: '1px solid var(--accent-line)' }}
+      >
+        <div className="row" style={{ gap: 13 }}>
+          <ProgressRing value={readCount} total={guideChapters.length} size={44} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div className="row between">
+              <span className="h3" style={{ color: 'var(--accent-text)' }}>Learn Path {readCount > 0 ? '· continue' : ''}</span>
+              <Icon name="chevronRight" size={16} style={{ color: 'var(--accent)' }} />
+            </div>
+            <p className="small" style={{ color: 'var(--text-2)', marginTop: 3 }}>A guided course and a plane-reading list, with your progress saved.</p>
+          </div>
+        </div>
+      </button>
 
       <button
         onClick={() => navigate('/learn/how-to')}

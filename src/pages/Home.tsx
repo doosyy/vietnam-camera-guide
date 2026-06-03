@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
 import { Eyebrow, SectionTitle, LensSelector, ProgressRing } from '../components/ui'
+import NowLight from '../components/NowLight'
 import { useApp } from '../context/AppContext'
 import { setupSteps } from '../data/setup'
 
@@ -32,6 +33,9 @@ export default function Home() {
         <Eyebrow>A7C II · Field Guide</Eyebrow>
         <p className="mono" style={{ fontSize: 13, color: 'var(--accent-text)', marginTop: 8, fontWeight: 600 }}>Xin chào, Chris</p>
       </div>
+
+      {/* right now light */}
+      <div className="fu fu2" style={{ marginTop: 14 }}><NowLight /></div>
 
       {/* what shooting */}
       <div className="fu fu3" style={{ marginTop: 14 }}>

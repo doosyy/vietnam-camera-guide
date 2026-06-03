@@ -79,11 +79,17 @@ export interface LightWindow {
   note: string
 }
 
-// The day's light windows, in order, for a place and date. tz defaults to Vietnam (+7).
-export function dayLight(lat: number, lon: number, date: Date, tz = 7): LightWindow[] {
-  const y = date.getFullYear()
-  const m = date.getMonth() + 1
-  const d = date.getDate()
+export interface SunEvents {
+  firstLight: number | null // sun -6deg, dawn
+  sunrise: number | null
+  goldMornEnd: number | null // sun +6deg
+  goldEveStart: number | null
+  sunset: number | null
+  dusk: number | null // sun -6deg
+}
+
+// The day's key sun events, in local minutes from midnight. Shared by dayLight & nowLight.
+function events(lat: number, lon: number, y: number, m: number, d: number, tz: number): SunEvents {
   const p = sunParams(y, m, d, tz)
   const noon = 720 - 4 * lon + 60 * tz - p.eqTime
   const ev = (elev: number, evening: boolean): number | null => {
@@ -91,13 +97,20 @@ export function dayLight(lat: number, lon: number, date: Date, tz = 7): LightWin
     if (H == null) return null
     return evening ? noon + 4 * H : noon - 4 * H
   }
+  return {
+    firstLight: ev(-6, false),
+    sunrise: ev(-0.833, false),
+    goldMornEnd: ev(6, false),
+    goldEveStart: ev(6, true),
+    sunset: ev(-0.833, true),
+    dusk: ev(-6, true),
+  }
+}
 
-  const firstLight = ev(-6, false)
-  const sunrise = ev(-0.833, false)
-  const goldMornEnd = ev(6, false)
-  const goldEveStart = ev(6, true)
-  const sunset = ev(-0.833, true)
-  const dusk = ev(-6, true)
+// The day's light windows, in order, for a place and date. tz defaults to Vietnam (+7).
+export function dayLight(lat: number, lon: number, date: Date, tz = 7): LightWindow[] {
+  const e = events(lat, lon, date.getFullYear(), date.getMonth() + 1, date.getDate(), tz)
+  const { firstLight, sunrise, goldMornEnd, goldEveStart, sunset, dusk } = e
   const range = (a: number | null, b: number | null) => `${fmt(a)} – ${fmt(b)}`
 
   return [
@@ -110,4 +123,50 @@ export function dayLight(lat: number, lon: number, date: Date, tz = 7): LightWin
     { key: 'blue-pm', label: 'Blue hour', kind: 'blue', icon: 'moon', time: range(sunset, dusk), note: 'The prize: neon and skylines pop against a deep-blue sky.' },
     { key: 'night', label: 'Night', kind: 'dark', icon: 'moon', time: `from ${fmt(dusk)}`, note: 'Full dark. Night markets, light trails and tripod work.' },
   ]
+}
+
+export interface NowLight {
+  label: string
+  kind: LightKind
+  icon: string
+  note: string
+  endsInMin?: number // if currently in golden/blue hour, minutes until it ends
+  next?: { label: string; kind: LightKind; inMin: number; at: string } // the next golden/blue hour
+}
+
+// What the light is doing *right now* at a place, plus the next golden/blue hour.
+// Uses the destination's local time (Vietnam, UTC+7 by default) so it is correct
+// whether you are still at home or already there.
+export function nowLight(lat: number, lon: number, now: Date, tz = 7): NowLight {
+  const local = new Date(now.getTime() + tz * 3600 * 1000) // shift so UTC fields = local time
+  const y = local.getUTCFullYear()
+  const m = local.getUTCMonth() + 1
+  const d = local.getUTCDate()
+  const t = local.getUTCHours() * 60 + local.getUTCMinutes()
+  const e = events(lat, lon, y, m, d, tz)
+  const { firstLight: fl, sunrise: sr, goldMornEnd: gme, goldEveStart: ges, sunset: ss, dusk: du } = e
+
+  // Current phase.
+  let phase: NowLight
+  const blueNote = 'Neon, lakes and skylines glow against a deep-blue sky.'
+  const goldNote = 'Warm, flattering light. The best window for street and portraits.'
+  if (fl != null && t < fl) phase = { label: 'Pre-dawn', kind: 'dark', icon: 'moon', note: 'Still dark. Blue hour is on its way.' }
+  else if (fl != null && sr != null && t < sr) phase = { label: 'Blue hour', kind: 'blue', icon: 'moon', note: blueNote, endsInMin: Math.round(sr - t) }
+  else if (sr != null && gme != null && t < gme) phase = { label: 'Golden hour', kind: 'gold', icon: 'sunrise', note: goldNote, endsInMin: Math.round(gme - t) }
+  else if (gme != null && ges != null && t < ges) phase = { label: 'High sun', kind: 'harsh', icon: 'sun', note: 'Hard overhead light. Seek shade, alleys and interiors.' }
+  else if (ges != null && ss != null && t < ss) phase = { label: 'Golden hour', kind: 'gold', icon: 'sunset', note: goldNote, endsInMin: Math.round(ss - t) }
+  else if (ss != null && du != null && t < du) phase = { label: 'Blue hour', kind: 'blue', icon: 'moon', note: blueNote, endsInMin: Math.round(du - t) }
+  else phase = { label: 'Night', kind: 'dark', icon: 'moon', note: 'Full dark. Night markets, light trails and tripod work.' }
+
+  // Next golden or blue hour start.
+  const cands: { min: number; label: string; kind: LightKind }[] = []
+  if (sr != null) cands.push({ min: sr, label: 'Golden hour', kind: 'gold' })
+  if (ges != null) cands.push({ min: ges, label: 'Golden hour', kind: 'gold' })
+  if (fl != null) cands.push({ min: fl, label: 'Blue hour', kind: 'blue' })
+  if (ss != null) cands.push({ min: ss, label: 'Blue hour', kind: 'blue' })
+  let upcoming = cands.filter((c) => c.min > t).sort((a, b) => a.min - b.min)[0]
+  if (!upcoming && fl != null) upcoming = { min: fl + 1440, label: 'Blue hour', kind: 'blue' } // tomorrow's dawn
+  if (upcoming) phase.next = { label: upcoming.label, kind: upcoming.kind, inMin: Math.round(upcoming.min - t), at: fmt(upcoming.min) }
+
+  return phase
 }

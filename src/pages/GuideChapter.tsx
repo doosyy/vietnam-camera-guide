@@ -1,10 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { BackBar, Note } from '../components/ui'
+import { BackBar, Note, Pill } from '../components/ui'
 import RichText from '../components/RichText'
 import BookmarkButton from '../components/BookmarkButton'
-import { guideChapterById } from '../data/guide'
+import { useApp } from '../context/AppContext'
+import { guideChapterById, guideChapters, chapterMinutes } from '../data/guide'
 import type { GuideSection } from '../data/types'
 
 function SectionBody({ sec }: { sec: GuideSection }) {
@@ -53,7 +54,14 @@ function AdvancedSection({ sec }: { sec: GuideSection }) {
 export default function GuideChapterPage() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { markRead } = useApp()
   const c = id ? guideChapterById(id) : undefined
+
+  // Reading a chapter marks it read (for the Learn Path progress).
+  useEffect(() => {
+    if (c) markRead(c.id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [c?.id])
 
   if (!c) {
     return (
@@ -72,6 +80,10 @@ export default function GuideChapterPage() {
           <div className="brandmark" style={{ width: 40, height: 40 }}><Icon name={c.icon} size={20} /></div>
           <BookmarkButton bookmark={{ id: `chapter-${c.id}`, kind: 'chapter', title: c.title, route: `/learn/guide/${c.id}` }} />
         </div>
+        <div className="row" style={{ gap: 8, marginBottom: 7 }}>
+          <Pill>{chapterMinutes(c)} min read</Pill>
+          <Pill tone="line">{c.group}</Pill>
+        </div>
         <h1 className="h1" style={{ fontSize: 25 }}>{c.title}</h1>
         <p className="body" style={{ marginTop: 7 }}>{c.summary}</p>
       </div>
@@ -87,6 +99,27 @@ export default function GuideChapterPage() {
           )
         )}
       </div>
+
+      {(() => {
+        const idx = guideChapters.findIndex((x) => x.id === c.id)
+        const next = guideChapters[idx + 1]
+        if (!next) return null
+        return (
+          <button
+            onClick={() => navigate(`/learn/guide/${next.id}`)}
+            className="tap"
+            style={{ width: '100%', textAlign: 'left', marginTop: 18, padding: 15, borderRadius: 16, background: 'var(--surface)', border: '1px solid var(--border)' }}
+          >
+            <div className="row between">
+              <div style={{ minWidth: 0 }}>
+                <div className="mono" style={{ fontSize: 9.5, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--text-3)' }}>Next chapter</div>
+                <div className="h3" style={{ marginTop: 3, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{next.title}</div>
+              </div>
+              <Icon name="chevronRight" size={18} style={{ color: 'var(--accent)', flexShrink: 0 }} />
+            </div>
+          </button>
+        )
+      })()}
     </div>
   )
 }

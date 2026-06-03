@@ -50,6 +50,8 @@ export const buildSearchIndex = (): SearchEntry[] => {
 
   e.push({ id: 'my-buttons', title: 'My Buttons', snippet: 'Record your custom buttons and get speed ratings and the ideal Vietnam setup.', section: 'My Buttons', icon: 'click', route: '/buttons', keywords: 'custom buttons C1 C2 AF-ON control wheel Fn tiles assign recommendations setup which button how fast reachable' })
 
+  e.push({ id: 'learn-path', title: 'Learn Path', snippet: 'A guided course and a plane-reading list, with your progress saved.', section: 'Learn', icon: 'book', route: '/learn/path', keywords: 'course lessons progress flight reading plane study guided learning path continue read time' })
+
   screenIcons.forEach((s) =>
     e.push({ id: `icon-${s.id}`, title: s.label, snippet: s.meaning, section: 'Icon Keys', icon: 'grid', route: `/learn/icons?q=${encodeURIComponent(s.label)}`, keywords: `${s.group} symbol icon screen display` })
   )

@@ -41,6 +41,14 @@ interface AppCtx {
   // Back-compat reads
   buttons: Record<string, string>
   buttonGoal: Goal
+  // Selected Vietnam city (for the "right now" light card)
+  cityId: string
+  setCity: (id: string) => void
+  // Reading progress through the guide
+  readChapters: string[]
+  markRead: (id: string) => void
+  toggleRead: (id: string) => void
+  isRead: (id: string) => boolean
 }
 
 const Ctx = createContext<AppCtx | null>(null)
@@ -83,6 +91,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const ls0 = initLayouts()
     return ls0.some((l) => l.id === saved) ? saved : ls0[0].id
   })
+  const [cityId, setCityId] = useState<string>(() => ls.get<string>('vcc_city', 'hanoi'))
+  const [readChapters, setReadChapters] = useState<string[]>(() => ls.get<string[]>('vcc_read', []))
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -93,6 +103,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   useEffect(() => ls.set('vcc_bookmarks', bookmarks), [bookmarks])
   useEffect(() => ls.set('vcc_btn_layouts', layouts), [layouts])
   useEffect(() => ls.set('vcc_btn_active', activeLayoutId), [activeLayoutId])
+  useEffect(() => ls.set('vcc_city', cityId), [cityId])
+  useEffect(() => ls.set('vcc_read', readChapters), [readChapters])
 
   const activeLayout = useMemo(
     () => layouts.find((l) => l.id === activeLayoutId) ?? layouts[0],
@@ -162,6 +174,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
     buttons: activeLayout.map,
     buttonGoal: activeLayout.goal,
+
+    cityId,
+    setCity: setCityId,
+    readChapters,
+    markRead: (id) => setReadChapters((r) => (r.includes(id) ? r : [...r, id])),
+    toggleRead: (id) => setReadChapters((r) => (r.includes(id) ? r.filter((x) => x !== id) : [...r, id])),
+    isRead: (id) => readChapters.includes(id),
   }
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>

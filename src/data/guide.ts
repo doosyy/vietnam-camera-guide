@@ -1192,3 +1192,24 @@ export const guideGroups: string[] = [
   'Care & fixing',
   'Reference',
 ]
+
+// Rough reading time in minutes. ~150 words/min, a realistic pace for taking in
+// new photography concepts rather than skimming.
+export const chapterMinutes = (c: GuideChapter): number => {
+  const count = (s: string) => s.trim().split(/\s+/).length
+  let words = count(c.title) + count(c.summary)
+  c.sections.forEach((sec) => {
+    words += count(sec.heading)
+    sec.body.forEach((b) => (words += count(b)))
+    if (sec.tip) words += count(sec.tip)
+  })
+  return Math.max(2, Math.round(words / 150))
+}
+
+// A curated, ordered "read this on the plane" list: foundations first, then the
+// skills that matter most for street/night photography in Vietnam.
+export const flightReading: string[] = [
+  'first-10', 'modes', 'exposure', 'aperture-dof', 'shutter-motion', 'iso-noise',
+  'exp-comp', 'white-balance', 'autofocus', 'focus-areas', 'eye-af',
+  'silent-shutter', 'custom-buttons', 'clean-files', 'troubleshooting',
+]

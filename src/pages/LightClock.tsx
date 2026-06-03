@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import Icon from '../components/Icon'
 import { BackBar, Eyebrow } from '../components/ui'
+import { useApp } from '../context/AppContext'
 import { vietnamLocations } from '../data/vietnam'
 import { dayLight, type LightKind } from '../data/solar'
 
@@ -23,10 +24,12 @@ const dayLabel = (d: Date) =>
 export default function LightClock() {
   const navigate = useNavigate()
   const [params] = useSearchParams()
+  const { cityId: storedCity, setCity } = useApp()
   const initCity = params.get('city')
   const [cityId, setCityId] = useState(
-    () => (initCity && vietnamLocations.some((l) => l.id === initCity) ? initCity : vietnamLocations[0].id)
+    () => (initCity && vietnamLocations.some((l) => l.id === initCity) ? initCity : storedCity)
   )
+  const selectCity = (id: string) => { setCityId(id); setCity(id) }
   const [date, setDate] = useState<Date>(() => startOfDay(new Date()))
 
   const city = vietnamLocations.find((l) => l.id === cityId)!
@@ -51,7 +54,7 @@ export default function LightClock() {
       {/* city selector */}
       <div className="seg" style={{ marginBottom: 12 }}>
         {vietnamLocations.map((l) => (
-          <button key={l.id} className={cityId === l.id ? 'on' : ''} onClick={() => setCityId(l.id)}>
+          <button key={l.id} className={cityId === l.id ? 'on' : ''} onClick={() => selectCity(l.id)}>
             {l.name.replace('Ho Chi Minh City', 'HCMC').replace('Ha Long Bay', 'Ha Long')}
           </button>
         ))}
