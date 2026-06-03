@@ -55,16 +55,19 @@ export default function ButtonsDiagram({
             return (
               <g key={c.id} onClick={() => setSel(on ? null : c.id)} style={{ cursor: 'pointer' }}>
                 {on && (
-                  <circle cx={cx} cy={cy} r="11" style={{ fill: 'var(--accent)', opacity: 0.22 }}>
-                    <animate attributeName="r" values="8;12;8" dur="1.7s" repeatCount="indefinite" />
-                  </circle>
+                  <>
+                    <circle cx={cx} cy={cy} r="13" style={{ fill: 'var(--accent)', opacity: 0.16 }}>
+                      <animate attributeName="r" values="9;14;9" dur="1.7s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx={cx} cy={cy} r="10.5" style={{ fill: 'none', stroke: 'var(--accent)', opacity: 0.9 }} strokeWidth="1.3" />
+                  </>
                 )}
-                <circle cx={cx} cy={cy} r="6.5" style={{ fill: col.fill, stroke: col.stroke }} strokeWidth="1.6" />
+                <circle cx={cx} cy={cy} r={on ? 8 : 7} style={{ fill: col.fill, stroke: col.stroke }} strokeWidth="1.7" />
                 {!map[c.id] && (
-                  <text x={cx} y={cy + 3} textAnchor="middle" fontSize="9" fontWeight="700" style={{ fill: 'var(--text-3)' }}>+</text>
+                  <text x={cx} y={cy + 3.2} textAnchor="middle" fontSize="10" fontWeight="700" style={{ fill: 'var(--text-3)' }}>+</text>
                 )}
                 {done.includes(c.id) && (
-                  <path d={`M ${cx - 3} ${cy} l 2 2 l 4 -4`} fill="none" stroke="var(--bg)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d={`M ${cx - 3.2} ${cy} l 2.2 2.2 l 4.4 -4.4`} fill="none" stroke="var(--bg)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
                 )}
               </g>
             )

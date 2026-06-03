@@ -239,17 +239,17 @@ export const duplicateFunctions = (map: Record<string, string>): { fnId: string;
 // (0–100) within the CameraBody viewBox. Fn tiles are not on the body. Positions
 // match Chris's A7C II photos (e.g. C1 on the top edge of the back, by MENU).
 export const controlDiagram: Record<string, { view: CameraView; x: number; y: number }> = {
-  // back
-  c1: { view: 'back', x: 41, y: 11 },
-  'af-on': { view: 'back', x: 82, y: 41 },
-  'wheel-up': { view: 'back', x: 74, y: 54 },
-  'wheel-right': { view: 'back', x: 85, y: 65 },
-  'wheel-down': { view: 'back', x: 74, y: 77 },
-  'wheel-left': { view: 'back', x: 63, y: 65 },
-  'wheel-center': { view: 'back', x: 74, y: 65 },
-  c2: { view: 'back', x: 86, y: 88 },
+  // back (positions match CameraBody's drawn controls)
+  c1: { view: 'back', x: 61, y: 18 },
+  'af-on': { view: 'back', x: 83, y: 33 },
+  'wheel-up': { view: 'back', x: 78, y: 52 },
+  'wheel-right': { view: 'back', x: 88, y: 64 },
+  'wheel-down': { view: 'back', x: 78, y: 76 },
+  'wheel-left': { view: 'back', x: 68, y: 64 },
+  'wheel-center': { view: 'back', x: 78, y: 64 },
+  c2: { view: 'back', x: 89, y: 87 },
   // top
-  'front-dial': { view: 'top', x: 40, y: 33 },
-  'rear-dial': { view: 'top', x: 70, y: 28 },
-  movie: { view: 'top', x: 56, y: 47 },
+  'rear-dial': { view: 'top', x: 80, y: 40 },
+  movie: { view: 'top', x: 70, y: 58 },
+  'front-dial': { view: 'top', x: 70, y: 72 },
 }
