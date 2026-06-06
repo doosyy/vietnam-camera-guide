@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
 import Icon from './Icon'
 import { controls, functions, functionById, controlById, scoreLayout, type Goal } from '../data/buttons'
 
@@ -59,10 +60,9 @@ export default function ButtonsDrill({ map, goal, onClose }: { map: Record<strin
 
   const layoutScore = scoreLayout(map, goal)
 
-  return (
-    <>
-      <div className="sheet-scrim" onClick={onClose} />
-      <div className="sheet" style={{ padding: '10px 18px 26px' }}>
+  return createPortal(
+    <div className="sheet-scrim" onClick={onClose}>
+      <div className="sheet" style={{ padding: '10px 18px max(26px, env(safe-area-inset-bottom))' }} onClick={(e) => e.stopPropagation()}>
         <div className="grabber" />
         <div className="row between" style={{ marginBottom: 16, marginTop: 4 }}>
           <span className="h2">Button drill</span>
@@ -118,6 +118,7 @@ export default function ButtonsDrill({ map, goal, onClose }: { map: Record<strin
           </div>
         )}
       </div>
-    </>
+    </div>,
+    document.body
   )
 }
