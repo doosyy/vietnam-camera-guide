@@ -122,7 +122,7 @@ export default function App() {
           <span className="brandmark"><Icon name="aperture" size={18} strokeWidth={2} /></span>
           <div style={{ minWidth: 0 }}>
             <div className="mono" style={{ fontSize: 9, letterSpacing: '.16em', color: 'var(--text-3)', textTransform: 'uppercase' }}>A7C II · Vietnam</div>
-            <div className="h3" style={{ fontSize: 15, lineHeight: 1.1, marginTop: 1 }}>Companion</div>
+            <div className="h3" style={{ fontSize: 15, lineHeight: 1.1, marginTop: 1 }}>Doosy&apos;s Guide</div>
           </div>
         </button>
         <div className="row" style={{ gap: 8 }}>
