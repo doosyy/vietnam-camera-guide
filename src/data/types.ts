@@ -130,6 +130,7 @@ export interface GlossaryTerm {
   id: string
   term: string
   plain: string
+  cat: string // topic group id (see glossaryCategories)
   also?: string
 }
 
