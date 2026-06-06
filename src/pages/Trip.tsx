@@ -27,6 +27,7 @@ export default function Trip() {
         <NavRow icon="sun" title="Vietnam lighting guide" sub={vietnamLocations.map((l) => l.name).join(' · ')} onClick={() => navigate('/trip/vietnam')} />
         <NavRow icon="clock" title="Light clock" sub="Golden & blue hour times, any day" onClick={() => navigate('/trip/light')} />
         <NavRow icon="aperture" title="Lens guide" sub="Compare lenses & “should I buy it?”" onClick={() => navigate('/trip/lenses')} />
+        <NavRow icon="contrast" title="Accessories" sub="Your polarizer & gear, and when to use them" onClick={() => navigate('/trip/accessories')} />
       </div>
 
       <div style={{ marginTop: 22 }}>

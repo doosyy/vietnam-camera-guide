@@ -176,6 +176,7 @@ export const scenes: Scene[] = [
     watchFor: [
       'Keep the camera level to stop buildings leaning. Turn on the level guide in the menu.',
       'Look for a doorway or arch to frame the shot.',
+      'A polarizer cuts glare on temple ponds, glass cases and wet leaves, and deepens the sky behind a pagoda.',
     ],
     vietnamNote: 'Hoan Kiem area and HCMC’s colonial buildings shine in early light before crowds arrive.',
     lensNotes: {
@@ -446,6 +447,7 @@ export const scenes: Scene[] = [
     watchFor: [
       'Bright hazy sky can fool the meter into a dull grey. Add a little + exposure if it looks flat.',
       'The boat moves, so keep the shutter reasonably quick in daylight, and brace at dawn.',
+      'Your polarizer shines here: twist it to cut the sea glare, deepen the water and richen the sky. See Accessories.',
     ],
     vietnamNote: 'The mistiest, most magical light is at sunrise from the boat deck. Set an early alarm and be ready.',
     lensNotes: {
@@ -479,6 +481,7 @@ export const scenes: Scene[] = [
     watchFor: [
       'Do not stare at the sun through the viewfinder for long. Use the screen.',
       'The richest sky often arrives during blue hour, a few minutes after sunset. Check the Light Clock for the timing.',
+      'A polarizer can tame harsh water reflections and saturate the sky, but ease it off if you want a mirror reflection to stay.',
     ],
     vietnamNote: 'Use the in-app Light Clock to catch golden and blue hour to the minute for Hanoi, HCMC or Ha Long.',
     lensNotes: {

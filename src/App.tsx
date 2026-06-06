@@ -25,6 +25,7 @@ const Setup = lazy(() => import('./pages/Setup'))
 const Vietnam = lazy(() => import('./pages/Vietnam'))
 const VietnamLocationPage = lazy(() => import('./pages/VietnamLocation'))
 const Lenses = lazy(() => import('./pages/Lenses'))
+const Accessories = lazy(() => import('./pages/Accessories'))
 const LightClock = lazy(() => import('./pages/LightClock'))
 
 function Loading() {
@@ -159,6 +160,7 @@ export default function App() {
           <Route path="/trip/vietnam" element={<Vietnam />} />
           <Route path="/trip/vietnam/:id" element={<VietnamLocationPage />} />
           <Route path="/trip/lenses" element={<Lenses />} />
+          <Route path="/trip/accessories" element={<Accessories />} />
           <Route path="/trip/light" element={<LightClock />} />
         </Routes>
         </Suspense>

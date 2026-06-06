@@ -9,6 +9,7 @@ import { glossaryTerms } from './glossary'
 import { lenses } from './lenses'
 import { menuItems } from './menuReference'
 import { settingRecipes } from './settingsRecipes'
+import { accessories } from './accessories'
 import { screenIcons } from './screenIcons'
 
 // One searchable index built from every data file. Icons use the design icon set.
@@ -51,6 +52,10 @@ export const buildSearchIndex = (): SearchEntry[] => {
   e.push({ id: 'my-buttons', title: 'My Buttons', snippet: 'Record your custom buttons and get speed ratings and the ideal Vietnam setup.', section: 'My Buttons', icon: 'click', route: '/buttons', keywords: 'custom buttons C1 C2 AF-ON control wheel Fn tiles assign recommendations setup which button how fast reachable' })
 
   e.push({ id: 'learn-path', title: 'Learn Path', snippet: 'A guided course and a plane-reading list, with your progress saved.', section: 'Learn', icon: 'book', route: '/learn/path', keywords: 'course lessons progress flight reading plane study guided learning path continue read time' })
+
+  accessories.forEach((a) =>
+    e.push({ id: `acc-${a.id}`, title: a.name, snippet: a.oneLiner, section: 'Accessories', icon: a.icon, route: '/trip/accessories', keywords: `polarizer polariser cpl filter glare reflection sky water foliage gear accessory ${a.whatItDoes.join(' ')} ${a.greatFor.map((g) => g.title).join(' ')}` })
+  )
 
   screenIcons.forEach((s) =>
     e.push({ id: `icon-${s.id}`, title: s.label, snippet: s.meaning, section: 'Icon Keys', icon: 'grid', route: `/learn/icons?q=${encodeURIComponent(s.label)}`, keywords: `${s.group} symbol icon screen display` })
