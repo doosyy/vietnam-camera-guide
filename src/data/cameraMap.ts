@@ -63,8 +63,8 @@ export const hotspots: CameraHotspot[] = [
     y: 58,
     label: 'Movie record button',
     sonyName: 'MOVIE',
-    whatItDoes: 'Starts and stops video, in any mode. The red-ringed button.',
-    beginnerTip: 'Rarely pressed by accident here. You can reassign it to a photo job if you never film.',
+    whatItDoes: 'Normally starts and stops video. Since you shoot photos, your setup reassigns it.',
+    beginnerTip: 'Your setup puts AE Lock here: point at the part you want correctly exposed, press to lock the brightness, then recompose.',
     recommendCustom: true,
   },
   {
@@ -107,7 +107,7 @@ export const hotspots: CameraHotspot[] = [
     label: 'C1 custom button',
     sonyName: 'C1',
     whatItDoes: 'Your first custom button, on the top edge of the back just right of the MENU button. It does whatever job you assign it.',
-    beginnerTip: 'Assign Focus Area to C1 so you can flip between Wide and Spot focus with one press.',
+    beginnerTip: 'Your setup puts Switch Focus Area here, so one press cycles Wide and Spot focus.',
     recommendCustom: true,
   },
   {
@@ -140,7 +140,7 @@ export const hotspots: CameraHotspot[] = [
     label: 'Control wheel',
     sonyName: 'Control wheel',
     whatItDoes: 'A spin-and-press dial. Each of its four edges and the centre can be a shortcut.',
-    beginnerTip: 'Defaults: right = ISO, left = Drive mode, up = screen info. The centre button is great for Eye AF or Tracking.',
+    beginnerTip: 'Your setup: left = ISO, right = APS-C crop, down = Silent, up = DISP (screen info), centre = Focus Standard (re-centre / clear a lock).',
     recommendCustom: true,
   },
   {
@@ -161,7 +161,7 @@ export const hotspots: CameraHotspot[] = [
     label: 'C2 custom button',
     sonyName: 'C2 (doubles as Delete)',
     whatItDoes: 'Your second custom button. In shooting it does whatever job you assign; in playback it deletes a photo.',
-    beginnerTip: 'A good home for Silent Mode, or for turning subject recognition on and off. Note: the A7C II has no separate AEL button.',
+    beginnerTip: 'Your setup puts Eye AF here, a one-press grab of the nearest eye. Note: the A7C II has no separate AEL button.',
     recommendCustom: true,
   },
 

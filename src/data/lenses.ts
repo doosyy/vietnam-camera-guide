@@ -49,39 +49,6 @@ export const lenses: Lens[] = [
     ],
     bestFor: ['Architecture & temples', 'Alleys', 'One-lens travel'],
   },
-  {
-    id: 'g-24-50',
-    name: 'Sony FE 24-50mm f/2.8 G',
-    shortName: '24–50',
-    tag: 'G',
-    focalRange: [24, 50],
-    maxApertureWide: 2.8,
-    maxApertureTele: 2.8,
-    constantAperture: true,
-    owned: false,
-    hasFnButton: true,
-    lightGrade: 'fast',
-    oneLiner: 'The low-light champion. Bright f/2.8 the whole way for night and creamy backgrounds.',
-    strengths: [
-      'Bright f/2.8: gathers twice the light of f/4, so lower ISO and cleaner night shots.',
-      'Easiest of the three to blur the background for portraits and food.',
-      'Compact for a fast zoom.',
-    ],
-    weaknesses: [
-      'Shorter range: 24-50mm, so less reach than the 20-70.',
-      'Not as wide as the 20-70 for big interiors.',
-    ],
-    bestFor: ['Night markets', 'Low light', 'Food & people with blur'],
-  },
 ]
 
 export const lensById = (id: LensId): Lens => lenses.find((l) => l.id === id) ?? lenses[0]
-
-export const buyChecklist = [
-  'Is the price clearly below home? Sony G lenses are not always cheaper in Vietnam, so check your home price first.',
-  'Mount it and take test shots: check focus is sharp across the frame and the zoom feels smooth.',
-  'Inspect the glass for scratches, fungus or dust, and the mount for wear (if buying used).',
-  'Confirm it is the real FE full-frame version and comes with box, caps and a warranty card.',
-  'Check the warranty works internationally, or that you are happy without one.',
-  'Factor in the weight: you will carry it all day in the heat.',
-]

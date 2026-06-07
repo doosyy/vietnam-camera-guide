@@ -61,7 +61,7 @@ export const scenes: Scene[] = [
       'Hanoi Old Quarter and Ben Thanh Market are busy and a little dim. Do not be shy about ISO climbing, a slightly grainy sharp photo beats a clean blurry one.',
     lensNotes: {
       'kit-28-60': 'At f/5.6 here the kit lens is wide open at the long end, so ISO will climb in shade. Fine in open daylight.',
-      'g-24-50': 'The 24-50 can open to f/2.8 if the light drops, dropping your ISO and keeping shutters fast.',
+      'g-20-70': 'The 20-70 holds f/4 right through, a stop brighter than the kit lens at the long end, so ISO stays a little lower in shade.',
     },
   },
   {
@@ -94,8 +94,7 @@ export const scenes: Scene[] = [
     vietnamNote: 'Coffee vendors and market sellers are wonderfully characterful. Buy something first, then ask.',
     lensNotes: {
       'kit-28-60': 'The kit lens only reaches f/5.6 at 60mm, so the background blur is gentle. Get close and put distance behind your subject to help.',
-      'g-20-70': 'At f/4 the 20-70 blurs a little more than the kit lens. Zoom to 70mm for the strongest effect.',
-      'g-24-50': 'This is the 24-50 f/2.8 lens’s moment: open to f/2.8 at 50mm for the creamiest background of the three.',
+      'g-20-70': 'At f/4 the 20-70 blurs a little more than the kit lens. Zoom to 70mm and get close for the strongest effect.',
     },
   },
   // ---------- FOOD ----------
@@ -146,7 +145,7 @@ export const scenes: Scene[] = [
     vietnamNote: 'Street food stalls are often shaded under awnings. The "dim" setting is your friend even in the daytime.',
     lensNotes: {
       'kit-28-60': 'At f/5.6 in a dim stall the kit lens pushes ISO high. Steady your elbows on the table to allow a slower shutter.',
-      'g-24-50': 'f/2.8 keeps ISO sensible in dark eateries and gives that lovely soft background behind the bowl.',
+      'g-20-70': 'At f/4 the 20-70 keeps ISO a touch lower than the kit lens and gives a gentle blur behind the bowl. Brace your elbows on the table for a slower shutter.',
     },
   },
   // ---------- ARCHITECTURE ----------
@@ -215,7 +214,7 @@ export const scenes: Scene[] = [
     vietnamNote: 'Hanoi’s weekend night market and HCMC’s Bui Vien come alive after dark. Neon makes great colour, let Auto white balance keep the mood.',
     lensNotes: {
       'kit-28-60': 'The kit lens at f/5.6 forces ISO very high at night. Expect grain, or find brighter spots under signs and lights.',
-      'g-24-50': 'f/2.8 gathers twice the light of the kit lens, roughly halving your ISO and cleaning up the shot. The best night lens of the three.',
+      'g-20-70': 'The 20-70’s constant f/4 is a stop brighter than the kit lens at the long end, helping keep ISO down. Brace yourself and breathe out for a slower shutter.',
     },
   },
   {
@@ -349,7 +348,7 @@ export const scenes: Scene[] = [
     vietnamNote: 'Flower markets, incense coils and lacquer trinkets are everywhere and reward a close, soft-background look.',
     lensNotes: {
       'kit-28-60': 'The kit lens does not focus super close. Back off a little and use the 60mm end for more blur.',
-      'g-24-50': 'f/2.8 gives the strongest background melt of your three lenses here.',
+      'g-20-70': 'At f/4, zoom to 70mm and get in close for the strongest background blur the 20-70 can give here.',
     },
   },
 
@@ -383,7 +382,7 @@ export const scenes: Scene[] = [
     ],
     vietnamNote: 'Temple courtyards and old-town streets string up lanterns at night, especially around festivals.',
     lensNotes: {
-      'g-24-50': 'f/2.8 makes the dreamiest lantern orbs and keeps ISO sensible.',
+      'g-20-70': 'At f/4 the 20-70 keeps ISO a little lower than the kit lens. Get close to a foreground lantern for big, soft orbs.',
       'kit-28-60': 'At f/5.6 the orbs are smaller and ISO climbs. Get closer to your foreground lantern to help.',
     },
   },

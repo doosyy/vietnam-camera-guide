@@ -1,7 +1,7 @@
 import Icon from '../components/Icon'
-import { BackBar, Eyebrow, SectionTitle, Pill, Note, NumberStep, SeeAlso } from '../components/ui'
+import { BackBar, Eyebrow, Pill, SeeAlso } from '../components/ui'
 import { useApp } from '../context/AppContext'
-import { lenses, buyChecklist } from '../data/lenses'
+import { lenses } from '../data/lenses'
 
 export default function Lenses() {
   const { lens, setLens } = useApp()
@@ -11,8 +11,8 @@ export default function Lenses() {
       <BackBar to="/trip" label="Trip" />
       <div style={{ marginBottom: 18 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Lens Guide</Eyebrow>
-        <h1 className="h1" style={{ fontSize: 25 }}>Buy it, or skip it?</h1>
-        <p className="body" style={{ marginTop: 7 }}>Your kit lens, and whether a new one is worth buying in Vietnam.</p>
+        <h1 className="h1" style={{ fontSize: 25 }}>Your two lenses</h1>
+        <p className="body" style={{ marginTop: 7 }}>When to reach for each one. Tap to preview the wizard with that lens on.</p>
       </div>
 
       <div className="stack" style={{ '--g': '12px' } as React.CSSProperties}>
@@ -70,23 +70,13 @@ export default function Lenses() {
         <div className="card" style={{ borderColor: 'var(--accent-line)' }}>
           <div className="row" style={{ gap: 8, marginBottom: 11 }}>
             <span style={{ color: 'var(--accent)' }}><Icon name="info" size={16} /></span>
-            <span className="eyebrow" style={{ color: 'var(--accent-text)' }}>Which should you buy?</span>
+            <span className="eyebrow" style={{ color: 'var(--accent-text)' }}>Which lens, when?</span>
           </div>
           <div className="stack" style={{ '--g': '10px' } as React.CSSProperties}>
-            <p className="body">The <b style={{ color: 'var(--text)' }}>20-70 f/4</b> is the better all-rounder: that 20mm wide end is brilliant for Hanoi’s tight alleys, temples and Ha Long Bay vistas the kit lens cannot fit.</p>
-            <p className="body">The <b style={{ color: 'var(--text)' }}>24-50 f/2.8</b> is the night &amp; food specialist: it gathers twice the light, so cleaner night-market shots and softer backgrounds for portraits and pho.</p>
-            <p className="body">Since your biggest pain point is low light, the <b className="accent">24-50 f/2.8</b> would help most after dark. Want one lens that does a bit of everything and never feels too tight indoors? Choose the <b className="accent">20-70 f/4</b>.</p>
+            <p className="body">Reach for the <b style={{ color: 'var(--text)' }}>20-70 f/4 G</b> most of the time. That 20mm wide end fits Hanoi’s tight alleys, temples and Ha Long Bay vistas the kit lens cannot, it holds f/4 right through, and one lens covers wide scenes to short portraits. It is your everyday walk-around.</p>
+            <p className="body">Grab the <b style={{ color: 'var(--text)' }}>28-60 kit</b> when you want to travel ultra-light: it collapses tiny and slips in a pocket, and it is perfectly sharp in good daylight.</p>
+            <p className="small" style={{ color: 'var(--text-3)' }}>Switch the active lens above and the scene wizard’s tips and aperture limits update for whichever one is on your camera.</p>
           </div>
-        </div>
-      </section>
-
-      <section style={{ marginTop: 22 }}>
-        <SectionTitle icon="bag">Is this deal worth it?</SectionTitle>
-        <ol className="card stack" style={{ '--g': '11px', listStyle: 'none' } as React.CSSProperties}>
-          {buyChecklist.map((c, i) => <NumberStep key={i} n={i + 1}>{c}</NumberStep>)}
-        </ol>
-        <div style={{ marginTop: 12 }}>
-          <Note tone="plain" icon="x">Walk away if the price is not clearly better than home, the glass looks hazy, or the seller cannot show it working on your camera.</Note>
         </div>
       </section>
 

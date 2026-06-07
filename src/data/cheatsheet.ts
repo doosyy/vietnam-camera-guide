@@ -63,8 +63,8 @@ export const streetStarter: StarterRow[] = [
   { label: 'Aperture', value: 'f/5.6 (day) · open lens (dim)' },
   { label: 'ISO', value: 'Auto 100–6400' },
   { label: 'Min shutter', value: '1/250s' },
-  { label: 'Focus', value: 'AF-C + Wide' },
-  { label: 'Eye AF', value: 'On the C2 or centre wheel button' },
+  { label: 'Focus', value: 'AF-C + Wide, tap to pick' },
+  { label: 'Eye AF', value: 'Automatic, or press C2' },
   { label: 'Drive', value: 'Single (Cont. Lo for action)' },
   { label: 'White balance', value: 'Auto' },
 ]

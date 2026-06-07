@@ -36,7 +36,7 @@ export const accessories: Accessory[] = [
       'Trims a little haze on humid days for a cleaner, punchier image.',
     ],
     howToUse: [
-      'Screw it onto the front of the lens (it must match your lens’s filter thread size, e.g. 40.5mm on the 28-60 kit, 55mm on the 24-50).',
+      'Screw it onto the front of the lens (it must match your lens’s filter thread size, e.g. 40.5mm on the 28-60 kit, 72mm on the 20-70 G).',
       'Frame your shot, then slowly twist the outer ring of the filter.',
       'Watch the screen or viewfinder: reflections fade and the sky deepens, then return, as you turn.',
       'Stop where it looks best. Often halfway is plenty, full strength can look unnatural.',

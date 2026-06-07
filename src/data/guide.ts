@@ -375,13 +375,14 @@ export const guideChapters: GuideChapter[] = [
           'Zone: a medium block you position, a middle ground between Wide and Spot.',
           'Tracking: you lock onto a subject and the box follows it around the frame as it (or you) moves.',
         ],
-        tip: 'Assign Focus Area to your C1 button so you can flip between Wide and Spot in a heartbeat without diving into menus.',
+        tip: 'Assign Switch Focus Area to your C1 button so one press cycles Wide and Spot, without diving into menus.',
       },
       {
         heading: 'Moving the focus box',
         body: [
-          'With a Spot or Zone area, nudge the box around with the control wheel edges, or just tap where you want on the screen.',
-          'Press the centre button to snap the box back to the middle if it wanders off.',
+          'The quickest way is to tap where you want on the screen. With Touch Tracking on, a tap locks onto that subject and follows it.',
+          'With a Spot or Zone area, you can also press your wheel-centre Focus Standard button and then nudge the box with the wheel edges.',
+          'Pressing Focus Standard again snaps the box back to the middle if it wanders off.',
         ],
       },
     ],
@@ -400,7 +401,7 @@ export const guideChapters: GuideChapter[] = [
           'It works while the person moves and even when they turn away and back, which is why street portraits feel almost too easy on this camera.',
           'In the menu you can set it to recognise Humans or Animals. For Vietnam’s street dogs and temple cats, switch it to Animal.',
         ],
-        tip: 'Put Eye AF on the C2 button or the centre of the control wheel so one thumb press snaps focus to the nearest eye the instant someone turns to you.',
+        tip: 'Put Eye AF on the C2 button so one thumb press snaps focus to the nearest eye the instant someone turns to you.',
       },
       {
         heading: 'Smart subject recognition',
@@ -737,9 +738,9 @@ export const guideChapters: GuideChapter[] = [
         body: [
           'Several buttons (C1, C2, AF-ON, the control-wheel edges and centre, even the movie button) can be reassigned to any job you like. Note the A7C II has C1 and C2, not a separate "AEL" button.',
           'Set them under MENU → Setup → Operation Customize → Custom Key/Dial Set. You can even set different jobs for stills, video and playback.',
-          'Good street choices: C1 → Focus Area, C2 → Eye AF (or Silent Mode), control-wheel right → ISO, left → Drive Mode.',
+          'Your photography layout: C1 → Switch Focus Area, C2 → Eye AF, wheel centre → Focus Standard, wheel left → ISO, wheel right → APS-C crop, wheel down → Silent, MOVIE → AE Lock.',
         ],
-        tip: 'The full recommended layout, step by step, lives in the "Before You Fly" checklist on the Trip tab.',
+        tip: 'The full recommended layout, step by step, lives in the Buttons tab under "Set up all my buttons".',
       },
       {
         heading: 'The Fn menu',

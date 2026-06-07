@@ -1,6 +1,6 @@
 // Shared types for all content data.
 
-export type LensId = 'kit-28-60' | 'g-20-70' | 'g-24-50'
+export type LensId = 'kit-28-60' | 'g-20-70'
 
 export interface Lens {
   id: LensId
