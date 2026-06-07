@@ -7,7 +7,7 @@ export default function Vietnam() {
   const navigate = useNavigate()
   return (
     <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/trip')} label="Trip" />
+      <BackBar to="/trip" label="Trip" />
       <div style={{ marginBottom: 18 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Vietnam Lighting</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>What the light does, and when</h1>

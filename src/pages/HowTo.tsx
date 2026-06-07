@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { BackBar, Eyebrow, Note, NumberStep } from '../components/ui'
+import { BackBar, Eyebrow, Note, NumberStep, SeeAlso } from '../components/ui'
 import BookmarkButton from '../components/BookmarkButton'
 import { useApp } from '../context/AppContext'
 import { controlForFunction, controlById } from '../data/buttons'
@@ -123,7 +123,6 @@ function RecipeCard({ recipe, open, onToggle }: { recipe: SettingRecipe; open: b
 }
 
 export default function HowTo() {
-  const navigate = useNavigate()
   const [params] = useSearchParams()
   const [q, setQ] = useState(() => params.get('q') ?? '')
   const [open, setOpen] = useState<Record<string, boolean>>({})
@@ -156,7 +155,7 @@ export default function HowTo() {
 
   return (
     <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/learn')} label="Learn" />
+      <BackBar to="/learn" label="Learn" />
       <div style={{ marginBottom: 14 }}>
         <Eyebrow style={{ marginBottom: 9 }}>How-To</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>How to set anything</h1>
@@ -197,6 +196,13 @@ export default function HowTo() {
           })}
         </div>
       )}
+
+      <SeeAlso links={[
+        { to: '/learn/menu', label: 'Menu reference', icon: 'sliders', kind: 'menu' },
+        { to: '/learn/glossary', label: 'Glossary', icon: 'glossary', kind: 'glossary' },
+        { to: '/buttons', label: 'My Buttons', icon: 'click', kind: 'tool' },
+        { to: '/shoot', label: 'Scene wizard', icon: 'wand', kind: 'scene' },
+      ]} />
     </div>
   )
 }

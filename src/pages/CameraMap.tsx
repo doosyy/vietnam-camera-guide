@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useSearchParams, useNavigate } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { BackBar, Corners, Eyebrow, Note, Pill } from '../components/ui'
 import CameraBody, { CB_VW as VW, CB_VH as VH } from '../components/CameraBody'
 import { hotspots } from '../data/cameraMap'
@@ -52,7 +52,6 @@ function CameraDiagram({
 }
 
 export default function CameraMap() {
-  const navigate = useNavigate()
   const [params] = useSearchParams()
   const deep = params.get('spot')
   const initView: CameraView = (deep && hotspots.find((h) => h.id === deep)?.view) || 'back'
@@ -71,7 +70,7 @@ export default function CameraMap() {
 
   return (
     <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/learn')} label="Learn" />
+      <BackBar to="/learn" label="Learn" />
       <div style={{ marginBottom: 14 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Camera Map</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>Tap any button</h1>

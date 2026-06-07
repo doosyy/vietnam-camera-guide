@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { BackBar, Note, Pill } from '../components/ui'
+import { BackBar, Note, Pill, SeeAlso } from '../components/ui'
 import RichText from '../components/RichText'
 import BookmarkButton from '../components/BookmarkButton'
 import { useApp } from '../context/AppContext'
 import { guideChapterById, guideChapters, chapterMinutes } from '../data/guide'
+import { relatedForChapter } from '../data/related'
 import type { GuideSection } from '../data/types'
 
 function SectionBody({ sec }: { sec: GuideSection }) {
@@ -66,7 +67,7 @@ export default function GuideChapterPage() {
   if (!c) {
     return (
       <div className="screen">
-        <BackBar onBack={() => navigate('/learn')} label="Learn" />
+        <BackBar to="/learn" label="Learn" />
         <p className="body">Chapter not found.</p>
       </div>
     )
@@ -74,7 +75,7 @@ export default function GuideChapterPage() {
 
   return (
     <div className="screen anim-fwd" key={c.id}>
-      <BackBar onBack={() => navigate('/learn')} label="Learn" />
+      <BackBar to="/learn" label="Learn" />
       <div style={{ marginBottom: 18 }}>
         <div className="row between" style={{ marginBottom: 13 }}>
           <div className="brandmark" style={{ width: 40, height: 40 }}><Icon name={c.icon} size={20} /></div>
@@ -120,6 +121,8 @@ export default function GuideChapterPage() {
           </button>
         )
       })()}
+
+      <SeeAlso links={relatedForChapter(c)} />
     </div>
   )
 }

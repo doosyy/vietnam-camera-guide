@@ -1,8 +1,19 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react'
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
+import { lazy, Suspense, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { Routes, Route, useLocation, useNavigate, useNavigationType } from 'react-router-dom'
 import Icon from './components/Icon'
 import { useApp } from './context/AppContext'
+import { NavProvider } from './utils/nav'
 import { refreshApp } from './pwa'
+
+// Per-path scroll memory, mirrored to sessionStorage so it survives a PWA pause.
+const SCROLL_KEY = 'vcc_scroll'
+const TAB_ROOTS = new Set(['/', '/shoot', '/cheat', '/learn', '/buttons', '/trip'])
+function loadScroll(): Record<string, number> {
+  try { return JSON.parse(sessionStorage.getItem(SCROLL_KEY) || '{}') } catch { return {} }
+}
+function saveScroll(map: Record<string, number>) {
+  try { sessionStorage.setItem(SCROLL_KEY, JSON.stringify(map)) } catch { /* ignore */ }
+}
 
 // Home loads eagerly (first paint); the rest split into on-demand chunks.
 import Home from './pages/Home'
@@ -102,19 +113,63 @@ function activeTab(pathname: string): string {
 
 export default function App() {
   const { theme, toggleTheme } = useApp()
-  const { pathname } = useLocation()
+  const location = useLocation()
+  const { pathname, hash } = location
+  const navType = useNavigationType()
   const navigate = useNavigate()
   const [searchOpen, setSearchOpen] = useState(false)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const positions = useRef<Record<string, number>>(loadScroll())
+  // The .scroll element is shared across routes, so we track which path its
+  // scroll currently belongs to in a ref (updated synchronously below) rather
+  // than relying on a stale closure. The scroll listener records under this.
+  const currentPath = useRef(pathname)
 
-  // Scroll to top on route change.
+  // Record scroll synchronously into the map (cheap), throttling only the
+  // sessionStorage write. Bound once; reads the live currentPath ref.
   useEffect(() => {
-    if (scrollRef.current) scrollRef.current.scrollTop = 0
-  }, [pathname])
+    const el = scrollRef.current
+    if (!el) return
+    let saveRaf = 0
+    const onScroll = () => {
+      positions.current[currentPath.current] = el.scrollTop
+      if (!saveRaf) saveRaf = requestAnimationFrame(() => { saveRaf = 0; saveScroll(positions.current) })
+    }
+    el.addEventListener('scroll', onScroll, { passive: true })
+    return () => { el.removeEventListener('scroll', onScroll); if (saveRaf) cancelAnimationFrame(saveRaf) }
+  }, [])
+
+  // On navigation, restore scroll for back/tab returns, else go to the top.
+  useLayoutEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    currentPath.current = pathname // claim the shared element for this route first
+    const saved = positions.current[pathname]
+    const restore = (navType === 'POP' || TAB_ROOTS.has(pathname)) && saved != null
+    // Hashed link (e.g. #framing): let the page scroll to its own anchor, but
+    // first clear any leftover scroll (the .scroll element is shared across
+    // routes) so the anchor scroll starts from a clean top.
+    if (hash) {
+      if (!restore) el.scrollTop = 0
+      return
+    }
+    const target = restore ? saved : 0
+    let tries = 0
+    const apply = () => {
+      el.scrollTop = target
+      tries++
+      // Lazy chunks + collapsibles can grow after mount; retry until tall enough.
+      if (target > 0 && el.scrollHeight - el.clientHeight < target && tries < 12) {
+        requestAnimationFrame(apply)
+      }
+    }
+    apply()
+  }, [pathname, hash, navType])
 
   const tab = activeTab(pathname)
 
   return (
+    <NavProvider>
     <div className="app">
       {/* header */}
       <header className="hdr">
@@ -194,5 +249,6 @@ export default function App() {
         </Suspense>
       )}
     </div>
+    </NavProvider>
   )
 }

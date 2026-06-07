@@ -1,10 +1,11 @@
 import { useState, type ReactNode } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { BackBar, Eyebrow, ExposureStrip, Note, SectionTitle, NumberStep, LensSelector } from '../components/ui'
+import { BackBar, Eyebrow, ExposureStrip, Note, SectionTitle, NumberStep, LensSelector, SeeAlso } from '../components/ui'
 import BookmarkButton from '../components/BookmarkButton'
 import { useApp } from '../context/AppContext'
 import { sceneById, sceneCategories } from '../data/scenes'
+import { relatedForScene } from '../data/related'
 import { controlForFunction, functionById, controlById } from '../data/buttons'
 import type { Lens, SceneSettings } from '../data/types'
 import type { SceneCategory } from '../data/types'
@@ -58,7 +59,7 @@ export default function SceneDetail() {
   if (!scene) {
     return (
       <div className="screen">
-        <BackBar onBack={() => navigate('/shoot')} label="Scene Wizard" />
+        <BackBar to="/shoot" label="Scene Wizard" />
         <p className="body">Scene not found.</p>
       </div>
     )
@@ -72,7 +73,7 @@ export default function SceneDetail() {
 
   return (
     <div className="screen anim-fwd" key={scene.id}>
-      <BackBar onBack={() => navigate('/shoot')} label="Scene Wizard" />
+      <BackBar to="/shoot" label="Scene Wizard" />
       <div className="row between" style={{ marginBottom: 16, gap: 12, alignItems: 'flex-start' }}>
         <div style={{ minWidth: 0 }}>
           <Eyebrow style={{ marginBottom: 9 }}>{category?.label}</Eyebrow>
@@ -184,6 +185,8 @@ export default function SceneDetail() {
           <Note tone="good" icon="pin">{scene.vietnamNote}</Note>
         </div>
       )}
+
+      <SeeAlso links={relatedForScene(scene)} />
     </div>
   )
 }

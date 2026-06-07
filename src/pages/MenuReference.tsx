@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { BackBar, Eyebrow, Pill } from '../components/ui'
+import { BackBar, Eyebrow, Pill, SeeAlso } from '../components/ui'
 import { menuTabs, menuItems, menuItemsByTab } from '../data/menuReference'
 import type { MenuRefItem } from '../data/types'
 import BookmarkButton from '../components/BookmarkButton'
@@ -24,7 +24,6 @@ function Row({ item }: { item: MenuRefItem }) {
 }
 
 export default function MenuReference() {
-  const navigate = useNavigate()
   const [params] = useSearchParams()
   const [tab, setTab] = useState(menuTabs[0].id)
   const [q, setQ] = useState(() => params.get('q') ?? '')
@@ -55,7 +54,7 @@ export default function MenuReference() {
 
   return (
     <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/learn')} label="Learn" />
+      <BackBar to="/learn" label="Learn" />
       <div style={{ marginBottom: 14 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Menu Reference</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>Every setting, A to Z</h1>
@@ -136,6 +135,12 @@ export default function MenuReference() {
           <p className="small" style={{ textAlign: 'center', color: 'var(--text-3)', marginTop: 20 }}>No settings match “{q}”.</p>
         )}
       </div>
+
+      <SeeAlso links={[
+        { to: '/learn/how-to', label: 'How to set anything', icon: 'sliders', kind: 'recipe' },
+        { to: '/learn/glossary', label: 'Glossary', icon: 'glossary', kind: 'glossary' },
+        { to: '/learn/icons', label: 'Screen icons', icon: 'aperture', kind: 'tool' },
+      ]} />
     </div>
   )
 }

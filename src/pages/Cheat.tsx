@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { PageHead, SectionTitle, NumberStep } from '../components/ui'
+import { PageHead, SectionTitle, NumberStep, SeeAlso } from '../components/ui'
 import ButtonsCheatCard from '../components/ButtonsCheatCard'
 import { useApp } from '../context/AppContext'
 import { quickFixes, afPicks, streetStarter, lowLightLadder } from '../data/cheatsheet'
@@ -65,6 +65,13 @@ export default function Cheat() {
           {lowLightLadder.map((s, i) => <NumberStep key={i} n={i + 1}>{s}</NumberStep>)}
         </ol>
       </section>
+
+      <SeeAlso links={[
+        { to: '/shoot', label: 'Scene wizard', icon: 'wand', kind: 'scene' },
+        { to: '/learn/how-to', label: 'How to set anything', icon: 'sliders', kind: 'recipe' },
+        { to: '/buttons', label: 'My Buttons', icon: 'click', kind: 'tool' },
+        { to: '/trip/setup', label: 'Setup checklist', icon: 'check', kind: 'tool' },
+      ]} />
     </div>
   )
 }

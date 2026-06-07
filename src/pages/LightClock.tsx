@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { BackBar, Eyebrow } from '../components/ui'
+import { BackBar, Eyebrow, SeeAlso } from '../components/ui'
 import { useApp } from '../context/AppContext'
 import { vietnamLocations } from '../data/vietnam'
 import { dayLight, type LightKind } from '../data/solar'
@@ -22,7 +22,6 @@ const dayLabel = (d: Date) =>
   d.toLocaleDateString(undefined, { weekday: 'short', day: 'numeric', month: 'short' })
 
 export default function LightClock() {
-  const navigate = useNavigate()
   const [params] = useSearchParams()
   const { cityId: storedCity, setCity } = useApp()
   const initCity = params.get('city')
@@ -44,7 +43,7 @@ export default function LightClock() {
 
   return (
     <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/trip')} label="Trip" />
+      <BackBar to="/trip" label="Trip" />
       <div style={{ marginBottom: 16 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Light Clock</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>Golden hour & friends</h1>
@@ -98,6 +97,13 @@ export default function LightClock() {
       <p className="tiny" style={{ marginTop: 16, textAlign: 'center' }}>
         Times for {city.name}, Vietnam (UTC+7). Accurate to about a minute.
       </p>
+
+      <SeeAlso links={[
+        { to: '/shoot/landscape-sunset', label: 'Sunset scene', icon: 'wand', kind: 'scene' },
+        { to: '/shoot/night-citylights', label: 'City lights', icon: 'wand', kind: 'scene' },
+        { to: '/learn/glossary#golden-hour', label: 'Golden hour', icon: 'glossary', kind: 'glossary' },
+        { to: '/trip/vietnam', label: 'Cities', icon: 'pin', kind: 'location' },
+      ]} />
     </div>
   )
 }

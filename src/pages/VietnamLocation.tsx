@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { BackBar, Eyebrow, SectionTitle } from '../components/ui'
+import { BackBar, Eyebrow, SectionTitle, SeeAlso } from '../components/ui'
 import { locationById } from '../data/vietnam'
 import { dayLight } from '../data/solar'
 
@@ -12,7 +12,7 @@ export default function VietnamLocationPage() {
   if (!loc) {
     return (
       <div className="screen">
-        <BackBar onBack={() => navigate('/trip/vietnam')} label="Vietnam" />
+        <BackBar to="/trip/vietnam" label="Vietnam" />
         <p className="body">Place not found.</p>
       </div>
     )
@@ -24,7 +24,7 @@ export default function VietnamLocationPage() {
 
   return (
     <div className="screen anim-fwd" key={loc.id}>
-      <BackBar onBack={() => navigate('/trip/vietnam')} label="Vietnam" />
+      <BackBar to="/trip/vietnam" label="Vietnam" />
       <div style={{ marginBottom: 18 }}>
         <Eyebrow style={{ marginBottom: 8 }}>{loc.region}</Eyebrow>
         <h1 className="h1" style={{ fontSize: 26 }}>{loc.name}</h1>
@@ -83,6 +83,12 @@ export default function VietnamLocationPage() {
           ))}
         </ul>
       </section>
+
+      <SeeAlso links={[
+        { to: '/trip/light', label: 'Light clock', icon: 'sun', kind: 'tool' },
+        { to: '/shoot', label: 'Scene wizard', icon: 'wand', kind: 'scene' },
+        { to: '/trip/accessories', label: 'Accessories', icon: 'contrast', kind: 'accessory' },
+      ]} />
     </div>
   )
 }

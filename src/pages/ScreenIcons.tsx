@@ -1,12 +1,11 @@
 import { useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import Icon from '../components/Icon'
 import ScreenGlyph from '../components/ScreenGlyph'
-import { BackBar, Eyebrow, SectionTitle } from '../components/ui'
+import { BackBar, Eyebrow, SectionTitle, SeeAlso } from '../components/ui'
 import { screenIcons, screenIconGroups } from '../data/screenIcons'
 
 export default function ScreenIcons() {
-  const navigate = useNavigate()
   const [params] = useSearchParams()
   const [q, setQ] = useState(() => params.get('q') ?? '')
   const query = q.trim().toLowerCase()
@@ -16,7 +15,7 @@ export default function ScreenIcons() {
 
   return (
     <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/learn')} label="Learn" />
+      <BackBar to="/learn" label="Learn" />
       <div style={{ marginBottom: 14 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Icon Dictionary</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>What’s that symbol?</h1>
@@ -58,6 +57,12 @@ export default function ScreenIcons() {
           <p className="small" style={{ textAlign: 'center', color: 'var(--text-3)', marginTop: 20 }}>No icons match “{q}”.</p>
         )}
       </div>
+
+      <SeeAlso links={[
+        { to: '/learn/glossary', label: 'Glossary', icon: 'glossary', kind: 'glossary' },
+        { to: '/learn/menu', label: 'Menu reference', icon: 'sliders', kind: 'menu' },
+        { to: '/learn/how-to', label: 'How to set anything', icon: 'sliders', kind: 'recipe' },
+      ]} />
     </div>
   )
 }

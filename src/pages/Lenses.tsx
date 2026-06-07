@@ -1,16 +1,14 @@
-import { useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { BackBar, Eyebrow, SectionTitle, Pill, Note, NumberStep } from '../components/ui'
+import { BackBar, Eyebrow, SectionTitle, Pill, Note, NumberStep, SeeAlso } from '../components/ui'
 import { useApp } from '../context/AppContext'
 import { lenses, buyChecklist } from '../data/lenses'
 
 export default function Lenses() {
-  const navigate = useNavigate()
   const { lens, setLens } = useApp()
 
   return (
     <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/trip')} label="Trip" />
+      <BackBar to="/trip" label="Trip" />
       <div style={{ marginBottom: 18 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Lens Guide</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>Buy it, or skip it?</h1>
@@ -91,6 +89,13 @@ export default function Lenses() {
           <Note tone="plain" icon="x">Walk away if the price is not clearly better than home, the glass looks hazy, or the seller cannot show it working on your camera.</Note>
         </div>
       </section>
+
+      <SeeAlso links={[
+        { to: '/learn/guide/aperture-dof', label: 'Aperture & blur', icon: 'aperture', kind: 'chapter' },
+        { to: '/learn/glossary#aperture', label: 'Aperture', icon: 'glossary', kind: 'glossary' },
+        { to: '/shoot/street-portrait', label: 'Portrait scene', icon: 'wand', kind: 'scene' },
+        { to: '/trip/accessories', label: 'Accessories', icon: 'contrast', kind: 'accessory' },
+      ]} />
     </div>
   )
 }

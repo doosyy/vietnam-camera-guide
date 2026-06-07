@@ -1,4 +1,5 @@
-import { useNavigate, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { BackBar, Eyebrow, Note, NumberStep } from '../components/ui'
 import { compositionTips } from '../data/composition'
 import type { CompositionTip } from '../data/types'
@@ -17,11 +18,22 @@ function CompDiagram({ kind }: { kind: CompositionTip['diagram'] }) {
 }
 
 export default function Composition() {
-  const navigate = useNavigate()
   const focus = useLocation().hash.replace('#', '')
+  // Arriving with a #tip (e.g. from a scene's "See also") scrolls it into view.
+  // Re-assert over a few frames so the lazy chunk + late layout can't undo it.
+  useEffect(() => {
+    if (!focus) return
+    let raf = 0, count = 0
+    const go = () => {
+      document.getElementById(focus)?.scrollIntoView({ block: 'start' })
+      if (count++ < 6) raf = requestAnimationFrame(go)
+    }
+    go()
+    return () => cancelAnimationFrame(raf)
+  }, [focus])
   return (
     <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/learn')} label="Learn" />
+      <BackBar to="/learn" label="Learn" />
       <div style={{ marginBottom: 18 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Composition</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>Make it look good</h1>

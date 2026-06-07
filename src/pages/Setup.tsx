@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { BackBar, Eyebrow, SectionTitle, Pill, ProgressRing, NumberStep } from '../components/ui'
+import { BackBar, Eyebrow, SectionTitle, Pill, ProgressRing, NumberStep, SeeAlso } from '../components/ui'
 import { useApp } from '../context/AppContext'
 import { setupSteps, setupGroups } from '../data/setup'
 
@@ -15,7 +15,7 @@ export default function Setup() {
 
   return (
     <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/trip')} label="Trip" />
+      <BackBar to="/trip" label="Trip" />
       <div style={{ marginBottom: 16 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Before You Fly</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>Set it up once at home</h1>
@@ -93,6 +93,12 @@ export default function Setup() {
           )
         })}
       </div>
+
+      <SeeAlso links={[
+        { to: '/learn/how-to', label: 'How to set anything', icon: 'sliders', kind: 'recipe' },
+        { to: '/buttons', label: 'My Buttons', icon: 'click', kind: 'tool' },
+        { to: '/learn/guide/first-10', label: 'First 10 minutes', icon: 'book', kind: 'chapter' },
+      ]} />
     </div>
   )
 }

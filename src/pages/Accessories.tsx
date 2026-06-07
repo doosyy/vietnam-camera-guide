@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import Icon from '../components/Icon'
-import { BackBar, Eyebrow, Note, Pill, SectionTitle, NumberStep } from '../components/ui'
+import { BackBar, Eyebrow, Note, Pill, SectionTitle, NumberStep, SeeAlso } from '../components/ui'
 import { accessories, otherGear } from '../data/accessories'
 import type { Accessory } from '../data/accessories'
 
@@ -98,10 +98,9 @@ function AccessoryGuide({ a }: { a: Accessory }) {
 }
 
 export default function Accessories() {
-  const navigate = useNavigate()
   return (
     <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/trip')} label="Trip" />
+      <BackBar to="/trip" label="Trip" />
       <div style={{ marginBottom: 18 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Accessories</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>Gear that earns its place</h1>
@@ -127,6 +126,13 @@ export default function Accessories() {
           ))}
         </div>
       </Section>
+
+      <SeeAlso links={[
+        { to: '/shoot/landscape-halong', label: 'Ha Long scene', icon: 'wand', kind: 'scene' },
+        { to: '/shoot/landscape-sunset', label: 'Sunset scene', icon: 'wand', kind: 'scene' },
+        { to: '/trip/light', label: 'Light clock', icon: 'sun', kind: 'tool' },
+        { to: '/learn/guide/aperture-dof', label: 'Aperture & blur', icon: 'aperture', kind: 'chapter' },
+      ]} />
     </div>
   )
 }

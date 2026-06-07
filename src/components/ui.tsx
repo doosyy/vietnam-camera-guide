@@ -1,6 +1,8 @@
 import type { CSSProperties, ReactNode } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Icon from './Icon'
 import { useApp } from '../context/AppContext'
+import { useSmartBack } from '../utils/nav'
 import { lenses } from '../data/lenses'
 import type { LensId } from '../data/types'
 
@@ -231,14 +233,70 @@ export function NavRow({
   )
 }
 
-export function BackBar({ onBack, label = 'Back' }: { onBack: () => void; label?: string }) {
+// Smart back: when there's an in-app page to return to it goes back in history
+// (restoring your exact scroll spot) and labels itself with where that is. With
+// no history (cold open / deep link) it falls back to `to`/`label`. Pass an
+// explicit `onBack` to override entirely.
+export function BackBar({ onBack, to = '/', label = 'Back' }: { onBack?: () => void; to?: string; label?: string }) {
+  const smart = useSmartBack(to, label)
+  const handleBack = onBack ?? smart.onBack
+  const text = onBack ? label : smart.label
   return (
     <button
-      onClick={onBack}
+      onClick={handleBack}
       className="tap row"
       style={{ gap: 4, color: 'var(--text-2)', marginBottom: 14, fontFamily: 'var(--font-mono)', fontSize: 11, fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}
     >
-      <Icon name="chevronLeft" size={15} /> {label}
+      <Icon name="chevronLeft" size={15} /> {text}
+    </button>
+  )
+}
+
+// A cross-link to another section: where to go, what to call it, and (for the
+// back arrow on the far side) what kind of thing it is.
+export interface CrossLink {
+  to: string
+  label: string
+  icon?: string
+  kind?: string
+}
+
+// A labelled row of tappable chips, dropped at the end of a section to point at
+// related material elsewhere in the app. The main cross-linking surface.
+export function SeeAlso({ links, title = 'See also', style }: { links: CrossLink[]; title?: string; style?: CSSProperties }) {
+  const navigate = useNavigate()
+  if (!links || links.length === 0) return null
+  return (
+    <div style={{ marginTop: 20, ...style }}>
+      <Eyebrow style={{ marginBottom: 10 }}>{title}</Eyebrow>
+      <div className="row" style={{ gap: 8, flexWrap: 'wrap' }}>
+        {links.map((l) => (
+          <button
+            key={l.to + l.label}
+            onClick={() => navigate(l.to)}
+            className="tap row"
+            style={{ gap: 7, padding: '8px 11px', borderRadius: 11, border: '1px solid var(--border)', background: 'var(--surface)', color: 'var(--text)', fontSize: 13, fontWeight: 600, lineHeight: 1.1, maxWidth: '100%' }}
+          >
+            {l.icon && <span style={{ color: 'var(--accent)', display: 'inline-flex', flexShrink: 0 }}><Icon name={l.icon} size={14} /></span>}
+            <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{l.label}</span>
+            <span style={{ color: 'var(--text-3)', display: 'inline-flex', flexShrink: 0 }}><Icon name="chevronRight" size={13} /></span>
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// An inline, underlined cross-link for weaving into a sentence of page JSX.
+export function RefLink({ to, children }: { to: string; children: ReactNode }) {
+  const navigate = useNavigate()
+  return (
+    <button
+      onClick={() => navigate(to)}
+      className="tap"
+      style={{ color: 'var(--accent-text)', fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: 2, textDecorationColor: 'var(--accent-line)' }}
+    >
+      {children}
     </button>
   )
 }

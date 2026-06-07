@@ -87,3 +87,23 @@ export const glossaryTerms: GlossaryTerm[] = [
 
 export const glossaryById = (id: string): GlossaryTerm | undefined =>
   glossaryTerms.find((t) => t.id === id)
+
+// Resolve a loose term name (e.g. one of the comma-separated "also" cross-refs)
+// to a glossary id, so those references can become tappable links.
+const norm = (s: string) =>
+  s.toLowerCase().replace(/\(.*?\)/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim()
+
+const nameIndex: Record<string, string> = {}
+for (const t of glossaryTerms) {
+  nameIndex[t.id] = t.id
+  if (!(norm(t.term) in nameIndex)) nameIndex[norm(t.term)] = t.id
+  // index each half of slash-separated names ("Noise / grain" -> noise, grain)
+  for (const part of t.term.split('/')) {
+    const n = norm(part)
+    if (n && !(n in nameIndex)) nameIndex[n] = t.id
+  }
+}
+
+export function resolveGlossaryRef(name: string): string | undefined {
+  return nameIndex[norm(name)]
+}

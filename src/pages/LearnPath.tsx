@@ -39,7 +39,7 @@ export default function LearnPath() {
 
   return (
     <div className="screen anim-fwd">
-      <BackBar onBack={() => navigate('/learn')} label="Learn" />
+      <BackBar to="/learn" label="Learn" />
       <div style={{ marginBottom: 16 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Learn Path</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>Learn it, step by step</h1>
