@@ -1,3 +1,6 @@
+/* eslint-disable react-refresh/only-export-components -- this context module
+   co-locates the AppProvider component with the useApp hook and shared
+   constants; the rule only affects dev hot-reload, not the build or runtime. */
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react'
 import type { Lens, LensId } from '../data/types'
 import { lensById } from '../data/lenses'
@@ -204,7 +207,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export function useApp() {
   const ctx = useContext(Ctx)
   if (!ctx) throw new Error('useApp must be used inside AppProvider')

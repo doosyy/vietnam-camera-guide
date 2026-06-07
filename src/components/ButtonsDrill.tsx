@@ -29,6 +29,8 @@ function buildQuestions(map: Record<string, string>): Q[] {
 
 export default function ButtonsDrill({ map, onClose }: { map: Record<string, string>; onClose: () => void }) {
   const [seed, setSeed] = useState(0)
+  // `seed` is intentionally a dependency: bumping it re-rolls the questions on restart.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const questions = useMemo(() => buildQuestions(map), [map, seed])
   const [idx, setIdx] = useState(0)
   const [score, setScore] = useState(0)

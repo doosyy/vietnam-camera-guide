@@ -137,6 +137,8 @@ export default function HowTo() {
     const target = params.get('open')
     if (target) {
       didDeepLink.current = true
+      // Intentional one-time open of the deep-linked recipe (guarded by the ref).
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setOpen((o) => ({ ...o, [target]: true }))
       requestAnimationFrame(() => {
         document.getElementById(target)?.scrollIntoView({ behavior: 'smooth', block: 'start' })

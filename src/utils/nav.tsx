@@ -1,3 +1,6 @@
+/* eslint-disable react-refresh/only-export-components -- this module intentionally
+   co-locates the NavProvider component with its useSmartBack hook and routeTitle
+   helper; the rule only affects dev hot-reload, not the build or runtime. */
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react'
 import { useLocation, useNavigate, useNavigationType } from 'react-router-dom'
 import { sceneById } from '../data/scenes'
@@ -43,15 +46,12 @@ const Ctx = createContext<{ prevPath: string | null }>({ prevPath: null })
 export function NavProvider({ children }: { children: ReactNode }) {
   const location = useLocation()
   const navType = useNavigationType()
-  const stackRef = useRef<string[]>([])
-  const seenKey = useRef<string | null>(null)
+  // Ref initializers run only on the first render, so the stack is seeded with
+  // the initial route (and that route is marked seen) without writing refs
+  // during render. The first effect run then sees it as already processed.
+  const stackRef = useRef<string[]>([location.pathname])
+  const seenKey = useRef<string>(location.key)
   const [prevPath, setPrevPath] = useState<string | null>(null)
-
-  // Lazy init: seed the stack with the first route without treating it as a move.
-  if (seenKey.current === null) {
-    seenKey.current = location.key
-    stackRef.current = [location.pathname]
-  }
 
   useEffect(() => {
     if (seenKey.current === location.key) return // already processed (or StrictMode replay)
