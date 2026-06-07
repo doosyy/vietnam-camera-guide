@@ -34,7 +34,7 @@ export const guideChapters: GuideChapter[] = [
         heading: 'Set the date, language and a few comforts',
         body: [
           'On first power-up the camera asks for your language, date and time zone. Set the time zone to Vietnam while you are there so photo times are right.',
-          'Turn on the grid line (MENU → Shooting → Display Review) to help keep horizons straight.',
+          'Turn on the grid line (MENU → Shooting → Shooting Display → Grid Line Display) to help keep horizons straight.',
           'Dial the viewfinder to your eyesight: look through the little eye-window and turn the tiny wheel beside it until the on-screen text is sharp. This is just for your eye, it does not affect photos.',
         ],
       },
@@ -348,7 +348,7 @@ export const guideChapters: GuideChapter[] = [
           'AF-C (continuous): keeps adjusting focus as things move. Perfect for people walking and street life.',
           'When unsure on the street, use AF-C. It copes with movement and still nails still subjects.',
         ],
-        tip: 'There is an AF-A "auto" setting that guesses between the two, but choosing yourself is more reliable.',
+        tip: 'There is also an "Automatic AF" setting that switches between AF-S and AF-C for you, but choosing yourself is more reliable.',
       },
       {
         heading: 'Half-press, the most important habit',
@@ -399,7 +399,7 @@ export const guideChapters: GuideChapter[] = [
         body: [
           'With Face/Eye Priority turned on, the camera finds a person’s eye and sticks to it automatically. A small green box appears on the eye, you just half-press and shoot.',
           'It works while the person moves and even when they turn away and back, which is why street portraits feel almost too easy on this camera.',
-          'In the menu you can set it to recognise Humans or Animals. For Vietnam’s street dogs and temple cats, switch it to Animal.',
+          'It locks onto people by default. You can switch the recognition target to Animal for Vietnam’s street dogs and temple cats (the full list of targets is in the next section).',
         ],
         tip: 'Put Eye AF on the C2 button so one thumb press snaps focus to the nearest eye the instant someone turns to you.',
       },
@@ -408,7 +408,7 @@ export const guideChapters: GuideChapter[] = [
         body: [
           'The A7C II has an extra brain (an AI chip) that recognises whole subjects, not just eyes: people, animals, birds, insects, cars, trains and planes.',
           'It can hold focus on a person by their head and body even when their face is hidden, great in busy crowds.',
-          'You normally leave this on Auto/Human and forget about it. It quietly makes your keeper rate much higher.',
+          'You normally leave Subject Recognition On with the target set to Human, and forget about it. It quietly makes your keeper rate much higher.',
         ],
       },
       {
@@ -493,7 +493,7 @@ export const guideChapters: GuideChapter[] = [
         body: [
           'Turn on "Silent Mode" and the camera takes photos with no shutter sound, perfect for temples, markets and candid street portraits where a click would break the moment.',
           'There is a small catch: under flickering lights or with very fast movement, the silent shutter can add banding or slight skew. For most street scenes you will never notice.',
-          'You can also just turn the beep off (Audio Signals) while keeping the gentle mechanical click.',
+          'You can also just turn the beep off (Audio signals) while keeping the gentle mechanical click.',
         ],
         tip: 'Silent mode plus the viewfinder makes you almost invisible: no sound, no screen glow, just you and the moment.',
       },

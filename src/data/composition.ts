@@ -8,7 +8,7 @@ export const compositionTips: CompositionTip[] = [
     how: [
       'Imagine the frame split into 9 boxes by two lines across and two down.',
       'Put your subject where the lines cross, not dead centre.',
-      'Turn on the grid (Setup → grid line) to see it while you shoot.',
+      'Turn on the grid (MENU → Shooting → Shooting Display → Grid Line Display) to see it while you shoot.',
     ],
     vietnamExample: 'A conical-hat vendor on the left third, the busy street trailing off to the right.',
     diagram: 'thirds',

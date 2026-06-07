@@ -236,7 +236,7 @@ export const hotspots: CameraHotspot[] = [
     label: 'Microphone jack',
     sonyName: 'Mic in (3.5mm)',
     whatItDoes: 'Plug in an external microphone for much better sound in videos.',
-    beginnerTip: 'For headphones to monitor audio, use a USB-C headphone adapter.',
+    beginnerTip: 'The A7C II has no headphone jack, so you cannot monitor audio live. It is photography we care about here anyway.',
   },
   {
     id: 'card-door',

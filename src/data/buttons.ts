@@ -74,7 +74,7 @@ export const controls: ButtonControl[] = [
 
   { id: 'movie', label: 'MOVIE button', sony: 'MOVIE', group: 'movie', reach: 'awkward', where: 'On top behind the shutter. Since you are not filming, we put it to work for photos.', takes: 'button', recommendable: true },
 
-  { id: 'lens-fn', label: 'Lens button', sony: 'Lens Focus Hold Button', group: 'lens', reach: 'instant', where: 'The button on the side of your G lens barrel, under your left fingers as you support the lens.', takes: 'button', recommendable: true },
+  { id: 'lens-fn', label: 'Lens button', sony: 'Lens Focus Hold Button', group: 'lens', reach: 'instant', where: 'Your 20-70 G has two focus-hold buttons (one on the side, one on top for upright shots), under your left fingers as you support the lens. They share the same job.', takes: 'button', recommendable: true },
 
   { id: 'fn-1', label: 'Fn tile 1', group: 'fn', reach: 'two-step', where: 'Press Fn, then the top-left tile. The fastest Fn slot.', takes: 'button' },
   { id: 'fn-2', label: 'Fn tile 2', group: 'fn', reach: 'two-step', where: 'Press Fn, then the 2nd tile on the top row.', takes: 'button' },
@@ -117,7 +117,7 @@ export const functions: ButtonFunction[] = [
   { id: 'creative-look', label: 'Creative Look', sony: 'Creative Look', blurb: 'Switch colour styles, e.g. natural to punchy or black & white.', fits: 'both' },
   { id: 'subject-recog', label: 'Subject Recog. toggle', sony: 'Subject Recognition', blurb: 'Turn subject recognition on/off, or swap Human and Animal.', fits: 'button', helps: ['street'] },
   { id: 'focus-magnifier', label: 'Focus Magnifier', sony: 'Focus Magnifier', blurb: 'Zoom the preview to nail manual focus on fine detail.', fits: 'button', helps: ['portrait'] },
-  { id: 'aps-c', label: 'APS-C crop', sony: 'APS-C S35 Shooting', blurb: 'One press crops in for about 1.5x more reach, like a built-in zoom, still 26 megapixels. Turns your 20-70 into roughly a 30-105 for candid street.', fits: 'button' },
+  { id: 'aps-c', label: 'APS-C crop', sony: 'APS-C S35 Shooting', blurb: 'One press crops in for about 1.5x more reach, like a built-in zoom, still about 14 megapixels. Turns your 20-70 into roughly a 30-105 for candid street.', fits: 'button' },
   { id: 'grid', label: 'Grid Line', sony: 'Grid Line Display', blurb: 'Toggle the framing grid for level horizons.', fits: 'button' },
   { id: 'finder-monitor', label: 'Finder / Monitor', sony: 'Finder/Monitor Sel.', blurb: 'Force the viewfinder or the screen on.', fits: 'button' },
   { id: 'my-dial', label: 'My Dial', sony: 'My Dial', blurb: 'Temporarily turn a dial into a different control while held.', fits: 'dial' },
@@ -278,6 +278,7 @@ export const setupPrereqs: WalkStep[] = [
   { id: 'prep-still', label: 'Set the camera to stills', target: 'Still', steps: ['Turn the lower mode collar to the still-photo icon (not the movie or S&Q positions). This whole setup is photography only.'] },
   { id: 'prep-focus-mode', label: 'Focus Mode to Continuous', target: 'AF-C', steps: ['Press MENU and open the Focus tab.', 'Open Focus Mode and choose Continuous AF (AF-C).', 'Now focus keeps adjusting as people and traffic move.'] },
   { id: 'prep-focus-area', label: 'Focus Area to Wide', target: 'Wide', steps: ['Still in the Focus tab, open Focus Area.', 'Choose Wide, so the camera scans the whole frame to find a subject on its own.'] },
+  { id: 'prep-area-limit', label: 'Choose which areas C1 cycles', target: 'Wide + Spot', steps: ['In the Focus tab, open Focus Area Limit.', 'Tick only Wide and Spot (untick the rest).', 'Now your C1 button (Switch Focus Area) flips between just those two, nothing else to wade through.'] },
   { id: 'prep-eye', label: 'Turn Face/Eye detection on', target: 'On', steps: ['In the Focus tab, open Face/Eye Detection, then Face/Eye Priority in AF, and set it On.', 'Now every shot is eye-aware, so you rarely think about focusing on people.'] },
   { id: 'prep-subject', label: 'Turn Subject Recognition on', target: 'Human', steps: ['In the Focus tab, open Subject Recognition.', 'Set Subject Recognition in AF to On, and Recognition Target to Human.'] },
   { id: 'prep-touch', label: 'Turn on tap-to-focus', target: 'Touch Tracking', steps: ['Press MENU and open the Setup tab.', 'Open Touch Operation and set Touch Operation to On.', 'Set Touch Panel/Pad to Touch Panel+Pad, so dragging your thumb also works while your eye is at the viewfinder.', 'Open Touch Func. in Shooting and choose Touch Tracking.', 'Now a tap on the screen locks onto that subject and follows it. Tap someone else to switch. This is your main way to pick what is in focus.'] },

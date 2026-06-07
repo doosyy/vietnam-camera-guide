@@ -42,10 +42,11 @@ export const lenses: Lens[] = [
       'Very wide at 20mm: perfect for tight alleys, temples and interiors.',
       'Constant f/4, so exposure does not change as you zoom.',
       'One lens covers wide scenes to short portraits. Great walk-around range.',
+      'Proper G controls: an aperture ring, an AF/MF switch and two focus-hold buttons (your Tracking On button).',
     ],
     weaknesses: [
-      'f/4 is only one stop brighter than the kit lens at its widest.',
-      'Bigger and pricier than the kit lens.',
+      'At the wide end it is f/4, the same as the kit lens. Its one-stop light advantage only shows at the long end (kit f/5.6 vs f/4).',
+      'Bigger and heavier than the kit lens (488 g vs 167 g).',
     ],
     bestFor: ['Architecture & temples', 'Alleys', 'One-lens travel'],
   },
