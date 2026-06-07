@@ -10,7 +10,7 @@
 import type { CameraView } from './types'
 
 export type Reach = 'instant' | 'two-step' | 'awkward'
-export type ControlGroup = 'thumb' | 'wheel' | 'dial' | 'movie' | 'fn'
+export type ControlGroup = 'thumb' | 'wheel' | 'dial' | 'movie' | 'lens' | 'fn'
 export type Goal = 'balanced' | 'street' | 'portrait' | 'night'
 
 // A saved button layout. The app can hold several (e.g. Street, Night) and switch
@@ -54,6 +54,7 @@ export const controlGroups: { id: ControlGroup; label: string }[] = [
   { id: 'wheel', label: 'Control wheel' },
   { id: 'dial', label: 'Dials' },
   { id: 'movie', label: 'Movie button' },
+  { id: 'lens', label: 'Lens button' },
   { id: 'fn', label: 'Fn menu (12 tiles)' },
 ]
 
@@ -72,6 +73,8 @@ export const controls: ButtonControl[] = [
   { id: 'rear-dial', label: 'Rear dial', sony: 'Rear Dial', group: 'dial', reach: 'instant', where: 'Wheel on the top-right corner, under your thumb.', takes: 'dial', recommendable: true },
 
   { id: 'movie', label: 'MOVIE button', sony: 'MOVIE', group: 'movie', reach: 'awkward', where: 'On top behind the shutter. Since you are not filming, we put it to work for photos.', takes: 'button', recommendable: true },
+
+  { id: 'lens-fn', label: 'Lens button', sony: 'Lens Focus Hold Button', group: 'lens', reach: 'instant', where: 'The button on the side of your G lens barrel, under your left fingers as you support the lens.', takes: 'button', recommendable: true },
 
   { id: 'fn-1', label: 'Fn tile 1', group: 'fn', reach: 'two-step', where: 'Press Fn, then the top-left tile. The fastest Fn slot.', takes: 'button' },
   { id: 'fn-2', label: 'Fn tile 2', group: 'fn', reach: 'two-step', where: 'Press Fn, then the 2nd tile on the top row.', takes: 'button' },
@@ -95,12 +98,13 @@ export const functions: ButtonFunction[] = [
   { id: 'af-on-fn', label: 'AF On (thumb focus)', sony: 'AF On', blurb: 'Focus with your thumb instead of the shutter. The classic street technique.', fits: 'button', helps: ['street', 'portrait'] },
   { id: 'af-on-track', label: 'AF-On + Tracking', sony: 'Tracking On + AF On', blurb: 'Hold to focus with your thumb and it locks on and follows your subject. Release and recompose, the focus stays put. Back-button focus and tracking in one.', fits: 'button', helps: ['street', 'portrait'] },
   { id: 'eye-af', label: 'Eye AF', sony: 'Eye AF', blurb: 'One press snaps focus to the nearest eye. Makes sharp people almost automatic.', fits: 'button', essential: true, helps: ['street', 'portrait'] },
-  { id: 'focus-area', label: 'Focus Area', sony: 'Focus Area', blurb: 'Flip between Wide (react fast) and Spot (pin-point) focus.', fits: 'button', essential: true, helps: ['street', 'portrait', 'night'] },
+  { id: 'focus-area', label: 'Focus Area', sony: 'Focus Area', blurb: 'Open the focus-area picker: Wide (react fast) or Spot (pin-point).', fits: 'button', helps: ['street', 'portrait', 'night'] },
+  { id: 'switch-focus-area', label: 'Switch Focus Area', sony: 'Switch Focus Area', blurb: 'One press cycles the focus area: Wide (the camera picks) then Spot (you place a precise point). For when you want to be exact.', fits: 'button', helps: ['street', 'portrait'] },
   { id: 'focus-mode', label: 'Focus Mode', sony: 'Focus Mode', blurb: 'Switch between AF-C (moving) and AF-S (still) without the menu.', fits: 'button' },
-  { id: 'tracking', label: 'Tracking On', sony: 'Tracking On', blurb: 'Lock focus onto a subject and follow it around the frame.', fits: 'button', helps: ['street', 'portrait'] },
-  { id: 'focus-std', label: 'Focus Standard', sony: 'Focus Standard', blurb: 'Start focusing, or move the focus box when in Spot.', fits: 'button' },
+  { id: 'tracking', label: 'Tracking On', sony: 'Tracking On', blurb: 'Press to lock focus onto whatever is in the centre and follow it around the frame. A quick subject grab when you cannot tap, for example at the viewfinder.', fits: 'button', helps: ['street', 'portrait'] },
+  { id: 'focus-std', label: 'Focus Standard', sony: 'Focus Standard', blurb: 'One press re-centres the focus area and clears a tracking lock, so you can start fresh.', fits: 'button' },
   { id: 'iso', label: 'ISO', sony: 'ISO', blurb: 'Jump straight to the brightness boost when light changes.', fits: 'both', essential: true, helps: ['night'] },
-  { id: 'drive', label: 'Drive Mode', sony: 'Drive Mode', blurb: 'Switch between single, burst and the self-timer.', fits: 'both', essential: true, helps: ['street'] },
+  { id: 'drive', label: 'Drive Mode', sony: 'Drive Mode', blurb: 'Switch between single, burst and the self-timer. You said you are happy to reach this in the Fn menu.', fits: 'both', helps: ['street'] },
   { id: 'white-balance', label: 'White Balance', sony: 'White Balance', blurb: 'Fix colour fast under odd market and neon light.', fits: 'both', helps: ['night'] },
   { id: 'metering', label: 'Metering Mode', sony: 'Metering Mode', blurb: 'Change how the camera measures brightness.', fits: 'both' },
   { id: 'exp-comp', label: 'Exposure Comp.', sony: 'Exposure Comp.', blurb: 'Brighten or darken the whole shot on the fly. Your rear dial already does this in A, S and P modes, so it lives in the Fn menu as a backup.', fits: 'both', helps: ['street', 'portrait', 'night'] },
@@ -113,7 +117,7 @@ export const functions: ButtonFunction[] = [
   { id: 'creative-look', label: 'Creative Look', sony: 'Creative Look', blurb: 'Switch colour styles, e.g. natural to punchy or black & white.', fits: 'both' },
   { id: 'subject-recog', label: 'Subject Recog. toggle', sony: 'Subject Recognition', blurb: 'Turn subject recognition on/off, or swap Human and Animal.', fits: 'button', helps: ['street'] },
   { id: 'focus-magnifier', label: 'Focus Magnifier', sony: 'Focus Magnifier', blurb: 'Zoom the preview to nail manual focus on fine detail.', fits: 'button', helps: ['portrait'] },
-  { id: 'aps-c', label: 'APS-C crop', sony: 'APS-C S35 Shooting', blurb: 'Crop in for extra reach, like a built-in teleconverter.', fits: 'button' },
+  { id: 'aps-c', label: 'APS-C crop', sony: 'APS-C S35 Shooting', blurb: 'One press crops in for about 1.5x more reach, like a built-in zoom, still 26 megapixels. Turns your 20-70 into roughly a 30-105 for candid street.', fits: 'button' },
   { id: 'grid', label: 'Grid Line', sony: 'Grid Line Display', blurb: 'Toggle the framing grid for level horizons.', fits: 'button' },
   { id: 'finder-monitor', label: 'Finder / Monitor', sony: 'Finder/Monitor Sel.', blurb: 'Force the viewfinder or the screen on.', fits: 'button' },
   { id: 'my-dial', label: 'My Dial', sony: 'My Dial', blurb: 'Temporarily turn a dial into a different control while held.', fits: 'dial' },
@@ -128,24 +132,28 @@ export const controlById = (id: string): ButtonControl | undefined => controls.f
 export const essentialFunctionIds = functions.filter((f) => f.essential).map((f) => f.id)
 
 // ─────────────────────────── THE PHOTOGRAPHY SETUP ───────────────────────────
-// One setup, for photography only, adapted (beginner-friendly) from Adrien
-// Sanguinetti's A7C II guide. Everyday essentials sit on the fastest buttons;
-// the two main dials are left at their defaults so they always drive the right
-// exposure value whichever mode you switch to (so they are not listed here).
+// One setup, for photography only. The real focus speed comes from the menu
+// settings (Wide + Face/Eye + Subject Recognition + Touch Tracking): the camera
+// finds the subject and you tap the screen to pick or switch. The buttons just
+// cover what tapping cannot: thumb-focus, clearing a lock, getting precise and
+// extra reach. The two main dials are left at default so they always drive the
+// right exposure value whichever mode you switch to (so they are not listed).
 export const photoSetup: Record<string, string> = {
   'af-on': 'af-on-track',
-  'wheel-center': 'eye-af',
-  c1: 'focus-area',
-  c2: 'drive',
+  'wheel-center': 'focus-std',
+  c1: 'switch-focus-area',
+  c2: 'eye-af',
   'wheel-left': 'iso',
-  'wheel-right': 'white-balance',
+  'wheel-right': 'aps-c',
   'wheel-down': 'silent',
   'wheel-up': 'disp',
   movie: 'ael',
+  'lens-fn': 'tracking',
 }
 
-// The 12 Fn tiles, in order (top-left first): the less-often jobs.
-export const photoFnTiles = ['metering', 'af-mf-toggle', 'creative-look', 'aps-c', 'grid', 'iso-min-ss', 'focus-mode', 'subject-recog', 'focus-magnifier', 'white-balance', 'exp-comp', 'tracking']
+// The 12 Fn tiles, in order (top-left first): the less-often jobs, including the
+// ones Chris is happy to reach here (Drive, White Balance).
+export const photoFnTiles = ['drive', 'white-balance', 'focus-area', 'metering', 'creative-look', 'af-mf-toggle', 'grid', 'iso-min-ss', 'focus-mode', 'subject-recog', 'exp-comp', 'finder-monitor']
 
 // Physical controls that are deliberately left at their factory default.
 export const leftAtDefault = new Set(['front-dial', 'rear-dial'])
@@ -177,8 +185,9 @@ export const scoreLayout = (map: Record<string, string>): LayoutScore => {
   ).length
   let score = Math.round((essOnInstant / essentialFunctionIds.length) * 60)
 
-  // Matches the suggested setup (up to 25). Dials left at default don't count.
-  const recControls = controls.filter((c) => c.recommendable && !leftAtDefault.has(c.id))
+  // Matches the suggested setup (up to 25). Dials left at default, and the
+  // lens button (only on some lenses), don't count toward completeness.
+  const recControls = controls.filter((c) => c.recommendable && !leftAtDefault.has(c.id) && c.id !== 'lens-fn')
   const matches = recControls.filter((c) => {
     const rec = recommendedFor(c.id)
     return rec && map[c.id] === rec
@@ -223,14 +232,15 @@ export const duplicateFunctions = (map: Record<string, string>): { fnId: string;
 // Short "why this button" line for the photography setup.
 export const buttonWhy: Record<string, string> = {
   'af-on': 'Focus with your thumb so the shutter only takes the photo. It locks on and follows your subject, so you can recompose freely. The core street technique.',
-  'wheel-center': 'The quickest button of all, straight under your thumb. One press grabs the nearest eye.',
-  c1: 'Falls right under your thumb. Flip between Wide (react fast) and Spot (pin-point) focus.',
-  c2: 'Switch single shot, burst or the self-timer without diving into a menu.',
+  'wheel-center': 'The quickest button of all, under your thumb. One press re-centres the focus and clears a tracking lock, so if you tapped the wrong thing you just reset.',
+  c1: 'Under your thumb. One press cycles Wide (the camera picks) and Spot (you place a precise point) for the times you want to be exact.',
+  c2: 'A guaranteed grab-the-eye press for people, on top of the automatic Face/Eye detection.',
   'wheel-left': 'Nudge ISO up when the light drops, eye still on the scene.',
-  'wheel-right': 'Fix odd market and neon colour in a press.',
+  'wheel-right': 'One press crops in for roughly 1.5x more reach, turning your 20-70 into about a 30-105 for candid street, still plenty of megapixels.',
   'wheel-down': 'One press to go silent for temples and candid moments.',
   'wheel-up': 'Left as DISP. Pressing it cycles the on-screen info (level, histogram, clean view).',
   movie: 'You are not filming, so this becomes AE Lock. Point at the part you want correctly exposed, press to lock the brightness, then recompose.',
+  'lens-fn': 'Under your left fingers as you hold the lens. Press to lock onto whatever is in the centre and follow it, a quick subject grab for when you cannot tap the screen, like at the viewfinder.',
   'front-dial': 'Left alone on purpose. In A, S or M mode it already controls the right setting, so it works no matter which mode you switch to.',
   'rear-dial': 'Left alone on purpose. In A, S and P modes it adjusts brightness (exposure compensation) automatically.',
 }
@@ -261,11 +271,16 @@ export function setupStepsFor(controlId: string): string[] {
 // Prerequisite menu settings, then every physical control in setup order. Drives
 // the "set up all my buttons" walkthrough.
 export interface WalkStep { id: string; label: string; target?: string; steps: string[] }
-const SETUP_ORDER = ['af-on', 'wheel-center', 'c1', 'c2', 'wheel-left', 'wheel-right', 'wheel-down', 'wheel-up', 'movie', 'front-dial', 'rear-dial']
+const SETUP_ORDER = ['af-on', 'wheel-center', 'c1', 'c2', 'wheel-left', 'wheel-right', 'wheel-down', 'wheel-up', 'movie', 'lens-fn', 'front-dial', 'rear-dial']
+// The "fast focus" foundation: these menu settings are what make picking the
+// subject quick. The buttons below only cover what tapping cannot.
 export const setupPrereqs: WalkStep[] = [
-  { id: 'prep-still', label: 'Set the camera to stills', steps: ['Turn the lower mode collar to the still-photo icon (not the movie or S&Q positions). This whole setup is photography only.'] },
-  { id: 'prep-eye', label: 'Turn Face/Eye detection on', steps: ['Press MENU, open the Focus tab.', 'Go to Face/Eye Detection, then Face/Eye Priority in AF, and set it On.', 'Now every shot is eye-aware, so you rarely think about focusing on people.'] },
-  { id: 'prep-subject', label: 'Turn Subject Recognition on', steps: ['Still in the Focus tab, open Subject Recognition.', 'Set Subject Recognition in AF to On, and Recognition Target to Human.'] },
+  { id: 'prep-still', label: 'Set the camera to stills', target: 'Still', steps: ['Turn the lower mode collar to the still-photo icon (not the movie or S&Q positions). This whole setup is photography only.'] },
+  { id: 'prep-focus-mode', label: 'Focus Mode to Continuous', target: 'AF-C', steps: ['Press MENU and open the Focus tab.', 'Open Focus Mode and choose Continuous AF (AF-C).', 'Now focus keeps adjusting as people and traffic move.'] },
+  { id: 'prep-focus-area', label: 'Focus Area to Wide', target: 'Wide', steps: ['Still in the Focus tab, open Focus Area.', 'Choose Wide, so the camera scans the whole frame to find a subject on its own.'] },
+  { id: 'prep-eye', label: 'Turn Face/Eye detection on', target: 'On', steps: ['In the Focus tab, open Face/Eye Detection, then Face/Eye Priority in AF, and set it On.', 'Now every shot is eye-aware, so you rarely think about focusing on people.'] },
+  { id: 'prep-subject', label: 'Turn Subject Recognition on', target: 'Human', steps: ['In the Focus tab, open Subject Recognition.', 'Set Subject Recognition in AF to On, and Recognition Target to Human.'] },
+  { id: 'prep-touch', label: 'Turn on tap-to-focus', target: 'Touch Tracking', steps: ['Press MENU and open the Setup tab.', 'Open Touch Operation and set Touch Operation to On.', 'Set Touch Panel/Pad to Touch Panel+Pad, so dragging your thumb also works while your eye is at the viewfinder.', 'Open Touch Func. in Shooting and choose Touch Tracking.', 'Now a tap on the screen locks onto that subject and follows it. Tap someone else to switch. This is your main way to pick what is in focus.'] },
 ]
 export const setupWalkthrough: WalkStep[] = [
   ...setupPrereqs,

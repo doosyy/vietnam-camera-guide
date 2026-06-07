@@ -30,10 +30,11 @@ type ViewMode = 'list' | 'map' | 'card'
 
 export default function MyButtons() {
   const navigate = useNavigate()
-  const { activeLayout, setButton, setButtons, resetLayout, toggleDone } = useApp()
+  const { activeLayout, setButton, setButtons, resetLayout, toggleDone, lens } = useApp()
 
   const map = activeLayout.map
   const done = activeLayout.done
+  const hasLensBtn = !!lens.hasFnButton
 
   const [openControl, setOpenControl] = useState<string | null>(null)
   const [fnOpen, setFnOpen] = useState(false)
@@ -64,7 +65,7 @@ export default function MyButtons() {
 
     const placed = new Set(Object.values(map))
     const waste = controls
-      .filter((c) => c.reach === 'instant' && c.recommendable && !leftAtDefault.has(c.id) && !map[c.id])
+      .filter((c) => c.reach === 'instant' && c.recommendable && !leftAtDefault.has(c.id) && c.id !== 'lens-fn' && !map[c.id])
       .map((c) => ({ controlId: c.id, rec: recommendedFor(c.id) }))
       .filter((w) => w.rec && w.rec !== 'not-set' && !placed.has(w.rec))
       .slice(0, 3)
@@ -74,7 +75,10 @@ export default function MyButtons() {
 
   const applySuggested = () => {
     const next: Record<string, string> = {}
-    Object.entries(photoSetup).forEach(([cid, fid]) => { if (fid && fid !== 'not-set') next[cid] = fid })
+    Object.entries(photoSetup).forEach(([cid, fid]) => {
+      if (cid === 'lens-fn' && !hasLensBtn) return // no lens button on the kit lens
+      if (fid && fid !== 'not-set') next[cid] = fid
+    })
     photoFnTiles.forEach((fid, i) => { if (fid && fid !== 'not-set') next[`fn-${i + 1}`] = fid })
     setButtons(next)
     setConfirmApply(false)
@@ -83,14 +87,14 @@ export default function MyButtons() {
 
   return (
     <div className="screen anim-tab">
-      <PageHead eyebrow="My Buttons" title="Your one photography setup" sub="One simple set of buttons for photography, built from Adrien Sanguinetti's A7C II guide. Set it once, then it is the same every time you pick up the camera." />
+      <PageHead eyebrow="My Buttons" title="Your one photography setup" sub="Built around fast focus: the camera finds the subject and you tap the screen to pick or switch. A few buttons cover the rest. Set it once, then it is the same every time." />
 
-      {/* how to shoot note */}
-      <Note tone="plain" icon="info" title="Three things to know">
+      {/* how focus works note */}
+      <Note tone="plain" icon="info" title="How focus works now">
         <ul className="stack" style={{ '--g': '5px', listStyle: 'none', marginTop: 6 } as React.CSSProperties}>
-          <li>Your two main dials are left alone, so they always control the right thing as you switch between A, S and M.</li>
-          <li>Face and Eye detection stays on in the menu, so focus is always eye-aware.</li>
-          <li>Keep the mode collar on the still-photo icon. This setup is photography only.</li>
+          <li>The camera finds the subject for you (Wide area, Face and Eye detection). <b>Tap anyone on the screen</b> to lock and follow them, tap someone else to switch.</li>
+          <li>Your buttons only cover what tapping cannot: thumb-focus, clear a lock, get precise, and grab extra reach.</li>
+          <li>Drive and White Balance live in the Fn menu now, as you asked. Your two main dials are left alone so they work in any mode.</li>
         </ul>
       </Note>
 
@@ -109,7 +113,7 @@ export default function MyButtons() {
         {guideOpen && (
           <div style={{ padding: '0 15px 15px', borderTop: '1px solid var(--border)' }}>
             <div className="stack" style={{ '--g': '16px', marginTop: 14 } as React.CSSProperties}>
-              {setupWalkthrough.map((w, i) => <WalkRow key={w.id} w={w} n={i + 1} />)}
+              {setupWalkthrough.filter((w) => w.id !== 'lens-fn' || hasLensBtn).map((w, i) => <WalkRow key={w.id} w={w} n={i + 1} />)}
             </div>
             <button onClick={() => navigate('/learn/how-to?open=custom-buttons')} className="tap row" style={{ gap: 6, marginTop: 16, color: 'var(--accent-text)', fontSize: 12, fontWeight: 600 }}>
               <Icon name="sliders" size={13} /> More on the custom-key menu <Icon name="chevronRight" size={12} />
@@ -222,8 +226,10 @@ export default function MyButtons() {
       {mode === 'list' && (
         <div className="stack" style={{ '--g': '22px' } as React.CSSProperties}>
           {controlGroups.map((grp) => {
+            if (grp.id === 'lens' && !hasLensBtn) return null // kit lens has no function button
             const list = controls.filter((c) => c.group === grp.id)
             const isFn = grp.id === 'fn'
+            const grpLabel = grp.id === 'lens' ? `Lens button · ${lens.shortName} ${lens.tag}` : grp.label
             return (
               <section key={grp.id}>
                 <button
@@ -232,7 +238,7 @@ export default function MyButtons() {
                   style={{ width: '100%', marginBottom: 11, cursor: isFn ? 'pointer' : 'default' }}
                 >
                   <span className="row" style={{ gap: 8 }}>
-                    <span className="eyebrow" style={{ color: 'var(--text-2)' }}>{grp.label}</span>
+                    <span className="eyebrow" style={{ color: 'var(--text-2)' }}>{grpLabel}</span>
                     {isFn && <Pill>{list.filter((c) => map[c.id]).length}/12 set</Pill>}
                   </span>
                   {isFn && <span style={{ color: 'var(--text-3)', transform: fnOpen ? 'rotate(180deg)' : 'none', transition: 'transform .3s var(--ease)' }}><Icon name="chevronDown" size={16} /></span>}

@@ -34,7 +34,8 @@ export const lenses: Lens[] = [
     maxApertureWide: 4,
     maxApertureTele: 4,
     constantAperture: true,
-    owned: false,
+    owned: true,
+    hasFnButton: true,
     lightGrade: 'medium',
     oneLiner: 'The do-everything zoom. Goes really wide (20mm) and holds f/4 throughout.',
     strengths: [
@@ -58,6 +59,7 @@ export const lenses: Lens[] = [
     maxApertureTele: 2.8,
     constantAperture: true,
     owned: false,
+    hasFnButton: true,
     lightGrade: 'fast',
     oneLiner: 'The low-light champion. Bright f/2.8 the whole way for night and creamy backgrounds.',
     strengths: [

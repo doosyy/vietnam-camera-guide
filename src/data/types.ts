@@ -12,6 +12,7 @@ export interface Lens {
   maxApertureTele: number
   constantAperture: boolean
   owned: boolean
+  hasFnButton?: boolean // has a function / focus-hold button on the barrel (G lenses do)
   lightGrade: 'slow' | 'medium' | 'fast'
   oneLiner: string
   strengths: string[]
