@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Icon from './Icon'
-import { controls, functions, functionById, controlById, scoreLayout, type Goal } from '../data/buttons'
+import { controls, functions, functionById, controlById, scoreLayout } from '../data/buttons'
 
 const SKIP = new Set(['not-set', 'custom', 'disp'])
 const pickFns = functions.filter((f) => !SKIP.has(f.id))
@@ -27,7 +27,7 @@ function buildQuestions(map: Record<string, string>): Q[] {
   })
 }
 
-export default function ButtonsDrill({ map, goal, onClose }: { map: Record<string, string>; goal: Goal; onClose: () => void }) {
+export default function ButtonsDrill({ map, onClose }: { map: Record<string, string>; onClose: () => void }) {
   const [seed, setSeed] = useState(0)
   const questions = useMemo(() => buildQuestions(map), [map, seed])
   const [idx, setIdx] = useState(0)
@@ -58,7 +58,7 @@ export default function ButtonsDrill({ map, goal, onClose }: { map: Record<strin
 
   const restart = () => { setSeed((s) => s + 1); setIdx(0); setScore(0); setPicked(null); setDone(false); setElapsed(0) }
 
-  const layoutScore = scoreLayout(map, goal)
+  const layoutScore = scoreLayout(map)
 
   return createPortal(
     <div className="sheet-scrim" onClick={onClose}>

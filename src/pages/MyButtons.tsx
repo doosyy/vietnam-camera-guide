@@ -1,16 +1,16 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Icon from '../components/Icon'
-import { PageHead, Note, Pill, ProgressRing } from '../components/ui'
+import { PageHead, Note, Pill, ProgressRing, NumberStep } from '../components/ui'
 import ButtonsDiagram from '../components/ButtonsDiagram'
 import ButtonsCheatCard from '../components/ButtonsCheatCard'
 import ButtonsDrill from '../components/ButtonsDrill'
 import { useApp } from '../context/AppContext'
 import {
   controls, controlGroups, functions, functionById, controlById,
-  essentialFunctionIds, goals, recommendedFor, fnRecommendedFor, recommendations,
-  duplicateFunctions, scoreLayout,
-  type ButtonControl, type Reach,
+  essentialFunctionIds, recommendedFor, photoSetup, photoFnTiles,
+  duplicateFunctions, scoreLayout, setupWalkthrough, setupStepsFor, buttonWhy, leftAtDefault,
+  type ButtonControl, type Reach, type WalkStep,
 } from '../data/buttons'
 
 const reachMeta: Record<Reach, { label: string; tone: 'good' | 'accent' | 'line' }> = {
@@ -30,13 +30,9 @@ type ViewMode = 'list' | 'map' | 'card'
 
 export default function MyButtons() {
   const navigate = useNavigate()
-  const {
-    activeLayout, layouts, setActiveLayout, addLayout, duplicateLayout, renameLayout, deleteLayout,
-    setButton, setButtons, resetLayout, toggleDone, setLayoutGoal,
-  } = useApp()
+  const { activeLayout, setButton, setButtons, resetLayout, toggleDone } = useApp()
 
   const map = activeLayout.map
-  const goal = activeLayout.goal
   const done = activeLayout.done
 
   const [openControl, setOpenControl] = useState<string | null>(null)
@@ -44,6 +40,7 @@ export default function MyButtons() {
   const [confirmApply, setConfirmApply] = useState(false)
   const [mode, setMode] = useState<ViewMode>('list')
   const [drill, setDrill] = useState(false)
+  const [guideOpen, setGuideOpen] = useState(false)
 
   const analysis = useMemo(() => {
     const onInstant = (fnId: string) => controls.some((c) => c.reach === 'instant' && map[c.id] === fnId)
@@ -58,7 +55,7 @@ export default function MyButtons() {
       .filter((fnId) => !onInstant(fnId))
       .map((fnId) => {
         const suggestCtrl =
-          controls.find((c) => c.reach === 'instant' && recommendedFor(goal, c.id) === fnId && !map[c.id]) ??
+          controls.find((c) => c.reach === 'instant' && recommendedFor(c.id) === fnId && !map[c.id]) ??
           controls.find((c) => c.reach === 'instant' && !map[c.id] && c.takes === 'button')
         return { fnId, onAny: onAny(fnId), suggestCtrl: suggestCtrl?.id }
       })
@@ -67,69 +64,58 @@ export default function MyButtons() {
 
     const placed = new Set(Object.values(map))
     const waste = controls
-      .filter((c) => c.reach === 'instant' && c.recommendable && !map[c.id])
-      .map((c) => ({ controlId: c.id, rec: recommendedFor(goal, c.id) }))
+      .filter((c) => c.reach === 'instant' && c.recommendable && !leftAtDefault.has(c.id) && !map[c.id])
+      .map((c) => ({ controlId: c.id, rec: recommendedFor(c.id) }))
       .filter((w) => w.rec && w.rec !== 'not-set' && !placed.has(w.rec))
       .slice(0, 3)
 
-    return { setCount, instantCount, fnCount, doneCount, gaps, dupes, waste, score: scoreLayout(map, goal) }
-  }, [map, goal, done])
+    return { setCount, instantCount, fnCount, doneCount, gaps, dupes, waste, score: scoreLayout(map) }
+  }, [map, done])
 
   const applySuggested = () => {
     const next: Record<string, string> = {}
-    Object.entries(recommendations[goal]).forEach(([cid, fid]) => { if (fid && fid !== 'not-set') next[cid] = fid })
-    fnRecommendedFor(goal).forEach((fid, i) => { if (fid && fid !== 'not-set') next[`fn-${i + 1}`] = fid })
+    Object.entries(photoSetup).forEach(([cid, fid]) => { if (fid && fid !== 'not-set') next[cid] = fid })
+    photoFnTiles.forEach((fid, i) => { if (fid && fid !== 'not-set') next[`fn-${i + 1}`] = fid })
     setButtons(next)
     setConfirmApply(false)
     setFnOpen(true)
   }
 
-  const newLayout = () => {
-    const name = window.prompt('Name this layout (e.g. Street, Night, Food):', `Layout ${layouts.length + 1}`)
-    if (name !== null) addLayout(name, goal)
-  }
-
   return (
     <div className="screen anim-tab">
-      <PageHead eyebrow="My Buttons" title="Your custom controls" sub="Record what each button is set to. I will rate how fast each one is and suggest the best setup for your trip." />
+      <PageHead eyebrow="My Buttons" title="Your one photography setup" sub="One simple set of buttons for photography, built from Adrien Sanguinetti's A7C II guide. Set it once, then it is the same every time you pick up the camera." />
 
-      {/* layout switcher */}
-      <div className="row" style={{ gap: 7, flexWrap: 'wrap', marginBottom: 8 }}>
-        {layouts.map((l) => (
-          <button
-            key={l.id}
-            onClick={() => setActiveLayout(l.id)}
-            className="tap pill"
-            style={{ background: l.id === activeLayout.id ? 'var(--accent-soft)' : 'var(--surface-3)', color: l.id === activeLayout.id ? 'var(--accent-text)' : 'var(--text-2)', border: '1px solid ' + (l.id === activeLayout.id ? 'var(--accent-line)' : 'var(--border)') }}
-          >
-            {l.name}
-          </button>
-        ))}
-        <button onClick={newLayout} className="tap pill" style={{ background: 'var(--surface-2)', color: 'var(--text-3)', border: '1px dashed var(--border-2)' }}>
-          <Icon name="plus" size={12} /> New
+      {/* how to shoot note */}
+      <Note tone="plain" icon="info" title="Three things to know">
+        <ul className="stack" style={{ '--g': '5px', listStyle: 'none', marginTop: 6 } as React.CSSProperties}>
+          <li>Your two main dials are left alone, so they always control the right thing as you switch between A, S and M.</li>
+          <li>Face and Eye detection stays on in the menu, so focus is always eye-aware.</li>
+          <li>Keep the mode collar on the still-photo icon. This setup is photography only.</li>
+        </ul>
+      </Note>
+
+      {/* full walkthrough */}
+      <div className="card flush" style={{ margin: '14px 0' }}>
+        <button onClick={() => setGuideOpen((o) => !o)} className="row between" style={{ width: '100%', padding: 15, textAlign: 'left', gap: 10 }}>
+          <span className="row" style={{ gap: 10, minWidth: 0 }}>
+            <span className="ico-badge"><Icon name="sliders" size={18} /></span>
+            <span style={{ minWidth: 0 }}>
+              <span className="h3" style={{ display: 'block' }}>Set up all my buttons</span>
+              <span className="small" style={{ display: 'block', color: 'var(--text-3)', marginTop: 1 }}>Step by step, in order, start to finish</span>
+            </span>
+          </span>
+          <span style={{ color: 'var(--text-3)', flexShrink: 0, transform: guideOpen ? 'rotate(180deg)' : 'none', transition: 'transform .3s var(--ease)' }}><Icon name="chevronDown" size={18} /></span>
         </button>
-      </div>
-      <div className="row" style={{ gap: 14, marginBottom: 16, paddingLeft: 2 }}>
-        <button onClick={() => { const n = window.prompt('Rename layout:', activeLayout.name); if (n) renameLayout(activeLayout.id, n) }} className="tap" style={{ fontSize: 11, color: 'var(--text-3)' }}>Rename</button>
-        <button onClick={() => duplicateLayout(activeLayout.id)} className="tap" style={{ fontSize: 11, color: 'var(--text-3)' }}>Duplicate</button>
-        {layouts.length > 1 && (
-          <button onClick={() => { if (window.confirm(`Delete "${activeLayout.name}"?`)) deleteLayout(activeLayout.id) }} className="tap" style={{ fontSize: 11, color: 'var(--text-3)' }}>Delete</button>
+        {guideOpen && (
+          <div style={{ padding: '0 15px 15px', borderTop: '1px solid var(--border)' }}>
+            <div className="stack" style={{ '--g': '16px', marginTop: 14 } as React.CSSProperties}>
+              {setupWalkthrough.map((w, i) => <WalkRow key={w.id} w={w} n={i + 1} />)}
+            </div>
+            <button onClick={() => navigate('/learn/how-to?open=custom-buttons')} className="tap row" style={{ gap: 6, marginTop: 16, color: 'var(--accent-text)', fontSize: 12, fontWeight: 600 }}>
+              <Icon name="sliders" size={13} /> More on the custom-key menu <Icon name="chevronRight" size={12} />
+            </button>
+          </div>
         )}
-      </div>
-
-      {/* goal switch */}
-      <p className="small" style={{ color: 'var(--text-2)', marginBottom: 8, fontWeight: 600 }}>Tune the suggestions for:</p>
-      <div className="row" style={{ gap: 7, flexWrap: 'wrap', marginBottom: 16 }}>
-        {goals.map((g) => (
-          <button
-            key={g.id}
-            onClick={() => setLayoutGoal(g.id)}
-            className="tap pill"
-            style={{ background: g.id === goal ? 'var(--accent-soft)' : 'var(--surface-3)', color: g.id === goal ? 'var(--accent-text)' : 'var(--text-2)', border: '1px solid ' + (g.id === goal ? 'var(--accent-line)' : 'var(--border)') }}
-          >
-            {g.label}
-          </button>
-        ))}
       </div>
 
       {/* summary */}
@@ -211,7 +197,7 @@ export default function MyButtons() {
           style={{ flex: 1, fontSize: 13 }}
         >
           <Icon name="sparkle" size={16} style={{ flexShrink: 0 }} />
-          {confirmApply ? 'Tap again to fill all' : 'Use suggested setup'}
+          {confirmApply ? 'Tap again to fill it all in' : 'Use this setup'}
         </button>
         <button onClick={() => setDrill(true)} className="tap" style={{ padding: 13, borderRadius: 14, background: 'var(--surface-3)', border: '1px solid var(--border)' }}>
           <span className="row" style={{ gap: 8 }}><Icon name="rocket" size={16} style={{ color: 'var(--accent)' }} /><span className="h3" style={{ fontSize: 13 }}>Practice</span></span>
@@ -226,7 +212,7 @@ export default function MyButtons() {
       </div>
 
       {mode === 'map' && (
-        <ButtonsDiagram map={map} goal={goal} done={done} onPick={(cid, fid) => setButton(cid, fid)} />
+        <ButtonsDiagram map={map} done={done} onPick={(cid, fid) => setButton(cid, fid)} />
       )}
 
       {mode === 'card' && (
@@ -258,8 +244,7 @@ export default function MyButtons() {
                         key={c.id}
                         control={c}
                         current={map[c.id]}
-                        suggested={recommendedFor(goal, c.id)}
-                        goalLabel={goals.find((g) => g.id === goal)?.label ?? ''}
+                        suggested={recommendedFor(c.id)}
                         done={done.includes(c.id)}
                         open={openControl === c.id}
                         onToggle={() => setOpenControl(openControl === c.id ? null : c.id)}
@@ -277,12 +262,12 @@ export default function MyButtons() {
       )}
 
       {analysis.setCount > 0 && (
-        <button onClick={() => { if (window.confirm('Clear all buttons in this layout?')) resetLayout() }} className="tap row" style={{ gap: 7, margin: '24px auto 0', color: 'var(--text-3)', fontSize: 12 }}>
-          <Icon name="rotate" size={13} /> Clear this layout
+        <button onClick={() => { if (window.confirm('Clear every button back to empty?')) resetLayout() }} className="tap row" style={{ gap: 7, margin: '24px auto 0', color: 'var(--text-3)', fontSize: 12 }}>
+          <Icon name="rotate" size={13} /> Clear it all
         </button>
       )}
 
-      {drill && <ButtonsDrill map={map} goal={goal} onClose={() => setDrill(false)} />}
+      {drill && <ButtonsDrill map={map} onClose={() => setDrill(false)} />}
     </div>
   )
 }
@@ -296,13 +281,35 @@ function Stat({ n, label }: { n: number; label: string }) {
   )
 }
 
+// One step in the full walkthrough.
+function WalkRow({ w, n }: { w: WalkStep; n: number }) {
+  return (
+    <div>
+      <div className="row between" style={{ gap: 8, marginBottom: 7 }}>
+        <span className="row" style={{ gap: 9, minWidth: 0 }}>
+          <span className="data" style={{ fontSize: 12, color: 'var(--accent-text)', flexShrink: 0 }}>{n}</span>
+          <span className="h3" style={{ fontSize: 14 }}>{w.label}</span>
+        </span>
+        {w.target && <Pill tone={w.target === 'Leave at default' ? 'line' : 'accent'} style={{ flexShrink: 0 }}>{w.target}</Pill>}
+      </div>
+      <ol className="stack" style={{ '--g': '7px', listStyle: 'none', paddingLeft: 21 } as React.CSSProperties}>
+        {w.steps.map((s, i) => (
+          <li key={i} className="small" style={{ color: 'var(--text-2)', display: 'flex', gap: 8 }}>
+            <span style={{ width: 4, height: 4, borderRadius: 5, background: 'var(--text-4)', marginTop: 7, flexShrink: 0 }} />
+            <span style={{ flex: 1 }}>{s}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  )
+}
+
 function ControlRow({
-  control, current, suggested, goalLabel, done, open, onToggle, onToggleDone, onPick, onHelp,
+  control, current, suggested, done, open, onToggle, onToggleDone, onPick, onHelp,
 }: {
   control: ButtonControl
   current?: string
   suggested?: string
-  goalLabel: string
   done: boolean
   open: boolean
   onToggle: () => void
@@ -310,9 +317,12 @@ function ControlRow({
   onPick: (fnId: string) => void
   onHelp: () => void
 }) {
+  const isDefault = leftAtDefault.has(control.id)
   const matches = current && suggested && current === suggested
   const picks = functions.filter((f) => f.id === 'not-set' || f.fits === 'both' || f.fits === control.takes)
-  const dot = !current ? 'var(--text-4)' : matches ? 'var(--good)' : 'var(--accent)'
+  const dot = isDefault ? 'var(--text-4)' : !current ? 'var(--text-4)' : matches ? 'var(--good)' : 'var(--accent)'
+  const why = buttonWhy[control.id]
+  const steps = setupStepsFor(control.id)
 
   return (
     <div className="card flush" style={{ scrollMarginTop: 14 }}>
@@ -325,13 +335,13 @@ function ControlRow({
               <ReachBadge reach={control.reach} />
             </span>
             <span className="small" style={{ display: 'block', color: current ? 'var(--text-2)' : 'var(--text-4)', marginTop: 2 }}>
-              {current ? `Set to: ${fnLabel(current)}` : 'Not set'}
-              {!matches && suggested && suggested !== 'not-set' && <span style={{ color: 'var(--accent-text)' }}> · suggest {fnLabel(suggested)}</span>}
+              {isDefault ? 'Leave at default (per mode)' : current ? `Set to: ${fnLabel(current)}` : 'Not set'}
+              {!isDefault && !matches && suggested && suggested !== 'not-set' && <span style={{ color: 'var(--accent-text)' }}> · suggest {fnLabel(suggested)}</span>}
             </span>
           </span>
           <span style={{ color: 'var(--text-3)', flexShrink: 0, transform: open ? 'rotate(180deg)' : 'none', transition: 'transform .3s var(--ease)' }}><Icon name="chevronDown" size={16} /></span>
         </button>
-        {current && (
+        {current && !isDefault && (
           <button onClick={onToggleDone} className={`tap cbox ${done ? 'on' : ''}`} aria-label="Set on camera" title="Tick once you've set it on the camera" style={{ flexShrink: 0 }}>
             <Icon name="check" size={13} strokeWidth={3} />
           </button>
@@ -340,44 +350,56 @@ function ControlRow({
 
       {open && (
         <div style={{ padding: '0 14px 14px', borderTop: '1px solid var(--border)' }}>
-          <p className="small" style={{ color: 'var(--text-2)', margin: '12px 0' }}>
-            <Icon name="hand" size={13} style={{ color: 'var(--accent)', marginRight: 5, verticalAlign: '-2px' }} />
-            {control.where}
-          </p>
+          {why && (
+            <p className="small" style={{ color: 'var(--text-2)', margin: '12px 0' }}>
+              <Icon name="bulb" size={13} style={{ color: 'var(--accent)', marginRight: 5, verticalAlign: '-2px' }} />
+              {why}
+            </p>
+          )}
 
-          {suggested && suggested !== 'not-set' && (
+          {!isDefault && suggested && suggested !== 'not-set' && (
             <div className="row between" style={{ gap: 8, marginBottom: 12, padding: '9px 11px', borderRadius: 11, background: 'var(--accent-soft)', border: '1px solid var(--accent-line)' }}>
               <span className="small" style={{ color: 'var(--text-2)' }}>
-                For <b style={{ color: 'var(--text)' }}>{goalLabel}</b>, I suggest <b style={{ color: 'var(--accent-text)' }}>{fnLabel(suggested)}</b>.
+                I suggest <b style={{ color: 'var(--accent-text)' }}>{fnLabel(suggested)}</b>.
               </span>
               {!matches && <button className="tap pill accent-pill" style={{ flexShrink: 0 }} onClick={() => onPick(suggested)}>Use</button>}
               {matches && <Pill tone="good" style={{ flexShrink: 0 }}><Icon name="check" size={10} strokeWidth={3} /> Matched</Pill>}
             </div>
           )}
 
-          <div className="mono" style={{ fontSize: 10, fontWeight: 700, color: 'var(--text-3)', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: 9 }}>Set this control to</div>
-          <div className="row" style={{ gap: 7, flexWrap: 'wrap' }}>
-            {picks.map((f) => {
-              const on = (current ?? 'not-set') === f.id
-              return (
-                <button
-                  key={f.id}
-                  onClick={() => onPick(f.id)}
-                  className="tap pill"
-                  style={{ background: on ? 'var(--accent)' : 'var(--surface-3)', color: on ? 'var(--bg)' : 'var(--text-2)', border: '1px solid ' + (on ? 'var(--accent)' : 'var(--border)') }}
-                >
-                  {f.label}
-                </button>
-              )
-            })}
-          </div>
+          {/* exact steps for this one control */}
+          <div className="mono" style={{ fontSize: 10, fontWeight: 700, color: 'var(--text-3)', letterSpacing: '.08em', textTransform: 'uppercase', marginBottom: 9 }}>{isDefault ? 'On the camera' : 'How to set this'}</div>
+          <ol className="stack" style={{ '--g': '9px', listStyle: 'none' } as React.CSSProperties}>
+            {steps.map((s, i) => isDefault ? (
+              <li key={i} className="small" style={{ color: 'var(--text-2)' }}>{s}</li>
+            ) : (
+              <NumberStep key={i} n={i + 1}>{s}</NumberStep>
+            ))}
+          </ol>
 
-          {current && current !== 'not-set' && functionById(current)?.blurb && (
-            <p className="tiny" style={{ marginTop: 11, color: 'var(--text-3)' }}>{functionById(current)?.blurb}</p>
+          {!isDefault && (
+            <>
+              <div className="mono" style={{ fontSize: 10, fontWeight: 700, color: 'var(--text-3)', letterSpacing: '.08em', textTransform: 'uppercase', margin: '14px 0 9px' }}>Or set this control to</div>
+              <div className="row" style={{ gap: 7, flexWrap: 'wrap' }}>
+                {picks.map((f) => {
+                  const on = (current ?? 'not-set') === f.id
+                  return (
+                    <button
+                      key={f.id}
+                      onClick={() => onPick(f.id)}
+                      className="tap pill"
+                      style={{ background: on ? 'var(--accent)' : 'var(--surface-3)', color: on ? 'var(--bg)' : 'var(--text-2)', border: '1px solid ' + (on ? 'var(--accent)' : 'var(--border)') }}
+                    >
+                      {f.label}
+                    </button>
+                  )
+                })}
+              </div>
+            </>
           )}
 
           <button onClick={onHelp} className="tap row" style={{ gap: 6, marginTop: 12, color: 'var(--accent-text)', fontSize: 12, fontWeight: 600 }}>
-            <Icon name="sliders" size={13} /> How to assign this on the camera <Icon name="chevronRight" size={12} />
+            <Icon name="sliders" size={13} /> Full custom-key guide <Icon name="chevronRight" size={12} />
           </button>
         </div>
       )}

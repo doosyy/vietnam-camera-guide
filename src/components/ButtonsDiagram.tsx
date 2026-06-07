@@ -3,17 +3,15 @@ import Icon from './Icon'
 import CameraBody, { CB_VW as VW, CB_VH as VH } from './CameraBody'
 import {
   controls, controlDiagram, functions, functionById, controlById, recommendedFor,
-  type Goal,
 } from '../data/buttons'
 import type { CameraView } from '../data/types'
 
 const shortFn = (id: string | undefined) => (id ? functionById(id)?.label ?? id : '—')
 
 export default function ButtonsDiagram({
-  map, goal, done, onPick,
+  map, done, onPick,
 }: {
   map: Record<string, string>
-  goal: Goal
   done: string[]
   onPick: (controlId: string, fnId: string) => void
 }) {
@@ -29,7 +27,7 @@ export default function ButtonsDiagram({
     const fn = map[cid]
     if (!fn) return { fill: 'var(--surface-2)', stroke: 'var(--text-4)' }
     if (done.includes(cid)) return { fill: 'var(--good)', stroke: 'var(--good)' }
-    if (recommendedFor(goal, cid) === fn) return { fill: 'var(--accent)', stroke: 'var(--accent-2)' }
+    if (recommendedFor(cid) === fn) return { fill: 'var(--accent)', stroke: 'var(--accent-2)' }
     return { fill: 'var(--surface-3)', stroke: 'var(--accent)' }
   }
 
@@ -125,7 +123,7 @@ export default function ButtonsDiagram({
           </div>
           <p className="small" style={{ color: 'var(--text-2)', marginBottom: 10 }}>{selControl.where}{selPos ? '' : ''}</p>
           {(() => {
-            const suggested = recommendedFor(goal, selControl.id)
+            const suggested = recommendedFor(selControl.id)
             if (!suggested || suggested === 'not-set') return null
             const matches = map[selControl.id] === suggested
             return (
