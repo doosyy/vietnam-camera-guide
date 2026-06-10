@@ -28,6 +28,7 @@ const STATIC_TITLES: Record<string, string> = {
   '/trip/lenses': 'Lenses',
   '/trip/accessories': 'Accessories',
   '/trip/light': 'Light clock',
+  '/trip/location': 'Location tagging',
 }
 
 export function routeTitle(pathname: string): string {

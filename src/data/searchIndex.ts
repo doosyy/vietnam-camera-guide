@@ -53,6 +53,8 @@ export const buildSearchIndex = (): SearchEntry[] => {
 
   e.push({ id: 'learn-path', title: 'Learn Path', snippet: 'A guided course and a plane-reading list, with your progress saved.', section: 'Learn', icon: 'book', route: '/learn/path', keywords: 'course lessons progress flight reading plane study guided learning path continue read time' })
 
+  e.push({ id: 'location-tag', title: 'Location tagging', snippet: 'Geotag every photo from your phone, and confirm it is on with the screen icon.', section: 'Trip', icon: 'pin', route: '/trip/location', keywords: 'location gps geotag geotagging coordinates map creators app bluetooth smartphone link auto connect confirm icon where taken position' })
+
   accessories.forEach((a) =>
     e.push({ id: `acc-${a.id}`, title: a.name, snippet: a.oneLiner, section: 'Accessories', icon: a.icon, route: '/trip/accessories', keywords: `polarizer polariser cpl filter glare reflection sky water foliage gear accessory ${a.whatItDoes.join(' ')} ${a.greatFor.map((g) => g.title).join(' ')}` })
   )
