@@ -60,7 +60,7 @@ export const controlGroups: { id: ControlGroup; label: string }[] = [
 
 export const controls: ButtonControl[] = [
   { id: 'c1', label: 'C1 button', sony: 'C1', group: 'thumb', reach: 'instant', where: 'Top-back, right of the viewfinder. Falls under your thumb.', takes: 'button', recommendable: true },
-  { id: 'c2', label: 'C2 button', sony: 'C2 (also Delete)', group: 'thumb', reach: 'instant', where: 'Lower-right back. Doubles as the trash button in playback.', takes: 'button', recommendable: true },
+  { id: 'c2', label: 'C2 button', sony: 'C2', group: 'thumb', reach: 'instant', where: 'Lower-right back. Doubles as the trash button in playback.', takes: 'button', recommendable: true },
   { id: 'af-on', label: 'AF-ON button', sony: 'AF-ON', group: 'thumb', reach: 'instant', where: 'Top-right back. Made for thumb-focusing (back-button focus).', takes: 'button', recommendable: true },
 
   { id: 'wheel-center', label: 'Wheel: centre', sony: 'Center Button', group: 'wheel', reach: 'instant', where: 'Press the middle of the control wheel straight in. The quickest of all.', takes: 'button', recommendable: true },
@@ -74,7 +74,7 @@ export const controls: ButtonControl[] = [
 
   { id: 'movie', label: 'MOVIE button', sony: 'MOVIE', group: 'movie', reach: 'awkward', where: 'On top behind the shutter. Since you are not filming, we put it to work for photos.', takes: 'button', recommendable: true },
 
-  { id: 'lens-fn', label: 'Lens button', sony: 'Lens Focus Hold Button', group: 'lens', reach: 'instant', where: 'Your 20-70 G has two focus-hold buttons (one on the side, one on top for upright shots), under your left fingers as you support the lens. They share the same job.', takes: 'button', recommendable: true },
+  { id: 'lens-fn', label: 'Lens button', sony: 'Focus Hold Button', group: 'lens', reach: 'instant', where: 'Your 20-70 G has two focus-hold buttons (one on the side, one on top for upright shots), under your left fingers as you support the lens. They share the same job.', takes: 'button', recommendable: true },
 
   { id: 'fn-1', label: 'Fn tile 1', group: 'fn', reach: 'two-step', where: 'Press Fn, then the top-left tile. The fastest Fn slot.', takes: 'button' },
   { id: 'fn-2', label: 'Fn tile 2', group: 'fn', reach: 'two-step', where: 'Press Fn, then the 2nd tile on the top row.', takes: 'button' },
@@ -258,6 +258,16 @@ export function setupStepsFor(controlId: string): string[] {
     return ['Nothing to set. Leave this on its default, DISP, which cycles the on-screen info.']
   }
   const fn = fnId ? functionById(fnId) : undefined
+  // Fn tiles are set in a different menu (Fn Menu Settings), not Custom Key/Dial Set.
+  if (c.group === 'fn') {
+    return [
+      'Press the MENU button.',
+      'Open the Setup tab (the toolbox icon), then Operation Customize.',
+      'Choose Fn Menu Settings (the still-photo set).',
+      `Select this tile’s slot on the grid, then pick “${fn?.sony ?? fn?.label}” from the list.`,
+      'Half-press the shutter to jump back to shooting. Press Fn any time to use the grid.',
+    ]
+  }
   return [
     'Press the MENU button.',
     'Open the Setup tab (the toolbox icon), then Operation Customize.',
@@ -278,9 +288,8 @@ export const setupPrereqs: WalkStep[] = [
   { id: 'prep-still', label: 'Set the camera to stills', target: 'Still', steps: ['Turn the lower mode collar to the still-photo icon (not the movie or S&Q positions). This whole setup is photography only.'] },
   { id: 'prep-focus-mode', label: 'Focus Mode to Continuous', target: 'AF-C', steps: ['Press MENU and open the Focus tab.', 'Open Focus Mode and choose Continuous AF (AF-C).', 'Now focus keeps adjusting as people and traffic move.'] },
   { id: 'prep-focus-area', label: 'Focus Area to Wide', target: 'Wide', steps: ['Still in the Focus tab, open Focus Area.', 'Choose Wide, so the camera scans the whole frame to find a subject on its own.'] },
-  { id: 'prep-area-limit', label: 'Choose which areas C1 cycles', target: 'Wide + Spot', steps: ['In the Focus tab, open Focus Area Limit.', 'Tick only Wide and Spot (untick the rest).', 'Now your C1 button (Switch Focus Area) flips between just those two, nothing else to wade through.'] },
-  { id: 'prep-eye', label: 'Turn Face/Eye detection on', target: 'On', steps: ['In the Focus tab, open Face/Eye Detection, then Face/Eye Priority in AF, and set it On.', 'Now every shot is eye-aware, so you rarely think about focusing on people.'] },
-  { id: 'prep-subject', label: 'Turn Subject Recognition on', target: 'Human', steps: ['In the Focus tab, open Subject Recognition.', 'Set Subject Recognition in AF to On, and Recognition Target to Human.'] },
+  { id: 'prep-area-limit', label: 'Choose which areas to cycle', target: 'Wide + Spot', steps: ['In the Focus tab, open Focus Area Limit.', 'Tick only Wide and Spot (untick the rest).', 'The Switch Focus Area job (you will put it on C1 a few steps below) will then flip between just those two, nothing else to wade through.'] },
+  { id: 'prep-subject', label: 'Turn Subject Recognition on', target: 'On · Human', steps: ['In the Focus tab, open Subject Recognition.', 'Set Subject Recognition in AF to On, and Recognition Target to Human.', 'This is the camera’s face and eye detection: every shot is now eye-aware, so you rarely think about focusing on people.'] },
   { id: 'prep-touch', label: 'Turn on tap-to-focus', target: 'Touch Tracking', steps: ['Press MENU and open the Setup tab.', 'Open Touch Operation and set Touch Operation to On.', 'Set Touch Panel/Pad to Touch Panel+Pad, so dragging your thumb also works while your eye is at the viewfinder.', 'Open Touch Func. in Shooting and choose Touch Tracking.', 'Now a tap on the screen locks onto that subject and follows it. Tap someone else to switch. This is your main way to pick what is in focus.'] },
 ]
 export const setupWalkthrough: WalkStep[] = [
@@ -291,7 +300,7 @@ export const setupWalkthrough: WalkStep[] = [
     return {
       id,
       label: controlById(id)?.label ?? id,
-      target: leftAtDefault.has(id) ? 'Leave at default' : fn?.label,
+      target: leftAtDefault.has(id) || fnId === 'disp' ? 'Leave at default' : fn?.label,
       steps: setupStepsFor(id),
     }
   }),

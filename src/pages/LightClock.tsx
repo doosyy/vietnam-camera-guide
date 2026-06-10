@@ -102,7 +102,7 @@ export default function LightClock() {
         { to: '/shoot/landscape-sunset', label: 'Sunset scene', icon: 'wand', kind: 'scene' },
         { to: '/shoot/night-citylights', label: 'City lights', icon: 'wand', kind: 'scene' },
         { to: '/learn/glossary#golden-hour', label: 'Golden hour', icon: 'glossary', kind: 'glossary' },
-        { to: '/trip/vietnam', label: 'Cities', icon: 'pin', kind: 'location' },
+        { to: '/trip/vietnam', label: 'Places', icon: 'pin', kind: 'location' },
       ]} />
     </div>
   )

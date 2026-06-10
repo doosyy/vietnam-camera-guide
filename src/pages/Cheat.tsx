@@ -15,7 +15,7 @@ export default function Cheat() {
 
       {hasButtons && (
         <section style={{ marginBottom: 22 }}>
-          <SectionTitle icon="click" right={<button onClick={() => navigate('/buttons')} className="tap" style={{ fontSize: 11, color: 'var(--accent-text)' }}>Edit</button>}>My button layout{activeLayout.name ? ` · ${activeLayout.name}` : ''}</SectionTitle>
+          <SectionTitle icon="click" right={<button onClick={() => navigate('/buttons')} className="tap" style={{ fontSize: 11, color: 'var(--accent-text)' }}>Edit</button>}>My buttons</SectionTitle>
           <div className="card"><ButtonsCheatCard map={activeLayout.map} /></div>
         </section>
       )}

@@ -106,7 +106,7 @@ export default function LearnPath() {
               <span style={{ color: 'var(--accent)' }}><Icon name="plane" size={22} /></span>
             </div>
             <div className="bar" style={{ marginTop: 12 }}><span style={{ width: `${(flightRead / flightChapters.length) * 100}%` }} /></div>
-            <p className="tiny" style={{ marginTop: 10, color: 'var(--text-3)' }}>The essentials for street and night photography, in the order I would learn them. Tick them off on the flight over.</p>
+            <p className="tiny" style={{ marginTop: 10, color: 'var(--text-3)' }}>The essentials for street and night photography, in the best order to learn them. Tick them off on the flight over.</p>
           </div>
           <div className="card flush">
             {flightChapters.map((c, i) => (

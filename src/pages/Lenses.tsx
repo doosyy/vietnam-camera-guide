@@ -1,3 +1,5 @@
+import { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import Icon from '../components/Icon'
 import { BackBar, Eyebrow, Pill, SeeAlso } from '../components/ui'
 import { useApp } from '../context/AppContext'
@@ -5,6 +7,12 @@ import { lenses } from '../data/lenses'
 
 export default function Lenses() {
   const { lens, setLens } = useApp()
+  const focus = useLocation().hash.replace('#', '')
+
+  // Arriving with a #lens-id (e.g. from search) scrolls that lens into view.
+  useEffect(() => {
+    if (focus) requestAnimationFrame(() => document.getElementById(focus)?.scrollIntoView({ behavior: 'smooth', block: 'start' }))
+  }, [focus])
 
   return (
     <div className="screen anim-fwd">
@@ -12,14 +20,14 @@ export default function Lenses() {
       <div style={{ marginBottom: 18 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Lens Guide</Eyebrow>
         <h1 className="h1" style={{ fontSize: 25 }}>Your two lenses</h1>
-        <p className="body" style={{ marginTop: 7 }}>When to reach for each one. Tap to preview the wizard with that lens on.</p>
+        <p className="body" style={{ marginTop: 7 }}>When to reach for each one. Tap a lens to tell the app which one is on your camera.</p>
       </div>
 
       <div className="stack" style={{ '--g': '12px' } as React.CSSProperties}>
         {lenses.map((l) => {
           const active = l.id === lens.id
           return (
-            <section key={l.id} className="card" style={active ? { borderColor: 'var(--accent-line)', boxShadow: '0 0 0 1px var(--accent-line)' } : undefined}>
+            <section key={l.id} id={l.id} className="card" style={{ scrollMarginTop: 14, ...(active ? { borderColor: 'var(--accent-line)', boxShadow: '0 0 0 1px var(--accent-line)' } : {}) }}>
               <div className="row between" style={{ gap: 10, alignItems: 'flex-start' }}>
                 <div style={{ minWidth: 0 }}>
                   <div className="row" style={{ gap: 8, marginBottom: 4 }}>
@@ -28,7 +36,7 @@ export default function Lenses() {
                   </div>
                   <h2 className="small" style={{ color: 'var(--text-2)' }}>{l.name}</h2>
                 </div>
-                <Pill tone={l.owned ? 'good' : undefined}>{l.owned ? 'Owned' : 'May buy'}</Pill>
+                <Pill tone="good">Owned</Pill>
               </div>
               <p className="body" style={{ marginTop: 11 }}>{l.oneLiner}</p>
 
@@ -59,7 +67,7 @@ export default function Lenses() {
                 className="tap"
                 style={{ width: '100%', marginTop: 14, padding: '11px', borderRadius: 12, fontWeight: 700, fontSize: 13.5, fontFamily: 'var(--font-sans)', background: active ? 'var(--accent-soft)' : 'var(--surface-3)', color: active ? 'var(--accent-text)' : 'var(--text)' }}
               >
-                {active ? <span className="row" style={{ gap: 6, justifyContent: 'center' }}><Icon name="check" size={15} strokeWidth={2.6} /> On my camera</span> : 'Preview with this lens'}
+                {active ? <span className="row" style={{ gap: 6, justifyContent: 'center' }}><Icon name="check" size={15} strokeWidth={2.6} /> On my camera</span> : 'This one is on my camera'}
               </button>
             </section>
           )
@@ -73,8 +81,8 @@ export default function Lenses() {
             <span className="eyebrow" style={{ color: 'var(--accent-text)' }}>Which lens, when?</span>
           </div>
           <div className="stack" style={{ '--g': '10px' } as React.CSSProperties}>
-            <p className="body">Reach for the <b style={{ color: 'var(--text)' }}>20-70 f/4 G</b> most of the time. That 20mm wide end fits Hanoi’s tight alleys, temples and Ha Long Bay vistas the kit lens cannot, it holds f/4 right through, and one lens covers wide scenes to short portraits. It is your everyday walk-around.</p>
-            <p className="body">Grab the <b style={{ color: 'var(--text)' }}>28-60 kit</b> when you want to travel ultra-light: it collapses tiny and slips in a pocket, and it is perfectly sharp in good daylight.</p>
+            <p className="body">Reach for the <b style={{ color: 'var(--text)' }}>20–70 f/4 G</b> most of the time. That 20mm wide end fits Hanoi’s tight alleys, temples and Ha Long Bay vistas the kit lens cannot, it holds f/4 right through, and one lens covers wide scenes to short portraits. It is your everyday walk-around.</p>
+            <p className="body">Grab the <b style={{ color: 'var(--text)' }}>28–60 kit</b> when you want to travel ultra-light: it collapses tiny and slips in a pocket, and it is perfectly sharp in good daylight.</p>
             <p className="small" style={{ color: 'var(--text-3)' }}>Switch the active lens above and the scene wizard’s tips and aperture limits update for whichever one is on your camera.</p>
           </div>
         </div>

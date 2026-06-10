@@ -397,7 +397,7 @@ export const guideChapters: GuideChapter[] = [
       {
         heading: 'Eye autofocus',
         body: [
-          'With Face/Eye Priority turned on, the camera finds a person’s eye and sticks to it automatically. A small green box appears on the eye, you just half-press and shoot.',
+          'With Subject Recognition turned on (the camera’s face and eye detection), it finds a person’s eye and sticks to it automatically. A small box appears on the eye, you just half-press and shoot.',
           'It works while the person moves and even when they turn away and back, which is why street portraits feel almost too easy on this camera.',
           'It locks onto people by default. You can switch the recognition target to Animal for Vietnam’s street dogs and temple cats (the full list of targets is in the next section).',
         ],
@@ -738,7 +738,7 @@ export const guideChapters: GuideChapter[] = [
         body: [
           'Several buttons (C1, C2, AF-ON, the control-wheel edges and centre, even the movie button) can be reassigned to any job you like. Note the A7C II has C1 and C2, not a separate "AEL" button.',
           'Set them under MENU → Setup → Operation Customize → Custom Key/Dial Set. You can even set different jobs for stills, video and playback.',
-          'Your photography layout: C1 → Switch Focus Area, C2 → Eye AF, wheel centre → Focus Standard, wheel left → ISO, wheel right → APS-C crop, wheel down → Silent, MOVIE → AE Lock.',
+          'Your photography layout: AF-ON → thumb focus with tracking, C1 → Switch Focus Area, C2 → Eye AF, wheel centre → Focus Standard, wheel left → ISO, wheel right → APS-C crop, wheel down → Silent, MOVIE → AE Lock, and the 20-70’s lens button → Tracking On.',
         ],
         tip: 'The full recommended layout, step by step, lives in the Buttons tab under "Set up all my buttons".',
       },
@@ -746,7 +746,7 @@ export const guideChapters: GuideChapter[] = [
         heading: 'The Fn menu',
         body: [
           'Pressing Fn brings up a grid of 12 settings you choose. It is your control centre, so you skip the big menu almost entirely.',
-          'Fill it with the things you actually change: ISO, Drive Mode, Focus Mode, Focus Area, White Balance, Metering, Face/Eye, Creative Look, SteadyShot, Silent Mode, Quality, and one spare.',
+          'Yours holds the jobs not on a button: Drive Mode, White Balance, Focus Area, Metering, Creative Look, the AF/MF switch, Grid Line, the Auto-ISO minimum shutter, Focus Mode, Subject Recognition, Exposure Comp. and Finder/Monitor.',
           'Put the most-used tiles top-left, nearest your thumb.',
         ],
       },

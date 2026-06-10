@@ -11,13 +11,13 @@ import type { Lens, SceneSettings } from '../data/types'
 import type { SceneCategory } from '../data/types'
 
 // Which button jobs matter most for each kind of scene, so we can point at the
-// user's own controls ("Focus Area is on your C1").
+// user's own controls ("Switch Focus Area is on your C1").
 const sceneJobs: Record<SceneCategory, string[]> = {
-  street: ['focus-area', 'eye-af', 'tracking', 'drive', 'iso', 'exp-comp'],
-  food: ['focus-area', 'eye-af', 'white-balance', 'exp-comp'],
-  architecture: ['focus-area', 'exp-comp', 'grid', 'aps-c'],
-  night: ['iso', 'silent', 'exp-comp', 'white-balance', 'focus-area'],
-  landscape: ['focus-area', 'exp-comp', 'grid', 'white-balance'],
+  street: ['switch-focus-area', 'eye-af', 'tracking', 'drive', 'iso', 'exp-comp'],
+  food: ['switch-focus-area', 'eye-af', 'white-balance', 'exp-comp'],
+  architecture: ['switch-focus-area', 'exp-comp', 'grid', 'aps-c'],
+  night: ['iso', 'silent', 'exp-comp', 'white-balance', 'switch-focus-area'],
+  landscape: ['switch-focus-area', 'exp-comp', 'grid', 'white-balance'],
 }
 
 function smallestF(str: string): number | null {

@@ -643,7 +643,7 @@ export const settingRecipes: SettingRecipe[] = [
       'Turn the wheel to the setting you want there and press the centre.',
       'Repeat for each slot, then half-press to exit. Press Fn while shooting to use it.',
     ],
-    pick: 'Put the settings you change most in the top-left, nearest your thumb. Suggested tiles: ISO, Drive Mode, Focus Mode, Focus Area, White Balance, Metering, Face/Eye Priority, Creative Look, SteadyShot, Silent Mode, Grid Line, Quality.',
+    pick: 'Put the settings you change most in the top-left, nearest your thumb. Your 12 tiles: Drive Mode, White Balance, Focus Area, Metering Mode, Creative Look, AF/MF Selector, Grid Line, ISO AUTO Min. SS, Focus Mode, Subject Recognition, Exposure Comp., Finder/Monitor Sel.',
     keywords: 'fn function menu tiles quick access layout customise',
   },
   {

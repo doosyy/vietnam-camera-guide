@@ -57,7 +57,7 @@ export default function MenuReference() {
       <BackBar to="/learn" label="Learn" />
       <div style={{ marginBottom: 14 }}>
         <Eyebrow style={{ marginBottom: 9 }}>Menu Reference</Eyebrow>
-        <h1 className="h1" style={{ fontSize: 25 }}>Every setting, A to Z</h1>
+        <h1 className="h1" style={{ fontSize: 25 }}>Every menu setting, explained</h1>
         <p className="body" style={{ marginTop: 7 }}>Look up any item in the camera’s menu and what it does, in plain words.</p>
       </div>
 

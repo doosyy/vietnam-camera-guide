@@ -90,11 +90,11 @@ export default function MyButtons() {
       <PageHead eyebrow="My Buttons" title="Your one photography setup" sub="Built around fast focus: the camera finds the subject and you tap the screen to pick or switch. A few buttons cover the rest. Set it once, then it is the same every time." />
 
       {/* how focus works note */}
-      <Note tone="plain" icon="info" title="How focus works now">
+      <Note tone="plain" icon="info" title="How focus works">
         <ul className="stack" style={{ '--g': '5px', listStyle: 'none', marginTop: 6 } as React.CSSProperties}>
-          <li>The camera finds the subject for you (Wide area, Face and Eye detection). <b>Tap anyone on the screen</b> to lock and follow them, tap someone else to switch.</li>
+          <li>The camera finds the subject for you (Wide area, face and eye detection). <b>Tap anyone on the screen</b> to lock and follow them, tap someone else to switch.</li>
           <li>Your buttons only cover what tapping cannot: thumb-focus, clear a lock, get precise, and grab extra reach.</li>
-          <li>Drive and White Balance live in the Fn menu now, as you asked. Your two main dials are left alone so they work in any mode.</li>
+          <li>Drive and White Balance live in the Fn menu. Your two main dials are left alone so they work in any mode.</li>
         </ul>
       </Note>
 

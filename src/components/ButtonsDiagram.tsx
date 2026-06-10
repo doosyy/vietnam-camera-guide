@@ -6,7 +6,7 @@ import {
 } from '../data/buttons'
 import type { CameraView } from '../data/types'
 
-const shortFn = (id: string | undefined) => (id ? functionById(id)?.label ?? id : '—')
+const shortFn = (id: string | undefined) => (id ? functionById(id)?.label ?? id : '·')
 
 export default function ButtonsDiagram({
   map, done, onPick,
@@ -107,7 +107,7 @@ export default function ButtonsDiagram({
                 style={{ aspectRatio: '1', borderRadius: 10, padding: 3, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2, background: isSel ? 'var(--accent-soft)' : assigned ? 'var(--surface-3)' : 'var(--surface-2)', border: '1px solid ' + (isSel ? 'var(--accent-line)' : 'var(--border)') }}
               >
                 <span className="mono" style={{ fontSize: 8, color: 'var(--text-4)' }}>{i + 1}</span>
-                <span className="mono" style={{ fontSize: 7.5, lineHeight: 1, textAlign: 'center', color: assigned ? 'var(--accent-text)' : 'var(--text-4)' }}>{assigned ? shortFn(assigned) : '—'}</span>
+                <span className="mono" style={{ fontSize: 7.5, lineHeight: 1, textAlign: 'center', color: assigned ? 'var(--accent-text)' : 'var(--text-4)' }}>{assigned ? shortFn(assigned) : '·'}</span>
               </button>
             )
           })}

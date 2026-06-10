@@ -6,7 +6,7 @@ import { guideChapters, guideGroups } from '../data/guide'
 
 const tools = [
   { icon: 'sliders', label: 'How-To', route: '/learn/how-to' },
-  { icon: 'checklist', label: 'Menu A–Z', route: '/learn/menu' },
+  { icon: 'checklist', label: 'Menu Guide', route: '/learn/menu' },
   { icon: 'grid', label: 'Icon Keys', route: '/learn/icons' },
   { icon: 'camera', label: 'Camera Map', route: '/learn/camera' },
   { icon: 'frame', label: 'Composition', route: '/learn/composition' },
@@ -20,7 +20,7 @@ export default function Learn() {
 
   return (
     <div className="screen anim-tab">
-      <PageHead eyebrow="Learn" title="The manual, de-jargoned" sub="Plain-English photography for beginners, the way the manual should have been written. Everything the Sony book covers, in clear words." />
+      <PageHead eyebrow="Learn" title="The manual, de-jargoned" sub="Plain-English photography for beginners, the way the manual should have been written. Everything the Sony book covers for photos, in clear words." />
 
       <button
         onClick={() => navigate('/learn/path')}

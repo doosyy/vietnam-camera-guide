@@ -41,7 +41,7 @@ export default function Trip() {
         <div className="card vf" style={{ background: 'var(--bg-2)', padding: '16px 14px' }}>
           <Corners />
           <div className="grid3" style={{ textAlign: 'center' }}>
-            <Stat value={String(vietnamLocations.length)} label="Cities" accent />
+            <Stat value={String(vietnamLocations.length)} label="Places" accent />
             <Stat value={String(scenes.length)} label="Scenes" />
             <Stat value={`${done}/${total}`} label="Set up" />
           </div>

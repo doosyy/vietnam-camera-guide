@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useNavigate, useLocation } from 'react-router-dom'
 import Icon from '../components/Icon'
 import { BackBar, Eyebrow, SectionTitle, Pill, ProgressRing, NumberStep, SeeAlso } from '../components/ui'
 import { useApp } from '../context/AppContext'
@@ -8,7 +8,18 @@ import { setupSteps, setupGroups } from '../data/setup'
 export default function Setup() {
   const navigate = useNavigate()
   const { setupDone, toggleStep, resetSetup } = useApp()
-  const [open, setOpen] = useState<string | null>(null)
+  const focus = useLocation().hash.replace('#', '')
+  const [open, setOpen] = useState<string | null>(focus || null)
+
+  // Arriving from search with a #step-id: open that step and scroll to it.
+  useEffect(() => {
+    if (focus) {
+      // Intentional one-time sync from the deep link to the open step.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setOpen(focus)
+      requestAnimationFrame(() => document.getElementById(focus)?.scrollIntoView({ behavior: 'smooth', block: 'center' }))
+    }
+  }, [focus])
   const total = setupSteps.length
   const done = setupDone.length
   const complete = done === total

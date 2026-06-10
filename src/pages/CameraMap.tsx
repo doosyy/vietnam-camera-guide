@@ -61,7 +61,7 @@ export default function CameraMap() {
   useEffect(() => {
     if (deep) {
       const h = hotspots.find((x) => x.id === deep)
-      // Intentional one-time sync from the ?part= deep link to the view/selection.
+      // Intentional one-time sync from the ?spot= deep link to the view/selection.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       if (h) { setView(h.view); setSel(h.id) }
     }

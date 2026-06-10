@@ -48,7 +48,7 @@ export default function LocationTag() {
         <SectionTitle icon="wifi">Set it up once</SectionTitle>
         <ol className="card stack" style={{ '--g': '12px', listStyle: 'none' } as React.CSSProperties}>
           <NumberStep n={1}>On your phone, install Sony’s <b>Creators’ App</b>, and turn the phone’s <b>Location</b> and <b>Bluetooth</b> on.</NumberStep>
-          <NumberStep n={2}>On the camera, set <b>MENU → Network → Bluetooth → Bluetooth Function: On</b> and <b>Airplane Mode: Off</b>.</NumberStep>
+          <NumberStep n={2}>On the camera, set <b>MENU → Network → Bluetooth → Bluetooth Function: On</b>. Then check <b>MENU → Network → Airplane Mode</b> is <b>Off</b>.</NumberStep>
           <NumberStep n={3}>Pair them: <b>MENU → Network → Smartphone Connection</b>, then follow the Creators’ App to pair once. You only do this the first time.</NumberStep>
           <NumberStep n={4}>In the Creators’ App, open <b>Cameras → Setup → Location Information Linkage</b> and switch <b>Location Information Linkage On</b>.</NumberStep>
           <NumberStep n={5}>While you are there, also turn on <b>Auto Time Correction</b> and <b>Auto Area Adjustment</b>, so the camera sets Vietnam’s clock and time zone from your phone automatically.</NumberStep>
